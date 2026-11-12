@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LpZz2vLxKyXV6LaaQewk9hR5GTxJcytTtMBihE6bfNc=' 'sha256-r2bpEPtSNylcFcjZbez/r0KMkZeKre28dgmlIZ5K+o4='; style-src 'unsafe-inline'; img-src data:; connect-src 'self'; frame-src blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Mídia Programática · Acesso privado</title>
+<style>
+:root{color-scheme:light;font-family:Arial,Helvetica,sans-serif;color:#151712;background:#f6f7f3}*{box-sizing:border-box}body{margin:0}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #80aebc;outline-offset:3px}.gate{min-height:100svh;display:grid;grid-template-columns:280px 1fr}.brand{background:#1c1f1b;color:#edf0e8;padding:40px 30px;font:24px/1.25 Georgia,serif}.brand em{display:block;color:#adb5a4}.brand p{font:10px/1.8 monospace;letter-spacing:2px;margin-top:30px;color:#aeb6a3}.content{padding:clamp(35px,7vw,110px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start}.label{font:10px/1.8 monospace;letter-spacing:2px;color:#68715e}h1{font-size:clamp(40px,6.5vw,88px);line-height:.98;letter-spacing:-3px;margin:24px 0}h1 span{color:#69715f}p{line-height:1.7;max-width:530px;color:#646c5d}form{width:min(100%,440px);margin-top:25px;border-top:1px solid #dfe3d8;padding-top:25px}label{display:block;font-size:13px;margin-bottom:10px}input{width:100%;padding:15px 14px;border:1px solid #bfc7b6;background:#fff;border-radius:4px;font-size:17px}form button{width:100%;background:#20281e;color:white;border:0;border-radius:4px;margin-top:14px;padding:15px}button:disabled{opacity:.65;cursor:wait}#status{font-size:13px;min-height:48px}#report{display:none;position:fixed;inset:0;width:100%;height:100dvh;border:0;background:white}#lock{display:none;position:fixed;bottom:12px;left:16px;z-index:100;border:1px solid #7a8470;border-radius:20px;background:#20271f;color:white;padding:9px 17px;box-shadow:0 2px 14px #0002;font-size:12px}.hint{font:10px/1.8 monospace;letter-spacing:1px;color:#8b9382}@media(max-width:700px){.gate{grid-template-columns:1fr}.brand{padding:22px 26px;font-size:19px}.brand em{display:inline}.brand p{margin:12px 0 0;font-size:9px}.content{padding:35px 26px}h1{letter-spacing:-2px}#lock{left:auto;right:12px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<main id="gate" class="gate">
+<aside class="brand">Felipe Gobbi · <em>Arbitragem Central</em><p>PESQUISA PRIVADA<br>ACESSO POR SENHA</p></aside>
+<section class="content"><div class="label">ACERVO DE PESQUISA</div><h1>MÍDIA.<br><span>PROGRAMÁTICA.</span></h1><p>Relatório completo de anúncios, funis e redes.<br>Digite a senha para abrir.</p>
+<form id="form"><label for="password">Senha de acesso</label><input id="password" type="password" autocomplete="current-password" required autofocus spellcheck="false" autocapitalize="none"><button id="submit" type="submit">Abrir relatório →</button><p id="status" role="status" aria-live="polite"></p></form>
+<p class="hint">O conteúdo é aberto apenas neste navegador.</p></section>
+</main>
+<iframe id="report" title="Relatório de mídia programática"></iframe>
+<button id="lock" type="button">Trancar relatório</button>
+<noscript>Ative o JavaScript para abrir o relatório com sua senha.</noscript>
+<script>
+const config={"salt":"XJ6QYn7kBxokTg21tFQgFA==","iv":"HR2dSYcGnJQY22Kx","iterations":600000,"aad":"openmausbot:midia-programatica:v1","sha256":"8bef29fb3725cbc42a0ced8f60d2df2038d177df9dcb7b8000f7329ec0944073"};
+const form=document.getElementById('form'),input=document.getElementById('password'),submit=document.getElementById('submit'),status=document.getElementById('status'),gate=document.getElementById('gate'),frame=document.getElementById('report'),lock=document.getElementById('lock');
+const bytes=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const hex=b=>Array.from(new Uint8Array(b),n=>n.toString(16).padStart(2,'0')).join('');
+let encrypted=null,documentUrl=null;
+form.addEventListener('submit',async event=>{
+ event.preventDefault();if(submit.disabled)return;submit.disabled=true;status.textContent='Abrindo o relatório…';
+ try{
+  if(!crypto.subtle||typeof DecompressionStream==='undefined')throw new Error('browser');
+  if(!encrypted){const response=await fetch('relatorio.enc?v='+config.sha256,{cache:'force-cache',credentials:'omit'});if(!response.ok)throw new Error('network');const data=await response.arrayBuffer();if(hex(await crypto.subtle.digest('SHA-256',data))!==config.sha256)throw new Error('network');encrypted=data;}
+  const material=await crypto.subtle.importKey('raw',new TextEncoder().encode(input.value),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:bytes(config.salt),iterations:config.iterations,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['decrypt']);
+  let compressed;try{compressed=await crypto.subtle.decrypt({name:'AES-GCM',iv:bytes(config.iv),additionalData:new TextEncoder().encode(config.aad),tagLength:128},key,encrypted);}catch{throw new Error('password');}
+  const stream=new Blob([compressed]).stream().pipeThrough(new DecompressionStream('gzip'));const html=await new Response(stream).arrayBuffer();
+  if(documentUrl)URL.revokeObjectURL(documentUrl);documentUrl=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));frame.src=documentUrl;input.value='';status.textContent='';gate.hidden=true;gate.style.display='none';frame.style.display='block';lock.style.display='block';frame.focus();
+ }catch(error){status.textContent=error.message==='password'?'Senha incorreta. Tente novamente.':error.message==='browser'?'Abra em uma versão atualizada do Chrome, Firefox, Edge ou Safari.':'Não foi possível carregar o relatório. Recarregue a página e tente novamente.';input.focus();}
+ finally{submit.disabled=false;}
+});
+lock.addEventListener('click',()=>{frame.src='about:blank';frame.style.display='none';lock.style.display='none';gate.hidden=false;gate.style.display='grid';input.value='';if(documentUrl)URL.revokeObjectURL(documentUrl);documentUrl=null;input.focus();});
+</script>
+</body>
+</html>
