@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Base Money · Felipe Gobbi</title>
+<meta name="robots" content="noindex">
+<!-- v9, 21/11/2026: fecho com a escassez real (2 empresas), etapas com IA e acompanhamento, sem o card de IA,
+     marcos datados (FGD I out/2021, imersão out/2023, podcast 2024) e barra de duas cores por ano. Três versões da autoridade: a, b, c. -->
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=erode@400,401,500,501&display=swap" crossorigin="anonymous">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,800&display=swap" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Caveat:wght@500&display=swap" crossorigin="anonymous">
+<style>
+:root{
+  --tinta:#0c0d0c; --apagado:#5c5c58; --fraco:#8c8f8a; --nevoa:#f4f5f3; --linha:#e3e5e1;
+  --creme:#f2ebc0; --creme-2:rgba(242,235,192,.66); --creme-3:rgba(242,235,192,.38); --traco:rgba(242,235,192,.14);
+  --noite:#0f100f;
+  --story:radial-gradient(100% 72% at 0% 0%,#232723 0%,#161716 38%,#0f100f 76%);
+  --cartao:linear-gradient(155deg,#272c27 0%,#191b19 48%,#121312 100%);
+  --serif:"Erode",Georgia,serif; --sans:"Switzer",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --suave:cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--apagado);font:400 16.8px/1.63 var(--sans);-webkit-font-smoothing:antialiased}
+p,h1,h2,h3,h4{margin:0}
+strong{color:var(--tinta);font-weight:600}
+ul{margin:0;padding:0;list-style:none}
+
+/* o respiro da AbraHub (bloco 15) */
+.secao{padding:80px 20px}
+.col{max-width:864px;margin:0 auto}
+.col--largo{max-width:1104px;margin:0 auto}
+.alt{background:var(--nevoa);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+.escuro{background:var(--noite);color:var(--creme-2)}
+.escuro strong{color:var(--creme)}
+
+/* a escada: Erode no título, Switzer 800 só no destaque, mono no rótulo */
+.rotulo{font:500 12px/1.33 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fraco)}
+.escuro .rotulo,.heroi .rotulo,.fecho .rotulo{color:var(--creme-3)}
+.h2{font:500 41.6px/1.2 var(--serif);letter-spacing:-.01em;color:var(--tinta);text-wrap:balance}
+.h2 em{font-style:italic}
+.escuro .h2,.fecho .h2{color:#fff}
+.escuro .h2 em,.fecho .h2 em{color:var(--creme)}
+.centro{text-align:center}
+.apoio{max-width:640px;margin-left:auto;margin-right:auto}
+.cab > * + *{margin-top:20px}
+.cab + *{margin-top:48px}
+
+.botao{display:inline-flex;align-items:center;justify-content:center;padding:20px 36px;border-radius:999px;background:var(--creme);color:var(--tinta);
+  font:600 17px/1.25 var(--sans);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;transition:transform .3s var(--suave),box-shadow .3s var(--suave)}
+.botao:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(242,235,192,.18)}
+.vivo{display:inline-flex;align-items:center;gap:10px;font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--creme-2)}
+.vivo i{position:relative;width:8px;height:8px;border-radius:50%;background:var(--creme)}
+.vivo i::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--creme);animation:ping 1.6s var(--suave) infinite}
+@keyframes ping{75%,100%{transform:scale(2.6);opacity:0}}
+.cta{display:flex;flex-direction:column;align-items:center;gap:20px}
+
+/* abertura: o degradê do story, sem nome e sem botão nos cantos */
+.heroi{background:var(--noite) var(--story);background-blend-mode:normal;min-height:100svh;display:flex;align-items:center;padding:96px 20px 72px;color:var(--creme-2)}
+.heroi__in{max-width:1000px;margin:0 auto;text-align:center}
+.marca{display:inline-flex;align-items:center;gap:12px;font:800 15px/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--creme)}
+.marca::before,.marca::after{content:"";width:28px;height:1px;background:var(--creme-3)}
+.heroi h1{text-wrap:balance;margin-top:32px;font:400 84px/1.03 var(--serif);letter-spacing:-.025em;color:#fff}
+.heroi h1 em{font-style:italic;color:var(--creme)}
+.heroi h1 .p{display:inline-block;opacity:0;filter:blur(14px);transform:translateY(.25em);transition:opacity 1s ease,filter 1s ease,transform 1s ease}
+.heroi.on h1 .p{opacity:1;filter:blur(0);transform:none}
+.heroi__sub{max-width:600px;margin:28px auto 0;font-size:18px;opacity:0;transition:opacity 1s ease 1.3s}
+.heroi__cta{margin-top:44px;opacity:0;transform:translateY(12px);transition:opacity 1s ease 1.7s,transform 1s ease 1.7s}
+.heroi.on .heroi__sub{opacity:1}
+.heroi.on .heroi__cta{opacity:1;transform:none}
+.descer{margin-top:56px;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--creme-3);animation:quica 1.8s var(--suave) infinite}
+@keyframes quica{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* 1 · o diagrama que se monta */
+.diagrama{margin-top:48px}
+.diagrama svg{display:block;width:100%;height:auto;overflow:visible}
+.diagrama .so-cel{display:none;max-width:360px;margin:0 auto}
+.diagrama .cx{opacity:0;transform:translateY(10px);transition:opacity .6s var(--suave),transform .6s var(--suave)}
+.diagrama .cx rect{fill:#fff;stroke:var(--tinta);stroke-width:1.2}
+.diagrama .cx text{font:600 17px var(--sans);fill:var(--tinta)}
+.diagrama .cx .sub{font:500 11.5px var(--mono);letter-spacing:.08em;fill:var(--fraco)}
+.diagrama .fio{fill:none;stroke:var(--tinta);stroke-width:1.2;stroke-dasharray:var(--l,400);stroke-dashoffset:var(--l,400);transition:stroke-dashoffset 1.2s var(--suave)}
+.diagrama .alvo rect{fill:var(--tinta);stroke:none}
+.diagrama .alvo text{fill:var(--creme)}
+.diagrama .alvo .sub{fill:var(--creme-3)}
+.diagrama.on .cx{opacity:1;transform:none}
+.diagrama.on .fio{stroke-dashoffset:0}
+
+/* cartões sem borda: o destaque vem do fundo */
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cartao{border-radius:24px;padding:40px;background:var(--nevoa)}
+.alt .cartao{background:#fff}
+.cartao h3{font:800 22px/1.2 var(--sans);letter-spacing:-.02em;color:var(--tinta);margin-top:16px}
+.cartao p{font-size:15px;margin-top:12px}
+.cartao--forte{background:var(--cartao) !important;color:var(--creme-2)}
+.cartao--forte .rotulo{color:var(--creme-3)}
+.cartao--forte h3,.cartao--forte strong{color:var(--creme)}
+.cartao--apagado h3{color:var(--fraco)}
+.lista li{position:relative;padding-left:28px;font-size:15px}
+.lista li + li{margin-top:12px}
+.lista li::before{position:absolute;left:0;top:0;font-weight:600}
+.lista--sim li::before{content:"✓";color:var(--creme)}
+.lista--nao li::before{content:"✕";color:var(--fraco)}
+
+/* 3 · a solução: cards (celular) e a tela que gruda (computador) */
+.passos{display:grid;gap:20px}
+.passo{background:var(--cartao);border-radius:24px;padding:48px 40px;text-align:center}
+.passo .rotulo{color:var(--creme-3)}
+.passo h3{font:400 36px/1.1 var(--serif);letter-spacing:-.01em;color:#fff;margin-top:16px}
+.passo h4{font:800 17px/1.3 var(--sans);letter-spacing:-.01em;color:var(--creme);margin-top:10px}
+.passo p{font-size:15px;line-height:1.6;color:var(--creme-2);margin-top:14px}
+.passo .saida{font:500 12px/1.5 var(--mono);letter-spacing:.05em;color:var(--creme);margin-top:18px}
+.arte{margin:40px auto 0;max-width:360px}
+.arte svg{display:block;width:100%;height:auto;stroke:var(--creme);fill:none;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
+.arte .tr{stroke-dasharray:var(--l,600);stroke-dashoffset:var(--l,600);transition:stroke-dashoffset 2s var(--suave)}
+.arte .fraco{stroke:var(--creme-3)}
+.arte .pont{stroke-dasharray:3 6}
+.arte .ponto{fill:var(--creme);stroke:none;opacity:0;transition:opacity .6s ease 1.4s}
+.arte.on .tr{stroke-dashoffset:0}
+.arte.on .ponto{opacity:1}
+.compromisso{margin-top:48px;text-align:center;font-size:15px;color:var(--creme-3)}
+.compromisso strong{display:block;font:400 22px/1.35 var(--serif);font-style:italic;color:var(--creme);margin-bottom:8px}
+
+.palco-trilho{display:none}
+@media (min-width:900px){
+  .passos{display:none}
+  .palco-trilho{display:block;position:relative;margin-top:48px}
+  .palco{position:sticky;top:12vh}
+  .palco__in{width:100%;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:center}
+  .tela{background:var(--cartao);border-radius:28px;padding:40px 48px 36px}
+  .esteira{display:flex;align-items:center;justify-content:center;gap:10px}
+  .esteira b{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:9px 12px;border-radius:999px;
+    color:var(--creme-3);background:rgba(242,235,192,.04);transition:all .5s var(--suave)}
+  .esteira b.feito{color:var(--creme-2);background:rgba(242,235,192,.08)}
+  .esteira b.agora{color:var(--tinta);background:var(--creme)}
+  .esteira i{width:28px;height:1px;background:var(--traco);position:relative;overflow:hidden}
+  .esteira i::after{content:"";position:absolute;inset:0;background:var(--creme);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--suave)}
+  .esteira i.feito::after{transform:scaleX(1)}
+  .artes{position:relative;height:300px;margin:36px 0 28px}
+  .artes .arte{position:absolute;inset:0;margin:0 auto;max-width:400px;opacity:0;transition:opacity .6s var(--suave)}
+  .artes .arte.vis{opacity:1}
+  .terminal{font:500 13px/1.4 var(--mono);color:var(--creme-2);border-top:1px solid var(--traco);padding-top:18px;min-height:40px}
+  .terminal .cursor{display:inline-block;width:.6em;background:var(--creme);margin-left:2px;animation:pisca 1s steps(1) infinite}
+  @keyframes pisca{50%{opacity:0}}
+  .lado{position:relative;min-height:340px}
+  .lado__topo{display:flex;justify-content:space-between;align-items:center}
+  .conta{font:500 13px/1 var(--mono);letter-spacing:.1em;color:var(--creme-2)}
+  .tracos{display:flex;gap:6px}
+  .tracos span{width:22px;height:3px;border-radius:2px;background:var(--traco);transition:background .4s,width .4s}
+  .tracos span.on{background:var(--creme);width:34px}
+  .textos{position:relative;margin-top:32px;min-height:300px}
+  .texto{position:absolute;inset:0;opacity:0;transform:translateY(14px);transition:opacity .5s var(--suave),transform .5s var(--suave);pointer-events:none}
+  .texto.vis{opacity:1;transform:none;pointer-events:auto}
+  .texto h3{font:400 46px/1.05 var(--serif);letter-spacing:-.015em;color:#fff}
+  .texto h4{font:800 19px/1.3 var(--sans);letter-spacing:-.01em;color:var(--creme);margin-top:12px}
+  .texto p{font-size:16.8px;color:var(--creme-2);margin-top:18px}
+  .texto .saida{font:500 12.5px/1.5 var(--mono);letter-spacing:.05em;color:var(--creme);margin-top:22px}
+  .rolar{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--creme-3);margin-top:28px}
+  .textos{min-height:240px !important}
+  .lado{min-height:0 !important}
+}
+
+/* 4 · quem sou eu */
+.fotos{display:grid;grid-template-columns:1fr 1.35fr;gap:16px}
+.fotos img{width:100%;height:100%;aspect-ratio:3/2;object-fit:cover;border-radius:20px;display:block}
+.eu{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;align-items:start}
+.eu__txt > * + *{margin-top:16px}
+.destaques{display:grid;gap:12px}
+.destaque{background:#fff;border-radius:20px;padding:22px 24px}
+.destaque b{display:block;font:800 34px/1 var(--sans);letter-spacing:-.03em;color:var(--tinta)}
+.destaque span{display:block;margin-top:8px;font-size:14px;color:var(--apagado)}
+.podcast{display:flex;align-items:center;gap:16px;background:var(--cartao);border-radius:20px;padding:18px 22px;color:var(--creme-2);text-decoration:none}
+.podcast__mic{flex:none;width:44px;height:44px;border-radius:12px;background:rgba(242,235,192,.08);display:grid;place-items:center}
+.podcast__mic svg{width:22px;height:22px;stroke:var(--creme);fill:none;stroke-width:1.5;stroke-linecap:round}
+.podcast__txt{flex:1;min-width:0}
+.podcast__txt b{display:block;font:800 17px/1.2 var(--sans);color:var(--creme)}
+.podcast__txt span{display:block;margin-top:4px;font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--creme-3)}
+.podcast__onde{display:flex;gap:8px}
+.podcast__onde svg{width:22px;height:22px;fill:var(--creme)}
+.grafico{margin-top:40px;background:#fff;border-radius:24px;padding:32px 32px 24px}
+.grafico__cab{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.grafico__total{font:800 30px/1 var(--sans);letter-spacing:-.03em;color:var(--tinta)}
+.barras{display:grid;grid-template-columns:repeat(9,1fr);gap:12px;align-items:end;height:240px;margin-top:32px;border-bottom:1px solid var(--linha)}
+.barra{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.barra__v{font:500 12px/1 var(--mono);color:var(--apagado);margin-bottom:8px;opacity:0;transition:opacity .6s ease}
+.barra__b{width:100%;max-width:56px;height:0;background:var(--tinta);border-radius:8px 8px 2px 2px;transition:height 1.1s cubic-bezier(.2,.8,.2,1)}
+.barra--agora .barra__b{background:repeating-linear-gradient(135deg,var(--tinta) 0 6px,#3a3d3a 6px 9px)}
+.barra--topo .barra__v{color:var(--tinta)}
+.anos{display:grid;grid-template-columns:repeat(9,1fr);gap:12px;margin-top:10px}
+.anos span{font:500 11px/1.3 var(--mono);text-align:center;color:var(--fraco);white-space:nowrap}
+.anos .c{display:none}
+.grafico.on .barra__v{opacity:1}
+.grafico__nota{margin-top:20px;font-size:13px;line-height:1.5;color:var(--fraco)}
+
+/* fecho e rodapé */
+.fecho{background:var(--noite) var(--story);color:var(--creme-2);text-align:center}
+.rodape{background:var(--noite);color:var(--creme-3);padding:56px 20px 40px;font-size:13px;line-height:1.6;border-top:1px solid var(--traco)}
+.rodape__frase{font:400 52px/1.05 var(--serif);letter-spacing:-.02em;color:#fff;margin-bottom:36px}
+.rodape__frase em{font-style:italic;color:var(--creme)}
+.rodape p + p{margin-top:8px}
+
+/* o que entra rolando */
+.surge{opacity:0;transform:translateY(24px);transition:opacity .9s var(--suave),transform .9s var(--suave)}
+.surge.on{opacity:1;transform:none}
+
+@media (max-width:760px){
+  .heroi{padding:72px 20px 56px}
+  .heroi h1{font-size:46px}
+  .heroi__sub{font-size:16.8px}
+  .h2{font-size:30px}
+  .duas,.eu{grid-template-columns:1fr}
+  .cartao{padding:32px 28px}
+  .fotos{grid-template-columns:1fr}
+  .passo h3{font-size:32px}
+  .botao{width:100%;padding:20px 24px;font-size:15px}
+  .grafico{padding:24px 16px 20px}
+  .grafico__cab{flex-direction:column;gap:8px}
+  .grafico__total{font-size:26px}
+  .barras,.anos{gap:5px}
+  .barras{height:190px}
+  .barra__v,.anos span{font-size:9px}
+  .anos .l{display:none}
+  .anos .c{display:inline}
+  .rodape__frase{font-size:36px}
+  .diagrama .so-desk{display:none}
+  .diagrama .so-cel{display:block}
+  .diagrama .cx .sub{font-size:10.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  .heroi h1 .p,.heroi__sub,.heroi__cta,.surge,.diagrama .cx{transition:none;opacity:1;filter:none;transform:none}
+  .arte .tr,.diagrama .fio{transition:none;stroke-dashoffset:0}
+  .descer,.vivo i::after{animation:none}
+}
+/* v6 · botão em Switzer, com mais peso */
+.botao{font:800 18px/1.2 var(--sans) !important;letter-spacing:.02em !important}
+
+/* 1 · o iceberg */
+.iceberg{margin:48px auto 0;max-width:640px}
+.iceberg svg{display:block;width:100%;height:auto;overflow:visible}
+.ice__agua{fill:var(--nevoa);opacity:0;transition:opacity 1s ease .3s}
+.iceberg .tr{fill:none;stroke:var(--tinta);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--l,1500);stroke-dashoffset:var(--l,1500);transition:stroke-dashoffset 2.2s var(--suave)}
+.ice__onda{stroke:var(--fraco) !important;transition-duration:1.4s !important}
+.ice__corpo{fill:rgba(12,13,12,.035) !important}
+.ice__ponta{fill:#fff !important;stroke-width:1.8 !important}
+.ice__linha{stroke:var(--linha) !important;stroke-dasharray:4 6 !important;stroke-dashoffset:0 !important;opacity:0;transition:opacity .8s ease 1.6s !important}
+.ice__txt{opacity:0;transition:opacity .8s ease}
+.ice__txt--topo{transition-delay:.6s}
+.ice__txt--fundo{transition-delay:1.5s}
+.ice__mono{font:500 12px var(--mono);letter-spacing:.12em;fill:var(--fraco)}
+.ice__item{font:600 19px var(--sans);fill:var(--tinta)}
+.ice__lucro{font:800 26px var(--sans);letter-spacing:-.02em;fill:var(--tinta)}
+.iceberg.on .tr{stroke-dashoffset:0}
+.iceberg.on .ice__agua,.iceberg.on .ice__txt,.iceberg.on .ice__linha{opacity:1}
+
+/* o gráfico: venda nova e venda pra base, com o rabisco de lápis em 2021 */
+.grafico{margin-top:72px;background:#fff;border-radius:28px;padding:48px 48px 36px;position:relative}
+.grafico__cab{display:block !important;text-align:center}
+.grafico__logo{height:26px;width:auto;display:block;margin:0 auto}
+.grafico__tit{font:500 36px/1.2 var(--serif);letter-spacing:-.01em;color:var(--tinta);margin-top:20px}
+.grafico__tit em{font-style:italic}
+.grafico__sub{margin-top:10px;font-size:16px;color:var(--apagado)}
+.barras{display:grid;grid-template-columns:repeat(9,1fr);gap:12px;align-items:end;height:300px;margin-top:96px;border-bottom:1px solid var(--linha);position:relative}
+.barra{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative}
+.barra__v{font:500 12px/1 var(--mono);color:var(--apagado);margin-bottom:8px;opacity:0;transition:opacity .6s ease}
+.barra__b{width:100%;max-width:56px;height:0;border-radius:8px 8px 2px 2px;overflow:hidden;display:flex;flex-direction:column;transition:height 1.1s cubic-bezier(.2,.8,.2,1);background:var(--tinta)}
+.barra__nova{flex:1;background:var(--tinta)}
+.barra__base{background:#e7dc9f;display:flex;align-items:center;justify-content:center;font:500 10.5px/1 var(--mono);color:var(--tinta);border-top:2px solid #fff}
+.barra--agora .barra__nova{background:repeating-linear-gradient(135deg,var(--tinta) 0 6px,#3a3d3a 6px 9px)}
+.grafico.on .barra__v{opacity:1}
+.anos{display:grid;grid-template-columns:repeat(9,1fr);gap:12px;margin-top:10px}
+.anos span{font:500 11px/1.3 var(--mono);text-align:center;color:var(--fraco);white-space:nowrap}
+.anos .c{display:none}
+.legenda{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 24px;margin-top:24px;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--fraco)}
+.legenda i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:-1px}
+.l-nova{background:var(--tinta)}.l-base{background:#e7dc9f}.l-parc{background:repeating-linear-gradient(135deg,var(--tinta) 0 3px,#6a6d6a 3px 5px)}
+.lapis{position:absolute;right:52%;width:210px;pointer-events:none;opacity:0;transition:opacity .6s ease 1.3s}
+.lapis p{font:400 23px/1.05 "Caveat",cursive;color:#55574f;transform:rotate(-5deg);text-align:center;margin:0}
+.lapis svg{display:block;width:120px;height:56px;margin:2px 0 0 auto;overflow:visible}
+.lapis path{fill:none;stroke:#6b6d64;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--l,200);stroke-dashoffset:var(--l,200);transition:stroke-dashoffset 1s ease 1.6s}
+.grafico.on .lapis{opacity:1}
+.grafico.on .lapis path{stroke-dashoffset:0}
+
+/* a Vitascience e o podcast */
+.vita{background:#fff;border-radius:18px;padding:20px 20px 14px}
+.vita__logo{height:22px;width:auto;display:block}
+.vita__potes{display:flex;align-items:flex-end;justify-content:space-between;gap:6px;margin-top:14px}
+.vita__potes img{height:96px;width:auto;mix-blend-mode:multiply}
+.pod{background:var(--cartao);border-radius:18px;padding:16px}
+.pod__cab{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.pod__selo{display:inline-flex;align-items:center;gap:8px;font:800 15px/1 var(--sans);color:var(--creme)}
+.pod__selo svg{width:18px;height:18px;stroke:var(--creme);fill:none;stroke-width:1.6;stroke-linecap:round}
+.pod__onde{font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--creme-3)}
+.pod__eps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.pod__eps figure{margin:0}
+.pod__eps img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px}
+.pod__eps figcaption{margin-top:5px;font:500 10px/1.2 var(--mono);letter-spacing:.04em;color:var(--creme-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* 4A · linha do tempo vertical */
+.tl{position:relative;margin-top:56px;background:#fff;border-radius:28px;padding:48px 48px 24px 88px}
+.tl__trilho{position:absolute;left:48px;top:56px;bottom:56px;width:2px;background:var(--linha)}
+.tl__trilho i{position:absolute;left:0;top:0;width:100%;height:0;background:var(--tinta);transition:height .2s linear}
+.tl__item{position:relative;padding-bottom:40px}
+.tl__ponto{position:absolute;left:-46px;top:4px;width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid var(--tinta);transition:background .4s}
+.tl__item.on .tl__ponto{background:var(--tinta)}
+.tl__item--chave .tl__ponto{width:18px;height:18px;left:-48px;background:#e7dc9f !important}
+.tl__ano{font:500 12px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fraco)}
+.tl__corpo{display:grid;grid-template-columns:200px 1fr;gap:24px;margin-top:14px;align-items:start}
+.tl__corpo--cheio{grid-template-columns:1fr}
+.tl__fotos{display:flex;gap:8px}
+.tl__fotos img{width:96px;height:96px;object-fit:cover;border-radius:12px}
+.tl__fotos--largas img{width:96px;height:96px}
+.tl__txt h3{font:800 19px/1.25 var(--sans);letter-spacing:-.01em;color:var(--tinta)}
+.tl__txt p{margin-top:8px;font-size:15px;line-height:1.6}
+.tl__corpo--cheio .vita,.tl__corpo--cheio .pod{max-width:560px}
+.tl__corpo--cheio .vita{background:var(--nevoa)}
+
+/* 4B · as eras passando de lado */
+.hz{position:relative;margin-top:48px}
+.hz__palco{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.hz__regua{max-width:864px;width:calc(100% - 40px);margin:0 auto 28px}
+.hz__linha{height:2px;background:var(--linha);position:relative}
+.hz__linha i{position:absolute;left:0;top:0;height:100%;width:0;background:var(--tinta)}
+.hz__anos{display:flex;justify-content:space-between;margin-top:10px}
+.hz__anos span{font:500 11px/1 var(--mono);letter-spacing:.06em;color:var(--fraco);position:relative;padding-top:6px;transition:color .3s}
+.hz__anos span::before{content:"";position:absolute;left:50%;top:-17px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#fff;border:2px solid var(--linha);transition:all .3s}
+.hz__anos span.on{color:var(--tinta)}
+.hz__anos span.on::before{background:var(--tinta);border-color:var(--tinta)}
+.hz__trilho{display:flex;gap:24px;padding:0 max(20px,calc((100vw - 864px)/2));will-change:transform}
+.hz__card{flex:none;width:min(420px,82vw);background:#fff;border-radius:24px;padding:28px}
+.hz__card--chave{box-shadow:inset 0 0 0 2px #e7dc9f}
+.hz__card h3{font:800 20px/1.25 var(--sans);letter-spacing:-.01em;color:var(--tinta);margin-top:16px}
+.hz__card p{font-size:15px;line-height:1.6;margin-top:8px}
+.hz__card .tl__ano{margin:0 0 14px}
+.hz__fotos{display:flex;gap:8px}
+.hz__fotos img{flex:1;min-width:0;height:150px;object-fit:cover;border-radius:12px}
+.hz__card .vita{background:var(--nevoa);padding:16px}
+.hz__card .vita__potes img{height:78px}
+.hz__card .pod__eps{grid-template-columns:repeat(3,1fr)}
+.hz__numero{height:150px;border-radius:12px;background:var(--cartao);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hz__numero b{font:800 64px/1 var(--sans);color:var(--creme)}
+.hz__numero span{margin-top:8px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--creme-3)}
+.autor--b .grafico{margin-top:24px}
+
+/* 4C · tudo num card só */
+.resumo{margin-top:56px;background:#fff;border-radius:28px;padding:40px;display:grid;grid-template-columns:1fr 1.25fr;gap:40px}
+.resumo__eu{display:flex;align-items:center;gap:14px}
+.resumo__eu img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+.resumo__eu b{display:block;font:800 17px/1.2 var(--sans);color:var(--tinta)}
+.resumo__eu span{display:block;margin-top:4px;font:500 11px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--fraco)}
+.mini{list-style:none;margin:24px 0 0;padding:0 0 0 22px;position:relative}
+.mini::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--linha)}
+.mini li{position:relative;padding-bottom:16px}
+.mini li::before{content:"";position:absolute;left:-22px;top:5px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--tinta)}
+.mini li.mini--chave::before{background:#e7dc9f;border-color:var(--tinta)}
+.mini__ano{font:500 11px/1 var(--mono);letter-spacing:.08em;color:var(--fraco)}
+.mini p{margin-top:4px;font-size:14.5px;line-height:1.5}
+.mini b{color:var(--tinta)}
+.resumo__graf .grafico{margin:0;padding:0;background:none;border-radius:0}
+.resumo__graf .grafico__tit{font-size:28px}
+.resumo__graf .barras{height:240px;margin-top:84px;gap:8px}
+.resumo__graf .anos{gap:8px}
+.resumo__faixa{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:20px;padding-top:32px;border-top:1px solid var(--linha)}
+.resumo__faixa .rotulo{margin-bottom:12px}
+.resumo__faixa .vita{background:var(--nevoa)}
+
+/* 5 · quem aplicou */
+.deps{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.dep{margin:0;background:var(--nevoa);border-radius:24px;padding:28px;display:flex;flex-direction:column;justify-content:space-between}
+.dep__balao{position:relative;background:#fff;border-radius:4px 18px 18px 18px;padding:18px 20px;box-shadow:0 1px 0 rgba(12,13,12,.06)}
+.dep__balao p{font-size:15px;line-height:1.6;color:var(--tinta)}
+.dep__balao p + p{margin-top:10px}
+.dep figcaption{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px}
+.dep figcaption b{font:800 15px/1 var(--sans);color:var(--tinta)}
+.dep__chip{font:500 11px/1.2 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--creme);background:var(--cartao);padding:8px 12px;border-radius:999px}
+
+@media (max-width:860px){
+  .botao{font-size:16px !important}
+  .ice__item{font-size:26px}
+  .ice__mono{font-size:16px}
+  .ice__lucro{font-size:32px}
+  .grafico{padding:32px 16px 24px;margin-top:48px}
+  .grafico__tit{font-size:26px}
+  .barras{height:220px;gap:5px;margin-top:104px}
+  .anos{gap:5px}
+  .barra__v,.anos span{font-size:9px}
+  .barra__base{font-size:0}
+  .anos .l{display:none}
+  .anos .c{display:inline}
+  .lapis{width:150px;right:auto;left:-112px}
+  .lapis p{font-size:19px}
+  .lapis svg{width:70px;height:46px}
+  .tl{padding:32px 20px 8px 48px}
+  .tl__trilho{left:22px;top:40px;bottom:40px}
+  .tl__ponto{left:-33px}
+  .tl__item--chave .tl__ponto{left:-35px}
+  .tl__corpo{grid-template-columns:1fr;gap:14px}
+  .tl__fotos img{width:84px;height:84px}
+  .vita__potes img{height:62px}
+  .pod__eps,.hz__card .pod__eps{grid-template-columns:repeat(2,1fr)}
+  .pod__eps figure:nth-child(n+5){display:none}
+  .pod__onde{display:none}
+  .hz__card{padding:22px}
+  .hz__fotos img{height:120px}
+  .hz__numero{height:120px}
+  .resumo{grid-template-columns:1fr;padding:24px 18px;gap:28px}
+  .resumo__faixa{grid-template-columns:1fr}
+  .deps{grid-template-columns:1fr}
+  .dep{padding:20px}
+}
+
+/* 1 · o iceberg, à mão */
+.iceberg{margin:40px auto 0;max-width:760px}
+.iceberg svg{display:block;width:100%;height:auto;overflow:visible}
+.iceberg .tr{stroke-dasharray:var(--l,1200);stroke-dashoffset:var(--l,1200);transition:stroke-dashoffset 2.4s cubic-bezier(.4,0,.2,1)}
+.iceberg .ice-corpo path:first-child{stroke-opacity:.42}
+.iceberg .ice-corpo .tr{transition-duration:3.2s;transition-delay:.5s}
+.iceberg .ice-ponta path,.iceberg .ice-barco path{transition:opacity .8s ease .2s}
+.iceberg path[fill="#ffffff"]{opacity:0;transition:opacity .9s ease .3s}
+.iceberg.on .tr{stroke-dashoffset:0}
+.iceberg.on path[fill="#ffffff"]{opacity:1}
+.ice__txt{opacity:0;transition:opacity .9s ease}
+.ice__txt--topo{transition-delay:.9s}
+.ice__txt--fundo{transition-delay:1.8s}
+.iceberg.on .ice__txt{opacity:1}
+.ice__mono{font:500 12px var(--mono);letter-spacing:.14em;fill:var(--fraco)}
+.ice__item{font:600 19px var(--sans);fill:var(--tinta)}
+.ice__lucro{font:800 31px var(--sans);letter-spacing:-.02em;fill:var(--tinta)}
+.ice__mao{font:500 22px "Caveat",cursive;fill:#4a4c45}
+.ice__halo{paint-order:stroke;stroke:#fff;stroke-width:9px;stroke-linejoin:round}
+@media (max-width:760px){
+  .ice__item{font-size:25px}
+  .ice__lucro{font-size:36px}
+  .ice__mono{font-size:15px}
+  .ice__mao{font-size:27px}
+}
+
+/* v7 · a autoridade: título dentro da tela que gruda, sem buraco */
+.autor{background:var(--nevoa);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha);padding-bottom:80px}
+.hz{position:relative;margin:0}
+.hz__palco{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:24px 0}
+.hz__cab{padding:0 20px}
+.hz__cab + *{margin-top:36px !important}
+.hz__regua{max-width:864px;width:calc(100% - 40px);margin:0 auto 26px}
+.hz__linha{height:2px;background:var(--linha);position:relative}
+.hz__linha i{position:absolute;left:0;top:0;height:100%;width:0;background:var(--tinta)}
+.hz__anos{display:flex;justify-content:space-between;margin-top:10px}
+.hz__anos span{font:500 11px/1 var(--mono);letter-spacing:.06em;color:var(--fraco);position:relative;padding-top:6px;transition:color .3s}
+.hz__anos span::before{content:"";position:absolute;left:50%;top:-17px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#fff;border:2px solid var(--linha);transition:all .3s}
+.hz__anos span.on{color:var(--tinta)}
+.hz__anos span.on::before{background:var(--tinta);border-color:var(--tinta)}
+.hz__anos span.chave.on::before{background:#2c3a2c;border-color:#2c3a2c;box-shadow:0 0 0 4px rgba(44,58,44,.15)}
+.hz__trilho{display:flex;align-items:stretch;gap:24px;padding:0 max(20px,calc((100vw - 864px)/2));will-change:transform}
+.hz__card{flex:none;width:min(400px,84vw);background:#fff;border-radius:24px;padding:26px;display:flex;flex-direction:column}
+.hz__card--largo{width:min(540px,88vw)}
+.hz__card h3{font:800 20px/1.25 var(--sans);letter-spacing:-.01em;color:var(--tinta);margin-top:18px;text-wrap:balance}
+.hz__card p{font-size:15px;line-height:1.6;margin-top:8px}
+.hz__card .tl__ano{margin:0 0 14px;font:500 12px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fraco)}
+.hz__banner{display:block;width:100%;aspect-ratio:1600/853;object-fit:cover;border-radius:14px}
+.hz__fotos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hz__fotos img{width:100%;height:170px;object-fit:cover;border-radius:14px}
+.hz__num{height:170px;border-radius:14px;background:var(--nevoa);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hz__num b{font:800 48px/1 var(--sans);letter-spacing:-.03em;color:var(--tinta)}
+.hz__num span{margin-top:10px;font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fraco)}
+.hz__card--virada{width:min(460px,86vw);background:var(--noite) var(--story);color:var(--creme-2)}
+.hz__card--virada .tl__ano{color:var(--creme-3)}
+.hz__card--virada h3{color:#fff}
+.hz__card--virada p{color:var(--creme-2)}
+.hz__num--claro{background:rgba(242,235,192,.06);box-shadow:inset 0 0 0 1px rgba(242,235,192,.1)}
+.hz__num--claro b{color:var(--creme)}
+.hz__num--claro span{color:var(--creme-3)}
+.hz__term{height:170px;border-radius:14px;background:var(--cartao);padding:22px;display:flex;flex-direction:column;justify-content:center;gap:10px;font:500 13px/1.4 var(--mono);color:var(--creme-2)}
+.hz__term .cursor{display:inline-block;width:.6em;margin-left:3px;background:var(--creme);animation:pisca 1s steps(1) infinite}
+@keyframes pisca{50%{opacity:0}}
+.pod2{position:relative}
+.pod2__capa{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;box-shadow:0 14px 30px rgba(12,13,12,.18)}
+.pod2__fila{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.pod2__fila img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px}
+
+/* o gráfico, sem espaço sobrando */
+.autor .grafico{margin-top:0}
+.grafico__tit{font:500 34px/1.2 var(--serif) !important}
+.barras{margin-top:40px !important}
+.lapis{position:absolute;inset:0;right:auto;width:100%;pointer-events:none;opacity:0;transition:opacity .6s ease 1.2s}
+.lapis p{position:absolute;left:0;top:4%;width:26%;font:500 22px/1.05 "Caveat",cursive;color:#55574f;transform:rotate(-4deg);text-align:left;margin:0}
+.lapis svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.lapis path{fill:none;stroke:#5f6158;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:200;stroke-dashoffset:200;transition:stroke-dashoffset 1.2s ease 1.5s}
+.grafico.on .lapis{opacity:1}
+.grafico.on .lapis path{stroke-dashoffset:0}
+
+/* 5 · quem aplicou: os prints, do jeito que chegaram */
+.provas{columns:3;column-gap:20px}
+.prova{break-inside:avoid;margin:0 0 20px;background:var(--nevoa);border-radius:22px;padding:14px}
+.prova figcaption{padding:8px 8px 14px}
+.prova figcaption b{display:block;font:800 21px/1.2 var(--sans);letter-spacing:-.02em;color:var(--tinta);text-wrap:balance}
+.prova figcaption span{display:block;margin-top:6px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fraco)}
+.prova img{display:block;width:100%;height:auto;border-radius:12px}
+.nota{margin-top:12px;text-align:center;font-size:13px;color:var(--fraco)}
+
+@media (max-width:860px){
+  .hz__cab + *{margin-top:24px !important}
+  .hz__card{padding:20px}
+  .hz__card h3{font-size:18px;margin-top:14px}
+  .hz__card p{font-size:14px}
+  .hz__fotos img,.hz__num,.hz__term{height:130px}
+  .hz__num b{font-size:38px}
+  .grafico__tit{font-size:26px !important}
+  .lapis p{font-size:17px;width:34%}
+  .provas{columns:1}
+  .prova figcaption b{font-size:19px}
+}
+
+
+/* v8 · o marca-texto que corre quando o título aparece */
+.hl{--hlc:#ece2a8;background-image:linear-gradient(transparent 56%,var(--hlc) 56%,var(--hlc) 92%,transparent 92%);background-repeat:no-repeat;background-size:0% 100%;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .06em;transition:background-size 1s cubic-bezier(.65,0,.35,1) .45s}
+.heroi .hl,.fecho .hl,.escuro .hl{--hlc:rgba(242,235,192,.18);color:var(--creme)}
+.heroi.on .hl{transition-delay:1.5s}
+.on .hl,.heroi.on .hl{background-size:100% 100%}
+.heroi h1 .hl .p{background:none}
+/* v9 · barra de duas cores por ano */
+.mb{margin-top:18px}
+.mb__cab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.mb__cab b{font:800 18px/1 var(--sans);letter-spacing:-.02em;color:var(--tinta)}
+.mb__cab span{font:500 11px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--apagado)}
+.mb__ponto{display:inline-block;width:9px;height:9px;border-radius:3px;background:#e7dc9f;margin-right:7px;vertical-align:-1px}
+.mb__trilho{height:12px;border-radius:999px;background:var(--nevoa);margin-top:9px;overflow:hidden}
+.mb__fill{height:100%;display:flex;border-radius:999px;overflow:hidden}
+.mb__base{display:block;height:100%;background:#e7dc9f}
+.mb__fill .mb__nova{flex:1;display:block;height:100%;background:var(--tinta)}
+.mb__trilho>.mb__nova{display:block;height:100%;border-radius:999px;background:var(--tinta)}
+.mb--g{margin:0;width:100%}
+.mb--g .mb__cab b{font-size:40px}
+.mb--g .mb__trilho{height:22px;margin-top:14px}
+.escuro-ctx .mb__cab b,.hz__card--virada .mb__cab b,.gt__card--chave .mb__cab b,.tlb--chave .mb__cab b{color:var(--creme)}
+.hz__card--virada .mb__cab span,.gt__card--chave .mb__cab span,.tlb--chave .mb__cab span{color:var(--creme-3)}
+.hz__card--virada .mb__trilho,.gt__card--chave .mb__trilho,.tlb--chave .mb__trilho{background:rgba(242,235,192,.08)}
+.hz__card--virada .mb__nova,.gt__card--chave .mb__nova,.tlb--chave .mb__nova{background:rgba(242,235,192,.3) !important}
+
+/* os visuais de cada marco */
+.vz--banner{display:block;width:100%;aspect-ratio:1600/853;object-fit:cover;border-radius:14px}
+.vz--num{height:170px;border-radius:14px;background:var(--nevoa);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.vz--num b{font:800 46px/1 var(--sans);letter-spacing:-.03em;color:var(--tinta)}
+.vz--num span{margin-top:10px;font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fraco)}
+.vz--barra{min-height:170px;border-radius:14px;background:rgba(242,235,192,.06);box-shadow:inset 0 0 0 1px rgba(242,235,192,.1);padding:26px;display:flex;align-items:center}
+.vz--fotos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vz--fotos img{display:block;width:100%;height:170px;object-fit:cover;border-radius:14px}
+.pod3__capa{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;box-shadow:0 12px 26px rgba(12,13,12,.18)}
+.pod3__fila{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.pod3__fila img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px}
+
+/* o fechamento da história */
+.soma{margin-top:48px;text-align:center}
+.soma__tit{font:500 34px/1.25 var(--serif);letter-spacing:-.01em;color:var(--tinta);text-wrap:balance;max-width:760px;margin:0 auto}
+.soma .legenda{margin-top:18px}
+
+/* A · o gráfico é a linha do tempo */
+.autor--a{background:var(--nevoa);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha);padding-bottom:80px}
+.gt{position:relative}
+.gt__palco{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:28px;padding:24px 20px;max-width:1104px;margin:0 auto}
+.gt__graf{background:#fff;border-radius:24px;padding:22px 28px 16px}
+.gt__barras{display:grid;grid-template-columns:repeat(7,1fr);gap:14px;align-items:end;height:160px;border-bottom:1px solid var(--linha)}
+.gt__col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;opacity:.22;transition:opacity .45s var(--suave)}
+.gt__col.feito{opacity:.55}
+.gt__col.on{opacity:1}
+.gt__v{font:500 11px/1 var(--mono);color:var(--apagado);margin-bottom:6px}
+.gt__col.on .gt__v{color:var(--tinta);font-weight:600}
+.gt__bar{width:100%;max-width:64px;border-radius:7px 7px 2px 2px;overflow:hidden;display:flex;flex-direction:column}
+.gt__nova{flex:1;background:var(--tinta)}
+.gt__base{display:block;background:#e7dc9f;border-top:2px solid #fff}
+.gt__ano{position:absolute;bottom:-24px;font:500 11px/1 var(--mono);color:var(--fraco)}
+.gt__col.on .gt__ano{color:var(--tinta)}
+.gt__graf .legenda{margin-top:32px}
+.gt__cards{position:relative;height:300px}
+.gt__card{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1.05fr;gap:36px;align-items:center;background:#fff;border-radius:24px;padding:26px 32px;
+  opacity:0;transform:translateY(16px);transition:opacity .45s var(--suave),transform .45s var(--suave);pointer-events:none}
+.gt__card.on{opacity:1;transform:none;pointer-events:auto}
+.gt__card--chave{background:var(--noite) var(--story);color:var(--creme-2)}
+.gt__card--chave .tl__ano{color:var(--creme-3)}
+.gt__card--chave h3{color:#fff}
+.gt__card .tl__ano{margin:0 0 10px;font:500 12px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fraco)}
+.gt__card h3{font:800 21px/1.25 var(--sans);letter-spacing:-.01em;color:var(--tinta);text-wrap:balance}
+.gt__card p{font-size:15px;line-height:1.6;margin-top:8px}
+.gt__vis .vz--fotos img,.gt__vis .vz--num,.gt__vis .vz--barra{height:230px}
+.gt__vis .vz--banner{max-height:240px}
+
+/* B · linha do tempo vertical */
+.autor--b{background:var(--nevoa)}
+.tlb__tl{padding:48px 48px 24px 92px}
+.tlb{padding-bottom:48px}
+.tlb__corpo{display:grid;grid-template-columns:1fr 1.1fr;gap:32px;margin-top:14px;align-items:start}
+.tlb h3{font:800 20px/1.25 var(--sans);letter-spacing:-.01em;color:var(--tinta);text-wrap:balance}
+.tlb p:not(.tl__ano){font-size:15px;line-height:1.6;margin-top:8px}
+.tlb--chave{background:var(--noite) var(--story);border-radius:22px;padding:28px;margin:0 0 48px -20px;color:var(--creme-2)}
+.tlb--chave .tl__ponto{left:-26px !important}
+.tlb--chave h3{color:#fff}
+.tlb--chave .tl__ano{color:var(--creme-3)}
+
+/* C · ajustes do slider */
+.hz__card .vz{margin-bottom:2px}
+.hz__card .mb{margin-top:14px}
+
+@media (max-width:860px){
+  .soma__tit{font-size:26px}
+  .gt__palco{gap:16px;padding:16px 16px}
+  .gt__cab .h2{font-size:24px}
+  .gt__graf{padding:16px 12px 12px}
+  .gt__barras{height:110px;gap:6px}
+  .gt__v{font-size:9px}
+  .gt__ano{font-size:9px;bottom:-20px}
+  .gt__graf .legenda{margin-top:26px}
+  .gt__cards{height:430px}
+  .gt__card{grid-template-columns:1fr;gap:14px;padding:18px;align-content:start}
+  .gt__vis .vz--fotos img,.gt__vis .vz--num,.gt__vis .vz--barra{height:120px}
+  .gt__vis .vz--banner{max-height:150px}
+  .gt__vis .pod3__fila{display:none}
+  .gt__vis .pod3__capa{max-height:150px}
+  .gt__card h3{font-size:17px}
+  .gt__card p{font-size:13.5px}
+  .gt__card .mb{margin-top:10px}
+  .tlb__tl{padding:28px 18px 8px 44px}
+  .tlb__corpo{grid-template-columns:1fr;gap:16px}
+  .tlb--chave{margin-left:-12px;padding:20px}
+  .vz--fotos img,.vz--num{height:130px}
+  .mb--g .mb__cab b{font-size:32px}
+}
+
+</style>
+</head>
+<body>
+
+<!-- abertura -->
+<header class="heroi" id="topo">
+  <div class="heroi__in">
+    <p class="marca">Base Money</p>
+    <h1 data-palavras>Dá pra tirar lucro da base que você <span class="hl">já tem</span>, sem VSL nova e sem mais tráfego frio.</h1>
+    <p class="heroi__sub">O Base Money é uma ação interna de baixo esforço pra quem faz Direct Response e e-commerce, feita com quem já comprou de você e sem mexer no que tá rodando.</p>
+    <div class="heroi__cta cta">
+      <a class="botao" href="#APLICACAO-LACUNA" data-cta>Quero monetizar minha base →</a>
+      <span class="vivo"><i></i>2 vagas no piloto</span>
+    </div>
+    <p class="descer">↓ role pra ver como funciona</p>
+  </div>
+</header>
+
+<!-- 1 · existe uma oportunidade: o iceberg -->
+<section class="secao">
+  <div class="col">
+    <div class="cab centro surge">
+      <p class="rotulo">Existe uma oportunidade</p>
+      <h2 class="h2">Você enxerga a ponta, mas o <span class="hl">verdadeiro lucro</span> tá embaixo d'água.</h2>
+      <p class="apoio">Toda meta nova volta pro tráfego frio, com mais anúncio, mais criativo e o CPA subindo, enquanto quem já comprou de você some do calendário logo depois da primeira compra.</p>
+    </div>
+    <figure class="iceberg surge" id="iceberg" aria-label="Iceberg: na ponta, tráfego frio, CPA subindo e VSL nova. Embaixo d'água, compradores, leads, quem não fechou, e-mail, WhatsApp e o lucro pra sacar">
+<svg viewBox="0 0 760 560">
+<g class="ice-agua"><path class="tr" d="M0 190 C7.427678066429992 184.71461130883546, 11.66915546252082 185.13666467573495, 17.200242761708797 189.1183504452929 M-0.4594375988468528 188.4876660635695 C7.551535068380956 185.2559524838347, 11.249013851412263 184.54095485460945, 17.76783774706535 191.6758885915298 M19 190 C24.10637706511964 194.79397705700248, 32.13318523361038 195.317744939588, 38.09720595870167 191.42883248832078 M19.46597885284573 190.46520571615548 C26.74985404901517 194.631466677906, 30.37467586679074 193.2720991889853, 37.016893221763894 191.27270776492543 M38 190 C43.50319835537424 186.15447893645614, 51.91940834118674 184.29337075855582, 56.72169696483761 191.23418967630715 M39.699886248447 190.4090987851843 C45.83635375283969 184.79866999131627, 50.24581749451967 186.1696112926025, 58.84857857736759 189.1765081108827 M57 190 C62.3796470641469 195.4101001014933, 71.40866584970306 193.24256434943527, 74.59713496956974 188.30211610104888 M56.42371158991009 189.18215654995294 C65.18633538835061 195.56219773900696, 68.41372627122018 194.57417140227741, 75.40064619424753 188.91244252246804 M76 190 C80.83882988089074 185.22384714391083, 88.19215038611243 187.4246213665232, 93.7197907248512 190.6180792918429 M76.69798344168812 189.95871372725816 C81.51419196091902 186.36681218904442, 88.27784403038832 187.9025242079515, 96.69087774964981 190.25985334587284 M95 190 C100.80670505755891 192.7265000930056, 108.152656139868 195.5978609016165, 113.24003654513508 189.80407021548598 M95.34358193073422 189.84337847139687 C102.68684577279103 196.05896506262013, 106.98920440239522 194.07904135269112, 113.68052171769551 189.9638348804135 M114 190 C119.11333240860452 187.73536241557449, 125.9458288629229 184.43837548401206, 131.54359630737454 188.7373532762751 M113.2229887465015 191.28978237416595 C119.06718592308772 186.61836003405043, 126.12387031448695 186.73728393268772, 133.78773086938077 188.6567958785314 M133 190 C140.3741233109807 192.3730110159144, 146.8814158697302 194.35878108050673, 153.7327954510227 191.36921631600708 M132.1215371409431 190.1193304648623 C139.0275058078052 194.63951523077674, 143.7263714907846 193.23156499725766, 152.2309997725766 191.57002204579302 M152 190 C159.27109070414056 186.08604623582215, 163.8045160372431 185.12696709539742, 172.10781097803266 190.7437206139788 M151.42866192851216 190.53995121028274 C160.29294061981452 187.4833257333655, 164.98314195228429 185.9785120488424, 170.98260229202918 190.6152385408897 M171 190 C177.03409909003724 192.86384185459465, 182.5768298049147 193.28484637048095, 191.64792145285756 191.21645088698716 M170.21914948616177 189.5648465147242 C176.47490484886183 194.05862607550807, 181.8459575168571 194.60862954300828, 190.81202908935956 189.93617247563787 M190 190 C198.1221145331239 186.2572950890288, 202.5579091746981 184.96710518505424, 210.49275700245053 189.273265289329 M191.13438775334507 188.43124171998352 C198.09452978156818 185.8137527440209, 204.40537329924913 184.88786138844677, 209.53942512306384 187.99011541497893 M209 190 C214.30445466035357 194.5975765934214, 220.48640771104644 195.31995325591416, 227.42354931626468 188.5490454128012 M208.0636162320152 191.41913560535758 C213.5761010014297 195.09810667884537, 219.81416121108145 195.70915344697423, 226.49902714851314 190.6794858769793 M228 190 C233.74203866117946 184.4148804595694, 239.76133054091284 184.91987373735756, 247.54438164625316 191.44644628670068 M228.02517598662524 188.47005038764328 C235.11049588881744 187.87371577304788, 240.2207474608502 184.8940160335321, 244.93260121795348 189.2933918328304 M247 190 C254.26863728755464 194.45717421676963, 259.9232843537505 193.59237322118133, 264.5634388068691 188.95464637782425 M248.04775964412838 190.00578172113745 C251.36862112097754 194.49679737281986, 261.69265005392646 195.16408641618676, 264.032880180506 190.19919320684858 M266 190 C270.87212285393224 186.708948831819, 278.7357274015124 186.03073173668236, 284.4742571750656 188.2680975904688 M266.2516613939777 191.54714869763703 C273.364850172031 186.56932077747769, 279.02991629255627 187.52269131612965, 285.4770011821669 188.64406437647528 M285 190 C292.17571923726547 194.80996870901436, 296.0662194986517 194.8147527506575, 304.23697469029577 188.20527526643127 M283.9300269881263 190.53274384643882 C291.3104608129741 195.30056973946282, 298.50856027586076 194.80640940767714, 305.4699431658071 190.16655667227693 M304 190 C311.91925187700735 185.87402169015257, 315.9676720221217 187.62951316740364, 324.65958085451274 188.82742818500847 M302.2301037410274 190.53768313433974 C312.19707261167775 184.21870496434158, 315.43400039983607 184.04663381827064, 321.2779643711727 188.5381608779449 M323 190 C329.0403977751111 194.50766905453057, 336.1595979113753 192.28411332871764, 343.4791667321697 188.45732856299728 M324.23449052963406 189.29235596563666 C329.0700844328881 192.37232661080546, 335.1644968573532 193.46113462847657, 343.9720398348849 191.3148697302956 M342 190 C347.9559354960297 184.62899551894515, 353.7093616683657 185.5304270138964, 361.0431749502197 189.6980220546946 M340.8423877933994 190.10117518212647 C350.3321119382263 186.34203679067082, 354.8045891381583 186.53562137198634, 359.4212988904398 189.49874041927046 M361 190 C366.24299516671647 194.28635923769326, 372.5134293575461 192.88185143973678, 380.5906496981159 189.2515777518973 M361.6508475342765 189.861327063106 C369.0164250861884 195.16200206887908, 371.8085335288725 193.15530553561635, 378.2964626682084 191.36945708793587 M380 190 C385.7203084766244 186.67714180257173, 390.97861860586954 184.63205726053565, 399.5334867278114 191.1378381839022 M379.2360233167186 190.48152132537217 C387.9503856321455 187.17151596349663, 394.6537406129918 184.386463059308, 397.0632815954369 188.00589333248325 M399 190 C403.7294586777066 194.96649824287744, 413.10334860278914 193.6737385680899, 416.9376833537593 189.31316931750627 M400.0344202676788 190.50074112322181 C405.5888846283437 192.5165614457149, 410.0442127708874 192.90799683612772, 419.00597289624625 191.25767470222897 M418 190 C424.21613058441625 187.70610702540725, 428.9588901002581 186.3173628916964, 435.6045884529129 191.6892105570063 M419.42414507661016 189.30699304845183 C424.61777992390404 184.1413734398503, 430.84398167980527 187.79299921226686, 435.9206580916327 190.98674119961447 M437 190 C441.8113605737065 195.6529200544581, 450.9706154127295 194.509921198152, 455.1521524647251 188.35162474419923 M438.2061559954658 189.5560571303591 C441.9273336648227 192.0100013233442, 450.8605458138666 194.94031448704192, 457.4188004994672 188.89890978020617 M456 190 C463.7127865850304 184.38791267182677, 469.19924841715647 186.6536778917536, 474.0961773911491 189.97884815838188 M455.6855128386989 190.5902368357405 C461.3556497939707 184.09787142676302, 467.93830794406745 184.2761014128942, 476.0606427344959 188.90543685269543 M475 190 C482.9658981203412 195.53483365681024, 487.6221145529921 192.6249208142981, 493.73156679663805 188.86084051635117 M475.3526269832626 190.8571090688929 C479.52211155109416 193.03334953379817, 488.42201263827894 194.32539569539017, 492.51864420834 189.55458077889867 M494 190 C500.3452862440919 186.9789552262053, 508.21439082218956 185.39271124508232, 513.0135758081451 190.11783497240395 M494.36451136860995 188.52827417161316 C498.5708189728142 184.66930338126608, 504.71018376124715 186.29367249322124, 513.8309186294954 190.95316437375732 M513 190 C519.2358935832357 195.68582303430884, 524.030355789202 195.23763390090318, 532.4390611151233 190.71908811833708 M512.8260304966941 191.11810592319816 C520.284026392627 193.00466515910813, 524.5585619745931 193.4784089182038, 533.0246715033334 191.33813740533776 M532 190 C538.7142643272256 185.12000617291778, 542.8846395809824 187.7705469360575, 552.5277309695259 189.10162998344748 M530.4711504319682 190.9025015404448 C538.1255799409033 184.61599401039072, 544.493542236813 187.77064653527924, 552.2096376320999 189.85813909483142 M551 190 C555.6297942280149 193.66384717132897, 562.4334738869841 192.55133194234222, 570.5033951858059 189.389014034532 M552.3441888013855 188.9376316776499 C556.1943550448896 193.57903853130526, 562.5556113032779 195.94655386251398, 570.4815186149161 191.4250606165547 M570 190 C575.6859806000566 185.63621199633926, 583.05594195916 184.7076439490542, 589.5752151409164 189.41006717588752 M571.0810647943988 188.4786904266104 C577.1276939287068 185.9002992711682, 580.6927852262339 186.86898887109942, 590.4554203477782 188.795607597949 M589 190 C593.9216723203039 192.51124005224557, 600.9352286119635 195.55366142299027, 608.4189537743107 188.51763974931092 M590.5905491629616 190.19864531662316 C596.214843113351 194.4385912324209, 600.9440468548021 196.059061485352, 606.169290523557 188.1228626195807 M608 190 C612.9923198282098 185.53709418084472, 620.9398702223474 187.00883626844734, 626.8582255879417 190.00735553409905 M608.3355142215266 189.20698731448502 C614.1403909166934 187.47660637062975, 619.5527833349785 188.05769608271308, 626.1773561319989 191.03784771514125 M627 190 C634.4512251257275 195.35471066143364, 638.9050047297651 194.61664382722228, 646.1457466462628 190.9363617470488 M628.2141838470474 188.26848082449288 C635.2377049534799 195.3624760944862, 639.7102236096343 193.4171939937491, 644.8935609597247 191.22108687144703 M646 190 C651.8307917773103 184.61654921080918, 658.1136216361696 187.563332878612, 663.8445845762268 191.74207904245705 M646.4413834789768 191.2219136884436 C651.2523696353318 187.36133376580662, 657.3888759185156 187.62279600215143, 665.6850030902308 189.6041685284395 M665 190 C670.7237749099111 192.8053429832682, 678.7778120060141 193.6966756394133, 684.9094085672871 189.66095151212068 M664.429790119268 190.99884718563408 C672.715623670745 194.15687719953246, 678.2259652982434 194.96424484473653, 684.635372403888 190.94130807918498 M684 190 C691.0645312129831 187.2528485706076, 696.5200184662516 184.74471776392312, 702.1677393713966 188.34719668533654 M685.4711823323742 188.24236603286118 C692.0077975650909 184.7029311637301, 695.0768710823139 184.01734771144575, 701.2183880779427 190.0309103698749 M703 190 C709.2102689384793 193.55859600212426, 717.0542852063353 194.13452834393829, 721.8011993030086 191.2915555289015 M702.4176902452484 190.12582838442177 C710.5917511206152 192.86500987959096, 717.3185644010982 192.21553874534555, 722.7612360865157 188.9871321998257 M722 190 C729.0222979008531 186.20863874461503, 733.0675079782183 184.2109499087557, 740.2267622390762 189.8400424471125 M723.1630455473438 189.37161583211272 C726.9163109364392 185.9918795214314, 735.9830456818422 184.0714415426273, 741.9980067006032 191.7414448214788 M741 190 C745.9472794770574 193.7943037023768, 753.3006840963537 192.85534842517228, 758.7780036190525 189.01269528176636 M740.3238314906135 188.26988340523093 C747.089707908559 195.6971207166929, 753.0607821486673 192.3084316526074, 758.0931319880765 188.19419644040056" stroke="#0c0d0c" stroke-width="1.4" fill="none"></path></g><g class="ice-corpo"><path class="tr" d="M232.0843921511258 235.89198297234387 C232.0843921511258 235.89198297234387, 232.0843921511258 235.89198297234387, 232.0843921511258 235.89198297234387 M232.0843921511258 235.89198297234387 C232.0843921511258 235.89198297234387, 232.0843921511258 235.89198297234387, 232.0843921511258 235.89198297234387 M185.79006665190718 309.2391317896707 C205.49609345501932 284.86403576690697, 223.97016469545338 260.8747714781875, 262.52852107009363 210.2020082538033 M187.83541141697242 307.5762862537684 C213.29559166851078 276.28167940263336, 236.0245669501986 246.4500952321049, 261.44214075484757 212.03781101121737 M185.25859213753603 330.0317396759499 C206.32354049073865 299.45214597895034, 231.04608081839473 271.6244975331216, 288.4957067322946 191.75025853646991 M183.42050695063546 328.8216827984877 C216.82313170233752 279.24736621504115, 254.20346500433283 232.28796313322204, 290.11107364823397 189.62665784607714 M180.48041894854333 347.44008270859143 C213.7223446977759 303.1132253620847, 252.8340687056815 250.2685288893083, 303.363745661131 192.34754813758644 M179.2678095089828 349.5127456819439 C206.37698671535884 309.0587174758088, 236.75406984593673 273.77133518970356, 302.11109933318124 190.9142836744285 M171.05175544711955 371.3736945779218 C228.63135324420287 302.17933857675513, 283.58193659038284 229.28838039028216, 311.6338620028144 189.65105327723745 M172.174056303506 369.7127692092221 C225.17100648586566 299.7127484515168, 278.42378104613454 229.85741707869957, 313.952739403619 189.9490785151952 M173.36418158241506 386.08517893494246 C229.7971508508833 310.5331787176473, 291.63645541219466 230.20951126010573, 323.0200350868916 190.51908650077308 M173.40946117073895 384.1745969166386 C224.64148447843286 318.40020805483107, 276.823765099467 252.49628212391852, 324.45328897749664 189.39298789687862 M178.21765949095098 393.7563559912201 C227.5114351936679 331.260300173817, 277.6902549818303 262.1603022308434, 334.54341187073794 189.72928328739957 M177.44789527183485 394.1520970365131 C214.3799511080645 348.7841772852878, 250.4805758686476 303.0139976517338, 335.64054990248667 189.80828182907496 M181.46061731385046 402.5104330938655 C231.62886827458047 336.2097997406436, 285.4371856890091 265.2344044816348, 347.7843287925089 190.82766583209693 M181.96280455473627 402.4758828937214 C247.20878052942328 316.6973539704575, 313.36293001312146 234.5343331782983, 347.2687736095685 189.84089011588125 M184.65698856714155 410.3594486299014 C230.32260657838546 355.64983550728937, 274.1264178742322 301.9429732091778, 358.11407383250906 191.20935941900834 M186.27315298393742 411.3724677832662 C252.12458018045248 327.8430714039723, 315.5866074913261 246.1181099986002, 358.8134866317723 190.91376065571274 M189.95917155141763 421.7048805421881 C229.79677588732366 374.1252778438979, 265.87790704573825 328.77885814373195, 369.83994006620367 189.8870238289156 M190.720294863739 420.3047256083432 C260.3912812355966 330.92362489263405, 328.78595497946367 243.4674923512935, 370.2244070336681 191.04312830463087 M194.70138920357596 429.45714599497 C232.06465209288658 376.6735061634579, 275.1251061049689 326.6193032727316, 381.90686034456417 188.74732830459652 M194.2777181257255 429.3418330752094 C245.85315100673176 363.5269448385823, 299.1545207101297 295.9053481336705, 381.6748336704106 189.53986223547952 M199.1911044399426 439.6026305698825 C238.51477199914973 385.889207749901, 278.7622953100608 333.1914873702993, 391.5771844846071 191.79171405415525 M198.68235914843922 438.44230441049365 C245.31720580266355 378.09639170587536, 292.01758740165747 317.2356367031811, 392.45288638776145 190.16099122011627 M202.40950723234837 446.01942471082316 C265.9262376468353 365.14273628704575, 334.5733220114329 278.64368963536504, 406.2526910905421 188.95637088301558 M203.57593058132716 448.2084902655901 C271.50973276963794 358.4455858282086, 338.8063188770097 272.1710306299005, 404.3375911553766 190.80773550841036 M208.36155419917705 458.1249266177078 C254.07208611673343 391.2552116402988, 302.2150111873077 330.465220491494, 414.8264824098474 191.13133080872313 M208.19424648946378 456.6543400488358 C283.5650313548822 355.9538595188955, 361.19613752601157 256.887845791301, 415.217828770124 190.73845671966674 M216.19720148629358 463.6023921478903 C278.5069734682167 383.3480771364015, 338.10488065255674 303.7055950931735, 427.1943548658607 189.5212387644881 M214.73405175538576 461.9755314970426 C278.66882507559063 381.4219685857794, 344.4078338698575 298.5382031716813, 427.5776629922309 191.0035667794661 M220.93639049660197 468.12583586934124 C268.195945272183 407.731007722128, 314.4444874153274 351.05123020076826, 439.32292405011077 189.6547774356818 M222.05356315555915 468.64244739102224 C284.82421036514097 391.2695914558365, 344.86759336236145 314.585192027831, 438.994319279401 190.78885350539528 M228.9282742851857 471.9841377223751 C288.44505315015806 393.7264989049679, 350.5701326122234 316.3994103651408, 450.3595322067408 190.61987225771634 M229.48766513593924 473.22945844669266 C279.7843378798788 406.27902426065594, 331.92114855781716 340.1458021215596, 449.0970499927496 192.92639268721575 M235.8604747092672 479.3092458867662 C323.61818906158516 368.1134722023748, 408.90797058977506 256.71063303561664, 456.76048026285525 196.35994588817437 M236.33490557992243 479.40168928529545 C307.11137855329736 385.5660406631722, 382.7606621966517 291.05453980047673, 456.4419759918098 197.2223302514983 M241.86042351888986 485.08868230895285 C301.83367712280545 414.04364387815093, 356.7644606280588 340.22296920004067, 463.4811291621598 202.53013714727737 M243.31214372814017 484.8125730316994 C330.375211399201 375.3996709857422, 414.52631347683865 267.0426322837751, 463.665853998728 201.13262813047888 M248.8025988148968 490.7078429892381 C308.6862293672153 414.5138664805854, 367.1487225978268 338.89036702721575, 470.99883896890543 207.24667949473448 M250.26942261312954 491.2470874806517 C302.21871156263245 420.5347499551965, 358.45764067205903 349.7932429982469, 471.9452039480424 205.79289941612754 M255.99283513206385 497.2292340870755 C321.3743235080563 414.57953997229606, 384.10101637566424 335.1636780552385, 478.94510071240524 212.31588090259075 M257.68446859350206 496.48820117190985 C323.0052000486414 416.96114348084046, 386.8220582802921 335.5606851664454, 480.1228507223362 211.8573912792594 M263.865516533365 501.12236941926693 C323.9222662436204 421.8449940365884, 386.4187810031443 341.4613204649999, 488.81279261813927 216.56309151977095 M264.3035487686532 501.99524501479874 C344.40392239417577 396.6315783514578, 427.25696177082875 290.5215238906205, 486.92262964224176 216.1409139692416 M269.78132429069035 507.30491259739136 C354.6754236147345 401.1859965184596, 435.65440384120575 295.52821796018344, 495.6570898339594 220.23014930112367 M270.29433579075396 508.7224121685068 C333.15816185827464 429.8960648614922, 396.76445219185376 348.9199294621595, 495.4787775025998 220.0670222418408 M280.35001769460183 511.4515331424431 C339.685295724114 435.69112723765903, 398.67869073809084 359.0652143705257, 503.3742809846915 224.60237921660914 M280.41070074460566 511.40437987749493 C368.23997015263103 402.8529561450032, 453.5214038441249 294.050905176074, 502.95442103335904 224.68625744753726 M291.138454259107 513.1119145068087 C347.7786028610811 443.9484775465119, 402.0835509002555 373.40895041857783, 510.08224991453955 230.13936684278082 M291.02388314285497 511.69078790669755 C375.0166032107816 403.1034457207431, 461.7610528940181 294.05046088971636, 511.3659058680551 229.7186819934967 M298.20779140915505 513.6543888105175 C354.3812916141776 443.23945397896813, 406.8359020858268 376.79434371720754, 517.1513354064485 236.10978170827525 M300.4372729188458 514.0337430907066 C350.06049177796376 451.21153911828793, 400.434934009081 387.2371626886117, 518.7457896373844 234.8788132126094 M307.95640326896154 518.5492118623117 C354.3339685221556 458.85971368427164, 398.19063927913055 403.2676977216064, 525.416078658738 240.90614849626013 M308.5489146939096 516.7731895276412 C360.22986044663656 453.1928235316757, 409.90430703435914 386.91234659853626, 523.4250508443203 242.812414737157 M319.9302471114039 519.1627327289108 C362.36456976242096 460.2787830723185, 409.4290649175695 403.2638667642687, 531.1025328153964 246.75029788316596 M319.1171772820567 518.98095630877 C399.15334795294126 411.44614720239184, 481.6664858296151 305.1903599697306, 530.9458049714353 247.72232403490275 M329.8685269752179 520.692565229059 C375.25822923988267 461.0889612897327, 422.49210094415304 399.53525378527996, 535.1145582046385 255.17335751053133 M327.9729690358994 521.076235385521 C393.29391552945344 436.4475392300848, 460.36501137305606 349.98592865729285, 536.0521061447623 256.0491952300642 M338.06454448249355 523.3182370684871 C413.86661679952954 428.1533009234285, 484.80897697055303 337.71491759602804, 542.524233776828 261.781500002571 M338.1610650070505 523.0592469583789 C413.7033383885101 424.2795242874152, 490.4667081135908 326.7557862608829, 542.5838916259148 261.9101792695667 M346.71219627669007 524.6640910618178 C404.2211016611244 457.2896046654165, 453.9499085188958 391.11366528672346, 548.6719992990207 270.584953285663 M348.29321221988306 525.7187929288414 C422.18213766171215 434.0644381323734, 493.0918522392923 341.5301294235788, 548.5077323047137 268.8610990952216 M358.13359146835063 526.5771060410912 C402.2727499726952 468.65903963245614, 448.6359411011677 408.24755888850893, 557.048261545787 273.7118562646753 M357.6050345460952 528.1663598493916 C408.78577658784866 462.51457712062626, 456.8026156274791 399.33428370012683, 554.7704276448853 275.069705838472 M368.13081205004517 531.2553613525415 C438.96362349026685 442.42784835221676, 507.4806727628104 351.9590287379472, 562.498543176394 282.5024246257894 M367.64659044788925 530.7894566827953 C431.2682800030599 447.9511333728689, 496.01236251144513 363.7869419400448, 562.5997769119256 281.07625146395236 M377.65686209913196 535.4570313509458 C447.49867705265206 437.718730170853, 522.9362501359947 344.93885996534476, 566.4585660455134 290.0162594108246 M376.90489898110036 534.1365468471539 C438.4328154638465 458.3349632286146, 500.13529868692734 382.324184152493, 567.242176416812 288.9686183594756 M388.55181211887225 531.9369851808327 C457.13584603420907 449.768385717583, 520.9630077011102 367.0808184102938, 573.248528348959 294.28909435507006 M389.9400140600948 529.944547936044 C436.8302340003328 474.30914615358876, 481.62697689338563 416.5995917388751, 573.715370720792 295.33909710434557 M402.0124405404461 529.4613661150648 C470.08107691329303 443.86802661597824, 533.8754156891698 360.6238879037743, 578.7142138830224 307.9714736517698 M403.62668198155643 527.4887349531161 C439.9261143306003 481.1630035059255, 478.3313836529289 433.2040088079053, 577.874630342801 305.74852062344206 M418.1232328075254 525.9773432446515 C472.23235667712726 452.76423281834786, 527.5662712928304 383.42657805510504, 580.163049895348 317.18881533563604 M416.54723398771927 525.1714043817973 C474.9217947030517 453.3728950350207, 532.639417980609 381.03329370908574, 578.6207461461886 317.1729796641098 M430.63004595266557 521.6605434445704 C472.4474726021172 465.3353840237688, 518.5857299802988 412.7553955086352, 581.7554429649723 330.7270536870718 M430.9022769694526 522.6368027717131 C465.32425381844416 477.1834743887777, 503.37772432968274 428.6297277409134, 580.9270218412497 329.7502744685782 M442.7596360922438 521.3109981723377 C477.60616448313755 476.2943217672258, 511.1646911506481 436.66918972513776, 585.0253506042854 338.7051014893046 M443.8754499621087 520.9928944199204 C489.2625681356793 457.648323529511, 537.092224078784 397.73096717397885, 584.3611508368634 339.1145562579891 M459.57679547325336 517.6099678249561 C484.7041270265172 477.4107680956811, 513.5599690257834 442.39405927198777, 585.4488897387411 349.920475503524 M457.51341733622036 517.868475105142 C486.7193960013177 479.080487240422, 514.9420840655396 442.87390749757986, 587.2829469745743 352.3534564137283 M475.87997757623594 508.7494988477766 C519.4005213625605 453.3480653336106, 560.5707805230427 401.1334041789198, 588.4528190671022 362.74398533707404 M475.61159151283715 510.9858325246233 C517.6273678867179 455.1409245686401, 559.0649212521746 399.4597084797275, 590.6016917357242 363.47657239261 M503.06129077902517 487.44826087208133 C523.9716545615304 460.69916725408433, 547.0229161565026 429.2220423747048, 592.2802218928692 373.3076446610296 M502.47499719598784 488.9707140770428 C523.1209540579865 461.29360185621493, 542.7767600036666 434.400521830163, 591.732626737211 375.3418858840389 M530.4381143692352 468.6289340787897 C549.8062256404694 447.1840039183326, 567.0734441272352 423.33997989316373, 576.5151596242829 405.56588940306466 M532.2901357530553 465.05315245891495 C549.697462242505 443.74010566535037, 569.7998541817606 419.52241655210645, 578.8750287866021 406.310223714522" stroke="#0c0d0c" stroke-width="0.7" fill="none"></path><path class="tr" d="M290.3578965482302 191.02427962003276 C276.27974609248804 200.46933575077446, 268.17613076996525 206.58701825784985, 232.04003339679912 238.45209689019248 M290.9458402299788 189.15374130592681 C273.14568071008193 204.35751418881583, 255.6470057256194 217.40799547452946, 230.87266070931219 235.70509920851327 M231.60440152557567 235.06604106305167 C219.70035648007877 252.51793082373217, 205.2219022791553 274.12465954551476, 182.69092346401885 303.56653165398166 M231.36048568575643 236.00453714863397 C214.09074337210507 258.0770098611433, 199.0728338899836 281.87800499682317, 184.04298028885387 303.7015232651029 M185.5800100681372 302.6659990507178 C179.5061664763 324.2471954081999, 172.53300770196134 347.00570721112655, 167.47785374196246 382.47797827003524 M183.10358396708034 303.101674935082 C179.50210486011582 324.5759219767758, 174.99369892342017 346.6260511441389, 166.8684357383754 380.26152711943723 M166.4962242511101 378.24082533596084 C171.83759765461087 397.4962029682938, 184.4355662191659 415.0249132315162, 200.69875208707526 454.4619952100329 M164.86223071604036 381.2388939841185 C172.86532721863128 396.26708491092546, 181.406095651621 410.48199424019083, 202.25462855934165 453.175187980989 M203.3189406809397 453.58560964046046 C221.28141330367419 468.2715087846993, 241.69135811718647 484.2566737475945, 269.48406588705257 508.34443391440436 M201.73929305910133 452.41525588021614 C216.43471818583552 464.5208365408657, 232.65137834212277 478.2089390661521, 266.85886923759244 504.9769678248558 M269.7215754953213 508.17073465464637 C295.6520856663957 511.2147183101997, 325.58475687582046 520.2051995356009, 373.2498870608397 528.2983137923293 M269.1518471071031 506.8117069734726 C289.9950748583395 512.0164958240371, 311.89317833018487 517.8157687822263, 373.2386147433426 529.1722758917604 M373.5381893632002 529.9387510376982 C400.3843300638255 524.9940993420267, 433.1833897590172 521.2271149929101, 475.6510770586319 509.14069722173735 M372.4796154552605 529.0176408796106 C405.6081543386914 524.0411758416565, 437.3678045406006 518.5667539065005, 473.24990603118204 509.7140311880503 M473.71661248477176 510.60125241754577 C501.0028427066747 488.0020037695067, 534.2025098737795 466.0174473460065, 550.0343918618746 448.12956454930827 M472.9634046831634 510.0074609799776 C503.9114144381135 488.21209028376734, 534.6775960044935 465.4917100613425, 551.1958055400755 450.72922498569824 M550.7715695914812 452.43575039086863 C565.2440705788322 425.4122263330175, 576.3909404608421 399.21923322110905, 585.391606983263 372.2606890904717 M550.8535428547766 449.3671429215465 C562.5478228682186 422.1196030100389, 576.0809539425653 397.3106478323741, 586.2248346933629 370.4954833223019 M587.737804946024 370.58254952309653 C580.8977057800629 343.80407135032584, 574.2223548362963 321.0773608445423, 565.8126424667425 289.0645121294074 M585.30831701844 369.27079711691476 C582.3336421703455 351.36487722648775, 578.1074845458846 334.89714910341894, 566.9794113987591 290.16762950108387 M569.6232073423453 288.84162234840915 C554.0656275010341 277.5518243895611, 542.3210767258563 262.16948558276056, 514.4386878875084 232.90301791904494 M569.0424107068684 290.70723124430515 C552.2016111638258 274.0575586122787, 539.0324668375636 256.98378327445596, 514.4942875483539 231.75424659089185 M512.3619351056404 230.96948436973616 C496.6874599042023 221.98671507789751, 475.1274920037622 209.7888405335229, 444.915327352006 191.7666086810641 M513.7253414371517 231.45651274756528 C491.55168720392976 217.13414908841253, 467.43732222190596 203.12025188680738, 446.34498651861213 190.3442399261985 M444.2675410923548 192.47606905875728 C410.19717572713273 190.49016703986564, 370.48030739026143 189.6662893625442, 291.34566449793056 191.57097960589454 M446.6298982107546 190.81653133616783 C412.9832178739365 188.56443481272086, 381.3553265900817 188.8645547417365, 290.54624067037366 190.08339960710146" stroke="#0c0d0c" stroke-width="1.7" fill="none"></path></g><g class="ice-ponta"><path d="M287.59812215110287 188.9543558866717 L318.71300552925095 130.48990247258916 L340.0822543515824 144.49980523297563 L369.09840096672997 72.91306502232328 L393.56169256707653 122.4619053513743 L410.6332161887549 102.97864738712087 L444.28802371164784 191.1925849528052" stroke="none" stroke-width="0" fill="#ffffff" fill-rule="evenodd"></path><path class="tr" d="M289.64421378681436 190.84370331605896 C296.42821864829864 175.76945326845163, 299.32519065225034 165.81691207042894, 319.0720601142384 127.41377440234646 M290.2025124139618 190.47673435066827 C300.98372554163916 164.89589672595264, 312.9924748608796 141.67272416282447, 318.97078927676193 128.9691785753239 M320.2879227460362 128.318873913493 C328.1845959920622 132.54035862781575, 333.82983140481633 140.96139097460082, 340.64366223523393 144.21975697716698 M318.8488742343616 129.00816686754115 C323.19850277612915 131.5101611561561, 326.95559122479517 134.94273915956262, 339.57736451993696 142.96274187718518 M341.84401812264696 141.59879829129204 C350.7005728221312 116.83003080411814, 359.71729229789224 96.1596133559849, 368.66013673553243 72.46036088606343 M339.3864511407446 144.88301488314755 C349.909834801117 117.3518426623568, 360.582513463581 89.20651465099306, 368.56318432907574 72.47074881498702 M369.8932036519982 73.8334856047295 C377.5435602029599 88.36373828850222, 387.96706502845507 110.88460414461326, 395.6577537567355 121.43159137805924 M367.95201528887264 73.23000917141326 C373.50508991594427 85.31406664113979, 381.31950897633095 98.18738954822999, 393.958331406815 121.11533836578019 M394.37409322569147 117.85409735282883 C401.13956309670584 114.11267443457153, 410.0841661909781 105.65574574479368, 409.6713185966946 106.21998104592785 M394.0307275063824 120.74746058438905 C400.65181600208393 115.22153084242251, 406.30807375534437 110.06592503452208, 411.4459646276664 105.15854208474047 M410.09883589157835 102.90732237836346 C421.13157195777165 124.3157373421779, 429.57453409295994 139.3440671849018, 448.24979670951143 189.9369648261927 M412.57332479278557 103.9610725522507 C427.42899578791577 137.41336346426513, 439.1040316224145 170.98028515642045, 446.2295065380167 191.01009660516866 M445.7687408537604 191.88975186785683 C388.51452667685226 186.15603846293874, 332.80940622324124 188.97263158840127, 291.97193870553747 192.45325499912724 M445.8633078194689 189.231753583299 C393.4875471110921 189.61923332927748, 339.71122864629143 190.42292414275929, 290.64983085612766 190.4852561384905" stroke="#0c0d0c" stroke-width="2" fill="none"></path></g><g class="ice-onda"><path class="tr" d="M52 300 C55.53042103598515 296.15382803926866, 62.09995020379623 296.4296207810442, 64.80107894092798 300.48155753463504 M52.75805511623621 299.2785158380866 C57.94089660021166 295.65978881704314, 61.93265415442487 296.162021576042, 65.58372332029045 298.70839374013246 M66 300 C70.41352769682806 302.4621202533444, 76.20674918641646 303.18997750928, 80.03202648311853 300.35036661475897 M65.2710171237588 300.067580960691 C70.06231429191928 303.83985190180437, 74.65115200055142 303.31821861771243, 80.69063654117286 299.6764789552242" stroke="#0c0d0c" stroke-width="1.1" fill="none"></path></g><g class="ice-onda"><path class="tr" d="M100 342 C104.97360875445108 337.46818610789876, 109.47828104731937 339.43776848676305, 112.80113288797438 342.68563541136683 M100.25595787204801 342.1424416299909 C104.83160809688891 337.9544449245619, 108.23762019547944 337.37778932151076, 113.76990948630497 341.5408134271391 M114 342 C117.74087074833612 344.2385595993449, 123.11041997907061 344.2828097180774, 128.45362780727447 341.4678849454969 M113.77456797994674 341.7709600087255 C119.7570966731819 345.52017783022796, 122.82404293391232 344.6964628819314, 128.93216836823152 342.41930290298535" stroke="#0c0d0c" stroke-width="1.1" fill="none"></path></g><g class="ice-onda"><path class="tr" d="M624 250 C628.016796472917 247.18254417652884, 632.8566118908426 246.0459161924819, 636.8011868350208 250.88971328809856 M623.7538606278598 251.00636742189528 C627.7223195935661 246.24910103208074, 633.302586236534 247.3535570669795, 637.9560956523195 250.3732331141457 M638 250 C643.4682137998442 254.4149989453455, 648.4140907717248 253.77564192687473, 652.8752291314304 250.98540327623488 M638.2781188361347 249.47433905676007 C642.6918790544445 253.20050375865154, 646.9969338672732 252.0747071461504, 653.1737001952902 251.16212685074657" stroke="#0c0d0c" stroke-width="1.1" fill="none"></path></g><g class="ice-onda"><path class="tr" d="M680 300 C685.4599841913829 296.496902245159, 688.2349427343657 297.0540638982008, 692.8012407820672 301.09379116483035 M679.2517633836717 299.4702932137996 C685.3730310902433 296.54375713959956, 690.3675522775886 296.5693248124483, 694.142281818334 301.2056528011523 M694 300 C698.7955568513522 304.191438291346, 703.317761564379 302.86847413567205, 706.8968304555863 300.1029216069728 M694.7816696923226 299.1777181047946 C697.6266614357071 302.88082968707505, 703.1698248006342 304.2129514103693, 706.6552320223487 299.1449507985078" stroke="#0c0d0c" stroke-width="1.1" fill="none"></path></g><g class="ice-onda"><path class="tr" d="M612 350 C616.5031719098488 345.8112603137891, 622.0132735778889 345.6622116039197, 624.8012947291136 348.8978690415621 M613.1496661394834 350.3342190057039 C616.2637425869207 346.8384132471184, 620.6725183186433 345.78509255791704, 626.3284679843485 349.27807248815895 M626 350 C630.1228999028602 353.9678776373466, 634.2214323570331 354.36130634446937, 639.3184317797422 349.22043993771075 M624.8852205485106 348.88109715282917 C631.3214438169698 352.5611556154986, 635.3427157339951 353.5911956745883, 638.8967638494074 349.887774746269" stroke="#0c0d0c" stroke-width="1.1" fill="none"></path></g><g class="ice-barco"><path class="tr" d="M56.218958599027246 184.3505336442031 C74.02236074237153 181.6183037889842, 93.12085022320971 179.5015246255044, 149.24820706015453 182.20300071919337 M57.86420942586847 182.25319609674625 C81.62438159217128 182.02392042014748, 107.0388937872369 182.44910661462694, 150.01049639773555 181.1716150927823 M149.54728945856914 184.20945459092036 C142.69332829047227 185.26866177354475, 139.6943430940085 194.83923357470428, 134.88372547691688 200.31249625468627 M149.03501125168987 181.02813032153063 C144.82317838351008 186.53706409827342, 140.00126514098375 193.86954561954832, 136.766477790894 200.14944424363784 M136.79606242245063 200.72919411445037 C117.63490526443347 197.26721794435755, 99.17236937945708 201.20563649663703, 73.16269320016727 198.36346527421847 M136.9422205958981 198.43038459750824 C118.8843417127151 198.71699832695538, 104.42088159364647 198.19775369334036, 70.88430157792754 198.12146814051084 M74.07659035688266 198.09311708295718 C66.63137972697383 194.84119119570124, 65.424342431759 191.09228736376855, 55.93226293986663 180.26437030220404 M72.94583043945022 200.18114270153455 C68.34091082296568 193.74749212149996, 64.07595972481417 189.488796581761, 57.578697067918256 182.78616548213176" stroke="#0c0d0c" stroke-width="1.6" fill="none"></path></g><g class="ice-barco"><path class="tr" d="M105.79053790867329 183.05538956820965 C103.21472112953663 168.21764342486858, 103.59992687523365 154.6749870032072, 104.75621373951435 116.19342009723186 M104.30337747186422 181.3339443579316 C103.16985323041678 162.6693036928773, 104.04744460195303 146.75372461229563, 104.53502853959799 116.86263493448496" stroke="#0c0d0c" stroke-width="1.7" fill="none"></path></g><g class="ice-barco"><path d="M107.4511312940158 119.35869343644008 C110.21220800124276 139.4992400751449, 107.81308993242848 154.56514443708585, 106.03529259050265 176.40863615339623 C115.78987135384232 177.91515531171066, 117.60907542230561 177.35673147965176, 144.23219905262812 178.48046941244974 C135.74508679697124 158.24976736681117, 120.20046707458627 143.59738238734704, 106.66352916145698 124.41615268951281" stroke="none" stroke-width="0" fill="#ffffff"></path><path class="tr" d="M107.36211721831933 121.7602454922162 C109.38862858973908 130.78882559845223, 109.47337201498914 142.24671698017045, 109.26422041887417 177.18383947527036 M107.74254551785998 122.91469261911698 C108.06833477985579 139.51417379402557, 108.50460088175255 154.96424972792155, 108.05956068146043 177.0536547761876 M105.3890500687994 173.83587101614103 C120.54498392995447 177.03761265269713, 132.28600318310782 178.60684685996966, 144.36009486252442 175.13910891627893 M106.77920552599244 175.5299451809842 C115.9809280692134 175.2138714278466, 124.69869785173796 176.82036557890243, 141.28366990643553 175.530053549679 M140.4280664497055 177.19559373473749 C127.82013107353356 161.3046168164234, 119.76502384833526 141.75587054555072, 107.75383469695225 120.35465658223256 M143.08365418273024 175.07105457154103 C133.5293980934797 165.66980660675327, 127.80695986656008 153.39567818107315, 108.23167587327771 121.22607898828574" stroke="#0c0d0c" stroke-width="1.7" fill="none"></path></g><g class="ice-barco"><path class="tr" d="M79.4167945328347 158.13464329105747 C80.35395035420761 157.39668958321516, 81.76725498412752 157.791471464138, 82.98085999672743 158.10103709323226 C84.19446500932735 158.41060272232653, 86.07784598392018 158.6778761644323, 86.69842460843415 159.99203706562298 C87.31900323294812 161.30619796681367, 86.91322793644682 164.61554111865027, 86.70433174381121 165.98600250037634 C86.4954355511756 167.35646388210242, 86.06061629617935 167.59795696334007, 85.44504745262049 168.21480535597942 C84.82947860906162 168.83165374861878, 84.26087560029269 169.78470127571813, 83.01091868245801 169.6870928562125 C81.76096176462333 169.58948443670687, 78.8304054596951 168.1792536095076, 77.94530594561239 167.62915483894565 C77.06020643152968 167.0790560683837, 77.92882891211606 167.2855600191239, 77.7003215979617 166.38650023284072 C77.47181428380735 165.48744044655754, 76.25135189019926 163.71878913836852, 76.57426206068628 162.23479612124655 C76.8971722311733 160.75080310412457, 78.8946992382336 158.1424375032896, 79.63778262088385 157.4825421301088 C80.38086600353411 156.822646756928, 80.94632631278643 158.21411437103166, 81.03276235658778 158.2754238821617 M83.44920139384344 160.39017912034308 C84.09806315624613 160.64480181696695, 84.5869705716694 160.30279102857548, 84.94232187415982 161.0427259120125 C85.29767317665024 161.7826607954495, 85.54407100790856 163.59241558956086, 85.58130920878595 164.829788420965 C85.61854740966335 166.06716125236915, 85.54545733708868 167.3399167821759, 85.16575107942421 168.4669629004374 C84.78604482175975 169.59400901869893, 84.31298074279388 171.67015833631507, 83.30307166279918 171.59206513053408 C82.29316258280448 171.5139719247531, 79.97795760089778 168.8642934389521, 79.10629659945603 167.99840366575148 C78.23463559801428 167.13251389255086, 78.50889599360352 167.42363895357366, 78.07310565414865 166.3967264913303 C77.63731531469378 165.36981402908694, 76.17784404647257 163.036918369618, 76.49155456272683 161.83692889229133 C76.8052650789811 160.63693941496464, 78.55338385528894 159.6533453147274, 79.9553687516742 159.19678962737015 C81.35735364805946 158.7402339400129, 84.19124756134016 158.91187612067728, 84.9034639410384 159.09759476814781 C85.61568032073663 159.28331341561835, 84.11809299600286 160.01257463466547, 84.22866702986362 160.31110151219332" stroke="#0c0d0c" stroke-width="1.5" fill="none"></path></g><g class="ice-barco"><path class="tr" d="M80.50316550256684 171.30197440413758 C82.80643912018277 172.93513371339068, 82.49673039079644 174.38694565249608, 82.16814026655629 183.2988069388084 M81.4725289659109 169.44571348489262 C81.53773099213839 174.52740527042187, 81.26990032970906 178.74129372076132, 81.76517497911118 182.26141667575575" stroke="#0c0d0c" stroke-width="1.7" fill="none"></path></g><g class="ice-sub"><path class="tr" d="M300 492 C340.9885238856077 484.6364821702242, 409.2308388918638 486.224149158597, 442.8058982104063 491.9125145226717 M299.5040346354246 493.65588658154013 C340.1577903033793 485.0957344220579, 412.3562871553004 486.89727350458503, 447.95635415092113 491.01121911272406" stroke="#0c0d0c" stroke-width="2.4" fill="none"></path></g><g class="ice-seta"><path class="tr" d="M512 112 C480.53676485568286 103.77634866684676, 452.92649735957383 107.7540439888835, 424.40366839915515 123.47729561775922 M511.4573873952031 111.54695384949446 C480.00838177405296 103.7966153112799, 452.6576907917112 108.03220669187606, 425.7806592889875 123.56453871645033" stroke="#0c0d0c" stroke-width="1.4" fill="none"></path></g><g class="ice-seta"><path class="tr" d="M431.6444248203188 116.03050160966814 C431.1330266482383 117.20369818780571, 429.80681589238344 119.1921972778812, 426.18326946534216 123.60036153160036 M431.8173476783559 116.18978191632777 C430.05232549058644 118.28734713883698, 428.1007524293885 120.86399016173183, 426.20513427536935 124.03660635370761 M426.4981646260493 123.74668205227161 C428.8983275391701 125.3851427594779, 431.98905161257676 125.97761739145125, 435.5585011589621 127.20712089795703 M426.125085548624 123.8532482006287 C429.44440610793345 125.12212818823131, 433.3295770404734 126.23006920506901, 436.04113376446645 126.82164656449518" stroke="#0c0d0c" stroke-width="1.4" fill="none"></path></g><g class="ice-seta"><path class="tr" d="M70 108 C70.88894907869398 124.86097763739527, 75.45153470672668 139.43182840310038, 78.80285919345916 150.01612746678293 M70.98884605802596 106.98806697092951 C70.54770932389424 124.43677369849756, 75.86320017589256 141.21569050984456, 80.20786679876969 151.338243411351" stroke="#0c0d0c" stroke-width="1.3" fill="none"></path></g><g class="ice-seta"><path class="tr" d="M75.04564718803864 144.69536525976903 C76.12192366687279 146.32976103716987, 76.97006091750274 147.4937039207601, 79.86658352623037 150.87286743176443 M74.99563556797105 144.88883279299444 C76.90170758541352 147.2560555894667, 78.50032075785725 149.25499017453825, 79.94685726929288 150.94564959117596 M80.17567072036367 150.91603024237958 C81.61735500217301 148.33191549566575, 82.52254347635767 145.74325045075275, 84.19490976841253 142.83092347475852 M79.83445875807422 150.97123539401835 C81.18600996237943 148.77243610190513, 82.22903170395438 146.4113789961634, 84.17376031596025 143.00378539663404" stroke="#0c0d0c" stroke-width="1.3" fill="none"></path></g>
+<g class="ice__txt ice__txt--topo">
+  <text class="ice__mono" x="522" y="74">O QUE VOCÊ VÊ</text>
+  <text class="ice__item" x="522" y="104">Tráfego frio</text><text class="ice__item" x="522" y="132">CPA subindo</text><text class="ice__item" x="522" y="160">VSL nova</text>
+  <text class="ice__mao" x="26" y="96">você, olhando a ponta</text>
+</g>
+<g class="ice__txt ice__txt--fundo">
+  <text class="ice__mono" x="26" y="236">O QUE FICA PARADO</text>
+  <text class="ice__item ice__halo" x="376" y="300" text-anchor="middle">Compradores e leads</text>
+  <text class="ice__item ice__halo" x="376" y="350" text-anchor="middle">Quem não fechou</text>
+  <text class="ice__item ice__halo" x="376" y="400" text-anchor="middle">E-mail e WhatsApp</text>
+  <text class="ice__lucro ice__halo" x="373" y="478" text-anchor="middle">Lucro pra sacar</text>
+</g>
+</svg>
+</figure>
+  </div>
+</section>
+
+<!-- 2 · pra quem é -->
+<section class="secao alt">
+  <div class="col">
+    <div class="cab centro surge">
+      <p class="rotulo">Pra quem é</p>
+      <h2 class="h2">Só que isso funciona pra quem <span class="hl">já aprendeu a vender</span>, então vale conferir se é o seu caso.</h2>
+    </div>
+    <div class="duas surge">
+      <div class="cartao cartao--forte"><p class="rotulo">Faz sentido quando</p>
+        <ul class="lista lista--sim" style="margin-top:20px"><li>você vende por Direct Response ou e-commerce</li><li>tem uma oferta que já provou venda</li><li>sabe quem comprou e quem virou lead</li><li>fala com essa gente por um canal seu, como e-mail ou WhatsApp</li><li>tem margem e fôlego pra entregar mais</li><li>tem alguém que decide</li></ul></div>
+      <div class="cartao cartao--apagado"><p class="rotulo">Ainda não faz sentido quando</p>
+        <ul class="lista lista--nao" style="margin-top:20px"><li>a primeira oferta ainda não vende</li><li>os contatos não têm origem clara nem permissão</li><li>a margem ou a entrega já tão no limite</li><li>você quer que eu produza copy, página e anúncio</li><li>você quer garantia de resultado financeiro</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · a solução + como funciona -->
+<section class="secao escuro" id="solucao">
+  <div class="col--largo">
+    <div class="cab centro surge">
+      <p class="rotulo">A solução · Base Money</p>
+      <h2 class="h2">Se for, a gente faz isso em três etapas, <em>com uma decisão em cada uma.</em></h2>
+      <p class="apoio">Eu acompanho cada etapa de perto e a implementação roda com IA, com as skills e os agentes que a gente monta pro seu negócio, então o seu time põe a ação de pé em uns 45 dias.</p>
+    </div>
+    <div class="passos">
+      <article class="passo surge" data-terminal="IA cruzando compradores, leads e canais">
+        <p class="rotulo">01 / 03</p><h3>Diagnóstico de Base</h3><h4>Quem já entrou e quanto vale</h4>
+        <p>A IA cruza compradores, leads, canais, histórico e margem, e eu fecho a conta com você usando os seus números.</p>
+        <div class="arte"><svg viewBox="0 0 400 280" aria-hidden="true">
+          <ellipse class="tr fraco" cx="170" cy="218" rx="130" ry="34"/>
+          <ellipse class="tr fraco" cx="170" cy="182" rx="130" ry="34"/>
+          <ellipse class="tr" cx="170" cy="146" rx="130" ry="34"/>
+          <path class="tr fraco" d="M40 146v72M300 146v72"/>
+          <circle class="ponto" cx="110" cy="140" r="4"/><circle class="ponto" cx="140" cy="128" r="4"/><circle class="ponto" cx="178" cy="136" r="4"/>
+          <circle class="ponto" cx="212" cy="124" r="4"/><circle class="ponto" cx="150" cy="156" r="4"/><circle class="ponto" cx="200" cy="160" r="4"/><circle class="ponto" cx="236" cy="150" r="4"/>
+          <circle class="tr" cx="268" cy="78" r="46"/>
+          <circle class="tr pont" cx="268" cy="78" r="34"/>
+          <path class="tr" d="M301 111l42 42"/>
+          <path class="tr" d="M336 146l14 14"/>
+          <path class="tr fraco pont" d="M236 106L206 128"/>
+        </svg></div>
+      </article>
+      <article class="passo surge" data-terminal="skills montando oferta e mensagens">
+        <p class="rotulo">02 / 03</p><h3>Concepção</h3><h4>A próxima oferta, desenhada</h4>
+        <p>Com as skills de IA que a gente monta pra sua operação saem a oferta, a condição, as mensagens e a data, e eu reviso cada peça antes de seguir.</p>
+        <div class="arte"><svg viewBox="0 0 400 280" aria-hidden="true">
+          <rect class="tr fraco" x="40" y="40" width="250" height="200" rx="10"/>
+          <path class="tr fraco pont" d="M40 90h250M40 140h250M40 190h250M102 40v200M165 40v200M228 40v200"/>
+          <path class="tr" d="M98 202L150 98 214 154"/>
+          <circle class="ponto" cx="150" cy="98" r="5"/>
+          <path class="tr pont" d="M98 202A120 120 0 0 1 214 154"/>
+          <path class="tr" d="M300 100l46 0 22 22-58 58-32-32 22-48z"/>
+          <circle class="tr" cx="330" cy="118" r="6"/>
+          <path class="tr fraco" d="M326 150h20M320 162h18"/>
+        </svg></div>
+      </article>
+      <article class="passo surge" data-terminal="agentes lendo venda, custo e margem">
+        <p class="rotulo">03 / 03</p><h3>Acompanhamento de Execução</h3><h4>Eu reviso, o time roda, a gente lê</h4>
+        <p>Os agentes acompanham venda, custo e margem de cada grupo enquanto a ação roda, e eu leio os números com você pra decidir o próximo passo.</p>
+        <div class="arte"><svg viewBox="0 0 400 280" aria-hidden="true">
+          <path class="tr fraco" d="M40 240h320M40 240V40"/>
+          <path class="tr fraco pont" d="M40 190h320M40 140h320M40 90h320"/>
+          <path class="tr" d="M50 222C100 214 112 186 150 178S214 150 236 124 300 82 344 58"/>
+          <path class="tr" d="M328 54l18 3-6 17"/>
+          <circle class="tr" cx="150" cy="178" r="11"/><path class="tr" d="M145 178l4 4 7-8"/>
+          <circle class="tr" cx="236" cy="124" r="11"/><path class="tr" d="M231 124l4 4 7-8"/>
+          <circle class="tr pont" cx="300" cy="84" r="11"/>
+          <circle class="ponto" cx="50" cy="222" r="4"/>
+        </svg></div>
+      </article>
+    </div>
+    <div class="palco-trilho" id="trilho" aria-hidden="true">
+      <div class="palco"><div class="palco__in">
+        <div class="tela">
+          <div class="esteira" id="esteira"></div>
+          <div class="artes" id="artes"></div>
+          <div class="terminal">› <span id="digita"></span><span class="cursor">&nbsp;</span></div>
+        </div>
+        <div class="lado">
+          <div class="lado__topo"><span class="conta" id="conta">01 / 03</span><span class="tracos" id="tracos"></span></div>
+          <div class="textos" id="textos"></div>
+          <p class="rolar">↓ role pra avançar</p>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · quem sou eu (B: linha do tempo vertical) -->
+<section class="secao autor autor--b">
+  <div class="col--largo">
+    <div class="cab centro surge">
+        <p class="rotulo">Quem sou eu</p>
+        <h2 class="h2">Foi assim que a gente chegou aos <span class="hl">277 milhões de reais</span> vendidos, e a virada veio em 2021.</h2>
+      </div>
+    <div class="tl tlb__tl" id="tl"><div class="tl__trilho"><i id="tlFill"></i></div><article class="tl__item tlb surge"><span class="tl__ponto"></span>
+        <p class="tl__ano">2019 · nasce a Vitascience</p>
+        <div class="tlb__corpo"><div class="tlb__vis"><img class="vz vz--banner" src="../img/vitascience-linha.jpg" alt="Linha de suplementos da Vitascience" loading="lazy"></div><div class="tlb__txt"><h3>Um café em Vitória virou R$ 7 milhões já no primeiro ano.</h3><p>Um médico com quase 900 mil inscritos vendia R$ 700 mil por ano em e-book, então a gente transformou o material em curso, montou tráfego e operação e, mais tarde, entrou nos suplementos.</p><div class="mb"><div class="mb__cab"><b>R$ 7,0 mi</b><span>ainda sem vender pra base</span></div><div class="mb__trilho"><i class="mb__nova" style="width:9.8%"></i></div></div></div></div></article><article class="tl__item tlb surge"><span class="tl__ponto"></span>
+        <p class="tl__ano">2020 · escala</p>
+        <div class="tlb__corpo"><div class="tlb__vis"><div class="vz vz--num"><b>7 → 14,5</b><span>R$ milhões em um ano</span></div></div><div class="tlb__txt"><h3>A receita dobrou e a gente parou de depender de lançamento.</h3><p>Foi quando começamos o perpétuo, pra não ficar refém do próximo carrinho aberto.</p><div class="mb"><div class="mb__cab"><b>R$ 14,5 mi</b><span>ainda sem vender pra base</span></div><div class="mb__trilho"><i class="mb__nova" style="width:20.3%"></i></div></div></div></div></article><article class="tl__item tlb tlb--chave surge"><span class="tl__ponto"></span>
+        <p class="tl__ano">2021 · a virada pra base</p>
+        <div class="tlb__corpo"><div class="tlb__vis"><div class="vz vz--barra"><div class="mb mb--g"><div class="mb__cab"><b>R$ 37,0 mi</b><span><i class="mb__ponto"></i>R$ 20,5 mi da base</span></div><div class="mb__trilho"><div class="mb__fill" style="width:51.7%"><i class="mb__base" style="width:55.4%"></i><i class="mb__nova"></i></div></div></div></div></div><div class="tlb__txt"><h3>Um lançamento com prejuízo mostrou onde o dinheiro estava.</h3><p>Em janeiro foram 600 mil leads e R$ 1,2 milhão em anúncio pra fechar com R$ 115 mil de prejuízo, então no resto do ano a gente parou de voltar pro tráfego frio, vendeu de novo pra quem já tinha comprado e mais da metade do faturamento veio daí.</p></div></div></article><article class="tl__item tlb surge"><span class="tl__ponto"></span>
+        <p class="tl__ano">out/2021 e 2022 · Formação de Gestores Digitais</p>
+        <div class="tlb__corpo"><div class="tlb__vis"><div class="vz vz--fotos"><img src="../img/fgd-turma.jpg" alt="Primeira turma da Formação de Gestores Digitais, out/2021" loading="lazy"><img src="../img/fgd-lucro.jpg" alt="Felipe Gobbi em sala, na frente do slide faturamento é vaidade, lucro é sanidade" loading="lazy"></div></div><div class="tlb__txt"><h3>No mesmo ano eu comecei a mentorar outros donos de negócio digital.</h3><p>Em outubro de 2021 abri a primeira turma presencial da Formação de Gestores Digitais e, em 2022, a segunda. Passaram por lá os times do Grupo Primo e da Puravida, e a formação virou a Digital Business School.</p><div class="mb"><div class="mb__cab"><b>R$ 30,0 mi</b><span><i class="mb__ponto"></i>R$ 16,4 mi da base</span></div><div class="mb__trilho"><div class="mb__fill" style="width:42.0%"><i class="mb__base" style="width:54.7%"></i><i class="mb__nova"></i></div></div></div></div></div></article><article class="tl__item tlb surge"><span class="tl__ponto"></span>
+        <p class="tl__ano">out/2023 · O Plano de Liberdade</p>
+        <div class="tlb__corpo"><div class="tlb__vis"><div class="vz vz--fotos"><img src="../img/palco.jpg" alt="Felipe Gobbi no palco da imersão O Plano de Liberdade" loading="lazy"><img src="../img/turma.jpg" alt="Turma da imersão O Plano de Liberdade, out/2023" loading="lazy"></div></div><div class="tlb__txt"><h3>Em outubro de 2023 veio a imersão presencial O Plano de Liberdade.</h3><p>Foram dois dias em sala falando de plano, time e gestão, e um terceiro online pra quem quis continuar.</p><div class="mb"><div class="mb__cab"><b>R$ 28,0 mi</b><span><i class="mb__ponto"></i>R$ 15,1 mi da base</span></div><div class="mb__trilho"><div class="mb__fill" style="width:39.2%"><i class="mb__base" style="width:53.9%"></i><i class="mb__nova"></i></div></div></div></div></div></article><article class="tl__item tlb surge"><span class="tl__ponto"></span>
+        <p class="tl__ano">2024 · Papo de Bastidores</p>
+        <div class="tlb__corpo"><div class="tlb__vis"><div class="vz vz--pod"><img class="pod3__capa" src="../img/pod/DHkuIwWWMKA.jpg" alt="Papo de Bastidores com João Campos, do VTurb" loading="lazy"><div class="pod3__fila"><img src="../img/pod/kE-I9EU3vlo.jpg" alt="Papo de Bastidores com Malves, da Hotmart" loading="lazy"><img src="../img/pod/XD3YB9SidO0.jpg" alt="Papo de Bastidores com João Vitor, do G4" loading="lazy"><img src="../img/pod/FlQLylBkJIU.jpg" alt="Papo de Bastidores com Ramiro Gomes Ferreira, do Clube do Valor" loading="lazy"></div></div></div><div class="tlb__txt"><h3>Em 2024 eu criei o Papo de Bastidores.</h3><p>É um podcast em que eu entrevisto donos de negócio digital sobre o que ninguém mostra, como time, funil, gestão e os erros do caminho. Foram 59 episódios com gente da VTurb, da Hotmart, do G4 e da Fluency, e os convidados somados passam de R$ 1 bilhão em faturamento.</p><div class="mb"><div class="mb__cab"><b>R$ 50,3 mi</b><span><i class="mb__ponto"></i>R$ 19,8 mi da base</span></div><div class="mb__trilho"><div class="mb__fill" style="width:70.3%"><i class="mb__base" style="width:39.4%"></i><i class="mb__nova"></i></div></div></div></div></div></article><article class="tl__item tlb surge"><span class="tl__ponto"></span>
+        <p class="tl__ano">2025 · o maior ano</p>
+        <div class="tlb__corpo"><div class="tlb__vis"><div class="vz vz--num"><b>R$ 71,5 mi</b><span>o maior ano da empresa</span></div></div><div class="tlb__txt"><h3>Em 2025 chegamos a R$ 71,5 milhões com a operação rodando sem mim.</h3><p>O time é 100% remoto e, de 2021 pra cá, R$ 103 milhões vieram de quem já era cliente.</p><div class="mb"><div class="mb__cab"><b>R$ 71,5 mi</b><span><i class="mb__ponto"></i>R$ 18,0 mi da base</span></div><div class="mb__trilho"><div class="mb__fill" style="width:100.0%"><i class="mb__base" style="width:25.2%"></i><i class="mb__nova"></i></div></div></div></div></div></article></div>
+    <div class="soma surge"><p class="soma__tit">E, de 2021 pra cá, <span class="hl">R$ 103 milhões</span> vieram de quem já era cliente.</p>
+      <div class="legenda"><span><i class="l-base"></i>venda pra base</span><span><i class="l-nova"></i>venda nova</span></div></div>
+  </div>
+</section>
+
+<!-- 5 · quem aplicou -->
+<section class="secao">
+  <div class="col--largo">
+    <div class="cab centro surge">
+      <p class="rotulo">Quem aplicou</p>
+      <h2 class="h2">E quem aplicou a estratégia Base Money começou a mandar <em>isso aqui no meu WhatsApp.</em></h2>
+    </div>
+    <div class="provas">
+      <figure class="prova surge"><figcaption><b>R$ 3,7 milhões numa Black</b><span>Mari</span></figcaption><img src="../img/dep/mari.jpg" alt="Print de WhatsApp da Mari com faturamento bruto de R$ 3.712.783,18" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$ 746 mil com R$ 45 mil de anúncio</b><span>Rayan</span></figcaption><img src="../img/dep/rayan-black.jpg" alt="Story do Rayan com R$ 746.158,19 em vendas aprovadas" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>Quase R$ 700 mil</b><span>Victor</span></figcaption><img src="../img/dep/victor.jpg" alt="Print de WhatsApp do Victor com quase 700 mil" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$ 546 mil, R$ 108 mil só dos leads da base</b><span>Charles</span></figcaption><img src="../img/dep/charles.jpg" alt="Print do Charles com faturamento total de R$ 546.109,30" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$ 440 mil, R$ 318 mil de margem</b><span>Rayan</span></figcaption><img src="../img/dep/rayan-margem.jpg" alt="Mensagem do Rayan: fechei carrinho 440, 318 de margem de contribuição" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$ 250 mil com menos de R$ 4 mil em anúncio</b><span>Rayanlaiene</span></figcaption><img src="../img/dep/rayanlaiene.jpg" alt="Print da Rayanlaiene com 250 mil faturados" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$ 101 mil sem gastar com tráfego</b><span>Gabriel</span></figcaption><img src="../img/dep/gabriel.jpg" alt="Print do Gabriel com resultado de R$ 101.898" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$ 100 mil</b><span>Bruno</span></figcaption><img src="../img/dep/bruno.jpg" alt="Mensagem do Bruno: batemos 100k" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$ 97 mil com R$ 3,3 mil investidos</b><span>Artur</span></figcaption><img src="../img/dep/artur.jpg" alt="Mensagem do Artur com faturamento de R$ 97.856,71" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$ 92 mil com R$ 13 mil investidos</b><span>Daniela</span></figcaption><img src="../img/dep/daniela.jpg" alt="Mensagem da Daniela com faturamento de 92k" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>ROAS de 6,81 chamando a base</b><span>Mateus</span></figcaption><img src="../img/dep/mateus.jpg" alt="Mensagem do Mateus com ROAS de 6,81" loading="lazy"></figure>
+    </div>
+    <p class="nota">*R10x era o nome antigo do Base Money.</p>
+  </div>
+</section>
+
+<!-- fecho -->
+<section class="secao fecho">
+  <div class="col">
+    <div class="cab surge">
+      <p class="rotulo">As vagas</p>
+      <h2 class="h2">Por causa da minha rotina tocando as empresas, eu só consigo acompanhar de perto <span class="hl">2 empresas</span> que querem implementar o Base Money.</h2>
+      <p class="apoio">Se esse é o seu caso, bora trocar uma ideia.</p>
+    </div>
+    <div class="cta surge" style="margin-top:40px">
+      <a class="botao" href="#APLICACAO-LACUNA" data-cta>Quero monetizar minha base →</a>
+      <span class="vivo"><i></i>2 vagas no piloto</span>
+    </div>
+  </div>
+</section>
+
+<script>
+(() => {
+  const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // a frase da abertura, palavra por palavra
+  const frase = document.querySelector('[data-palavras]'); let k = 0;
+  const quebrar = no => [...no.childNodes].forEach(n => {
+    if (n.nodeType === 3) {
+      const f = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(w => {
+        if (!w.trim()) { f.append(w); return; }
+        const s = document.createElement('span'); s.className = 'p'; s.textContent = w;
+        s.style.transitionDelay = (0.15 + k++ * 0.1) + 's'; f.append(s);
+      });
+      n.replaceWith(f);
+    } else quebrar(n);
+  });
+  quebrar(frase);
+  requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById('topo').classList.add('on')));
+
+  // cada traço mede o próprio comprimento (desenhos, iceberg e lápis se desenham sozinhos)
+  const medir = raiz => raiz.querySelectorAll('.tr, .lapis path').forEach(el => { try { el.style.setProperty('--l', Math.ceil(el.getTotalLength()) + 2); } catch (e) {} });
+
+  // a tela que gruda (computador), montada a partir dos 3 cards
+  const passos = [...document.querySelectorAll('.passo')];
+  const esteira = document.getElementById('esteira'), artes = document.getElementById('artes'), textos = document.getElementById('textos');
+  const tracos = document.getElementById('tracos'), conta = document.getElementById('conta'), digita = document.getElementById('digita');
+  const nomes = ['Diagnóstico', 'Concepção', 'Execução'];
+  const pilulas = [], fios = [], telas = [], blocos = [];
+  passos.forEach((p, i) => {
+    if (i) { const f = document.createElement('i'); esteira.append(f); fios.push(f); }
+    const b = document.createElement('b'); b.textContent = nomes[i]; esteira.append(b); pilulas.push(b);
+    const a = p.querySelector('.arte').cloneNode(true); a.classList.remove('on'); artes.append(a); telas.push(a);
+    const t = document.createElement('div'); t.className = 'texto';
+    t.append(...['h3', 'h4', 'p:not(.rotulo)'].map(s => p.querySelector(s).cloneNode(true)));
+    textos.append(t); blocos.push(t);
+    tracos.append(document.createElement('span'));
+  });
+  let atual = -1, timer = null;
+  const ir = i => {
+    if (i === atual) return; atual = i;
+    pilulas.forEach((b, j) => { b.classList.toggle('agora', j === i); b.classList.toggle('feito', j < i); });
+    fios.forEach((f, j) => f.classList.toggle('feito', j < i));
+    telas.forEach((a, j) => { a.classList.toggle('vis', j === i); a.classList.toggle('on', j === i); });
+    blocos.forEach((t, j) => t.classList.toggle('vis', j === i));
+    [...tracos.children].forEach((s, j) => s.classList.toggle('on', j === i));
+    conta.textContent = String(i + 1).padStart(2, '0') + ' / 03';
+    const fr = passos[i].dataset.terminal; clearInterval(timer); digita.textContent = '';
+    if (calmo) { digita.textContent = fr; return; }
+    let n = 0; timer = setInterval(() => { digita.textContent = fr.slice(0, ++n); if (n >= fr.length) clearInterval(timer); }, 32);
+  };
+
+  // a escada: venda nova e venda pra base (OKRs da Vitascience; 2026 até 20/11)
+  const dados = [['2016-18', 3.5, 0], ['2019', 7.0, 0], ['2020', 14.5, 0], ['2021', 37.0, 20.5], ['2022', 30.0, 16.4], ['2023', 28.0, 15.1], ['2024', 50.3, 19.8], ['2025', 71.5, 18.0], ['2026', 39.1, 13.7]];
+  const barras = document.getElementById('barras'), anos = document.getElementById('anos');
+  const br = v => v.toFixed(1).replace('.', ',');
+  if (barras) dados.forEach(([a, v, base], i) => {
+    const b = document.createElement('div');
+    b.className = 'barra' + (a === '2026' ? ' barra--agora' : '');
+    const h = (v / 75 * 100).toFixed(1);
+    b.innerHTML = `<span class="barra__v">${br(v)}</span><span class="barra__b" data-h="${h}%" style="transition-delay:${i * 0.08}s"><span class="barra__nova"></span>${base ? `<span class="barra__base" style="height:${(base / v * 100).toFixed(1)}%">${br(base)}</span>` : ''}</span>`;
+    barras.append(b);
+    const curto = a === '2016-18' ? '16-18' : "'" + a.slice(2), s = document.createElement('span');
+    s.innerHTML = `<i class="l" style="font-style:normal">${a}</i><i class="c" style="font-style:normal">${curto}</i>`;
+    anos.append(s);
+  });
+  medir(document);
+
+  // rolagem: a tela das etapas, a linha do tempo (A) e o trilho lateral (B)
+  const trilho = document.getElementById('trilho');
+  const tl = document.getElementById('tl'), tlFill = document.getElementById('tlFill');
+  const hz = document.getElementById('hz'), hzTrilho = document.getElementById('hzTrilho'), hzFill = document.getElementById('hzFill');
+  const hzAnos = hz ? [...document.querySelectorAll('#hzAnos span')] : [];
+  let pedido = false;
+  const rolar = () => {
+    pedido = false;
+    if (trilho.offsetParent) {
+      const palco = trilho.firstElementChild, alto = palco.offsetHeight, curso = innerHeight * 1.4;
+      if (Math.abs(trilho.offsetHeight - (alto + curso)) > 2) trilho.style.height = (alto + curso) + 'px';
+      const r = trilho.getBoundingClientRect();
+      ir(Math.min(2, Math.floor(Math.min(1, Math.max(0, (innerHeight * 0.12 - r.top) / curso)) * 3)));
+    }
+    if (tl) {
+      const r = tl.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (innerHeight * 0.6 - r.top) / r.height));
+      tlFill.style.height = (p * 100) + '%';
+    }
+    if (hz) {
+      const extra = Math.max(0, hzTrilho.scrollWidth - innerWidth);
+      const alvo = innerHeight + extra * 1.15;
+      if (Math.abs(hz.offsetHeight - alvo) > 2) hz.style.height = alvo + 'px';
+      const r = hz.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, -r.top / (hz.offsetHeight - innerHeight || 1)));
+      hzTrilho.style.transform = `translateX(${-p * extra}px)`;
+      hzFill.style.width = (p * 100) + '%';
+      const n = hzAnos.length;
+      hzAnos.forEach((s, j) => s.classList.toggle('on', p >= (n > 1 ? j / (n - 1) : 0) - 0.02));
+    }
+  };
+  addEventListener('scroll', () => { if (!pedido) { pedido = true; requestAnimationFrame(rolar); } }, { passive: true });
+  addEventListener('resize', rolar); ir(0); rolar();
+
+  // o que entra rolando
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('on');
+    e.target.querySelectorAll('.arte').forEach(a => a.classList.add('on'));
+    if (e.target.id === 'grafico') e.target.querySelectorAll('.barra__b').forEach(b => b.style.height = b.dataset.h);
+    io.unobserve(e.target);
+  }), { threshold: 0.2 });
+  document.querySelectorAll('.surge, #iceberg, #grafico').forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
