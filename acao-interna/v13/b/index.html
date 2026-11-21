@@ -1,0 +1,1414 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BA$E MONEY · Felipe Gobbi</title>
+<meta name="description" content="A estratégia de baixo esforço pra tirar lucro da base que você já tem, sem VSL nova e sem mais tráfego frio, implementada com IA e com o acompanhamento do Felipe Gobbi.">
+<link rel="canonical" href="https://basemoney.com.br/">
+<meta name="theme-color" content="#0f100f">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://basemoney.com.br/">
+<meta property="og:site_name" content="BA$E MONEY">
+<meta property="og:title" content="BA$E MONEY · tire lucro da base que você já tem">
+<meta property="og:description" content="Sem VSL nova e sem mais tráfego frio. Com IA e acompanhamento individual do Felipe Gobbi.">
+<meta property="og:image" content="https://basemoney.com.br/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/f06.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/f12.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v13, 21/11/2026: seção sobre mim com foto depois do último CTA e rodapé simples. Base: v12, 21/11/2026: no ar em basemoney.com.br. CTA do meio dentro das etapas, barra de cada ano em duas cores, mergulhador no iceberg,
+     organograma dos agentes em 2026, etapas e anos clicáveis, slider terminando no meio da tela, fontes e fotos servidas daqui. -->
+<style>
+/* Erode */
+@font-face {
+  font-family: 'Erode';
+  src: url("fonts/f00.woff2") format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Erode';
+  src: url("fonts/f03.woff2") format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Erode';
+  src: url("fonts/f06.woff2") format('woff2');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Erode';
+  src: url("fonts/f09.woff2") format('woff2');
+  font-weight: 500;
+  font-display: swap;
+  font-style: italic;
+}
+
+
+
+/* Switzer */
+@font-face {
+  font-family: 'Switzer';
+  src: url("fonts/f12.woff2") format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url("fonts/f15.woff2") format('woff2');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url("fonts/f18.woff2") format('woff2');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url("fonts/f21.woff2") format('woff2');
+  font-weight: 800;
+  font-display: swap;
+  font-style: normal;
+}
+
+
+
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/f24.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/f25.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/f26.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/f27.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root{
+  --tinta:#0c0d0c; --apagado:#5c5c58; --fraco:#8c8f8a; --nevoa:#f4f5f3; --linha:#e3e5e1;
+  --creme:#f2ebc0; --creme-2:rgba(242,235,192,.66); --creme-3:rgba(242,235,192,.38); --traco:rgba(242,235,192,.14);
+  --noite:#0f100f;
+  --story:radial-gradient(100% 72% at 0% 0%,#232723 0%,#161716 38%,#0f100f 76%);
+  --cartao:linear-gradient(155deg,#272c27 0%,#191b19 48%,#121312 100%);
+  --serif:"Erode",Georgia,serif; --sans:"Switzer",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --suave:cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--apagado);font:400 16.8px/1.63 var(--sans);-webkit-font-smoothing:antialiased}
+p,h1,h2,h3,h4{margin:0}
+strong{color:var(--tinta);font-weight:600}
+ul{margin:0;padding:0;list-style:none}
+
+/* o respiro da AbraHub (bloco 15) */
+.secao{padding:80px 20px}
+.col{max-width:864px;margin:0 auto}
+.col--largo{max-width:1104px;margin:0 auto}
+.alt{background:var(--nevoa);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+.escuro{background:var(--noite);color:var(--creme-2)}
+.escuro strong{color:var(--creme)}
+
+/* a escada: Erode no título, Switzer 800 só no destaque, mono no rótulo */
+.rotulo{font:500 12px/1.33 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fraco)}
+.escuro .rotulo,.heroi .rotulo,.fecho .rotulo{color:var(--creme-3)}
+.h2{font:500 41.6px/1.2 var(--serif);letter-spacing:-.01em;color:var(--tinta);text-wrap:balance}
+.h2 em{font-style:italic}
+.escuro .h2,.fecho .h2{color:#fff}
+.escuro .h2 em,.fecho .h2 em{color:var(--creme)}
+.centro{text-align:center}
+.apoio{max-width:640px;margin-left:auto;margin-right:auto}
+.cab > * + *{margin-top:20px}
+.cab + *{margin-top:48px}
+
+.botao{display:inline-flex;align-items:center;justify-content:center;padding:20px 36px;border-radius:999px;background:var(--creme);color:var(--tinta);
+  font:600 17px/1.25 var(--sans);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;transition:transform .3s var(--suave),box-shadow .3s var(--suave)}
+.botao:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(242,235,192,.18)}
+.vivo{display:inline-flex;align-items:center;gap:10px;font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--creme-2)}
+.vivo i{position:relative;width:8px;height:8px;border-radius:50%;background:var(--creme)}
+.vivo i::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--creme);animation:ping 1.6s var(--suave) infinite}
+@keyframes ping{75%,100%{transform:scale(2.6);opacity:0}}
+.cta{display:flex;flex-direction:column;align-items:center;gap:20px}
+
+/* abertura: o degradê do story, sem nome e sem botão nos cantos */
+.heroi{background:var(--noite) var(--story);background-blend-mode:normal;min-height:100svh;display:flex;align-items:center;padding:96px 20px 72px;color:var(--creme-2)}
+.heroi__in{max-width:1000px;margin:0 auto;text-align:center}
+.marca{display:inline-flex;align-items:center;gap:12px;font:800 15px/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--creme)}
+.marca::before,.marca::after{content:"";width:28px;height:1px;background:var(--creme-3)}
+.heroi h1{text-wrap:balance;margin-top:32px;font:400 84px/1.03 var(--serif);letter-spacing:-.025em;color:#fff}
+.heroi h1 em{font-style:italic;color:var(--creme)}
+.heroi h1 .p{display:inline-block;opacity:0;filter:blur(14px);transform:translateY(.25em);transition:opacity 1s ease,filter 1s ease,transform 1s ease}
+.heroi.on h1 .p{opacity:1;filter:blur(0);transform:none}
+.heroi__sub{max-width:600px;margin:28px auto 0;font-size:18px;opacity:0;transition:opacity 1s ease 1.3s}
+.heroi__cta{margin-top:44px;opacity:0;transform:translateY(12px);transition:opacity 1s ease 1.7s,transform 1s ease 1.7s}
+.heroi.on .heroi__sub{opacity:1}
+.heroi.on .heroi__cta{opacity:1;transform:none}
+.descer{margin-top:56px;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--creme-3);animation:quica 1.8s var(--suave) infinite}
+@keyframes quica{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* 1 · o diagrama que se monta */
+.diagrama{margin-top:48px}
+.diagrama svg{display:block;width:100%;height:auto;overflow:visible}
+.diagrama .so-cel{display:none;max-width:360px;margin:0 auto}
+.diagrama .cx{opacity:0;transform:translateY(10px);transition:opacity .6s var(--suave),transform .6s var(--suave)}
+.diagrama .cx rect{fill:#fff;stroke:var(--tinta);stroke-width:1.2}
+.diagrama .cx text{font:600 17px var(--sans);fill:var(--tinta)}
+.diagrama .cx .sub{font:500 11.5px var(--mono);letter-spacing:.08em;fill:var(--fraco)}
+.diagrama .fio{fill:none;stroke:var(--tinta);stroke-width:1.2;stroke-dasharray:var(--l,400);stroke-dashoffset:var(--l,400);transition:stroke-dashoffset 1.2s var(--suave)}
+.diagrama .alvo rect{fill:var(--tinta);stroke:none}
+.diagrama .alvo text{fill:var(--creme)}
+.diagrama .alvo .sub{fill:var(--creme-3)}
+.diagrama.on .cx{opacity:1;transform:none}
+.diagrama.on .fio{stroke-dashoffset:0}
+
+/* cartões sem borda: o destaque vem do fundo */
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cartao{border-radius:24px;padding:40px;background:var(--nevoa)}
+.alt .cartao{background:#fff}
+.cartao h3{font:800 22px/1.2 var(--sans);letter-spacing:-.02em;color:var(--tinta);margin-top:16px}
+.cartao p{font-size:15px;margin-top:12px}
+.cartao--forte{background:var(--cartao) !important;color:var(--creme-2)}
+.cartao--forte .rotulo{color:var(--creme-3)}
+.cartao--forte h3,.cartao--forte strong{color:var(--creme)}
+.cartao--apagado h3{color:var(--fraco)}
+.lista li{position:relative;padding-left:28px;font-size:15px}
+.lista li + li{margin-top:12px}
+.lista li::before{position:absolute;left:0;top:0;font-weight:600}
+.lista--sim li::before{content:"✓";color:var(--creme)}
+.lista--nao li::before{content:"✕";color:var(--fraco)}
+
+/* 3 · a solução: cards (celular) e a tela que gruda (computador) */
+.passos{display:grid;gap:20px}
+.passo{background:var(--cartao);border-radius:24px;padding:48px 40px;text-align:center}
+.passo .rotulo{color:var(--creme-3)}
+.passo h3{font:400 36px/1.1 var(--serif);letter-spacing:-.01em;color:#fff;margin-top:16px}
+.passo h4{font:800 17px/1.3 var(--sans);letter-spacing:-.01em;color:var(--creme);margin-top:10px}
+.passo p{font-size:15px;line-height:1.6;color:var(--creme-2);margin-top:14px}
+.passo .saida{font:500 12px/1.5 var(--mono);letter-spacing:.05em;color:var(--creme);margin-top:18px}
+.arte{margin:40px auto 0;max-width:360px}
+.arte svg{display:block;width:100%;height:auto;stroke:var(--creme);fill:none;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
+.arte .tr{stroke-dasharray:var(--l,600);stroke-dashoffset:var(--l,600);transition:stroke-dashoffset 2s var(--suave)}
+.arte .fraco{stroke:var(--creme-3)}
+.arte .pont{stroke-dasharray:3 6}
+.arte .ponto{fill:var(--creme);stroke:none;opacity:0;transition:opacity .6s ease 1.4s}
+.arte.on .tr{stroke-dashoffset:0}
+.arte.on .ponto{opacity:1}
+.compromisso{margin-top:48px;text-align:center;font-size:15px;color:var(--creme-3)}
+.compromisso strong{display:block;font:400 22px/1.35 var(--serif);font-style:italic;color:var(--creme);margin-bottom:8px}
+
+.palco-trilho{display:none}
+@media (min-width:900px){
+  .passos{display:none}
+  .palco-trilho{display:block;position:relative;margin-top:48px}
+  .palco{position:sticky;top:12vh}
+  .palco__in{width:100%;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:center}
+  .tela{background:var(--cartao);border-radius:28px;padding:40px 48px 36px}
+  .esteira{display:flex;align-items:center;justify-content:center;gap:10px}
+  .esteira b{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:9px 12px;border-radius:999px;
+    color:var(--creme-3);background:rgba(242,235,192,.04);transition:all .5s var(--suave)}
+  .esteira b.feito{color:var(--creme-2);background:rgba(242,235,192,.08)}
+  .esteira b.agora{color:var(--tinta);background:var(--creme)}
+  .esteira i{width:28px;height:1px;background:var(--traco);position:relative;overflow:hidden}
+  .esteira i::after{content:"";position:absolute;inset:0;background:var(--creme);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--suave)}
+  .esteira i.feito::after{transform:scaleX(1)}
+  .artes{position:relative;height:300px;margin:36px 0 28px}
+  .artes .arte{position:absolute;inset:0;margin:0 auto;max-width:400px;opacity:0;transition:opacity .6s var(--suave)}
+  .artes .arte.vis{opacity:1}
+  .terminal{font:500 13px/1.4 var(--mono);color:var(--creme-2);border-top:1px solid var(--traco);padding-top:18px;min-height:40px}
+  .terminal .cursor{display:inline-block;width:.6em;background:var(--creme);margin-left:2px;animation:pisca 1s steps(1) infinite}
+  @keyframes pisca{50%{opacity:0}}
+  .lado{position:relative;min-height:340px}
+  .lado__topo{display:flex;justify-content:space-between;align-items:center}
+  .conta{font:500 13px/1 var(--mono);letter-spacing:.1em;color:var(--creme-2)}
+  .tracos{display:flex;gap:6px}
+  .tracos span{width:22px;height:3px;border-radius:2px;background:var(--traco);transition:background .4s,width .4s}
+  .tracos span.on{background:var(--creme);width:34px}
+  .textos{position:relative;margin-top:32px;min-height:300px}
+  .texto{position:absolute;inset:0;opacity:0;transform:translateY(14px);transition:opacity .5s var(--suave),transform .5s var(--suave);pointer-events:none}
+  .texto.vis{opacity:1;transform:none;pointer-events:auto}
+  .texto h3{font:400 46px/1.05 var(--serif);letter-spacing:-.015em;color:#fff}
+  .texto h4{font:800 19px/1.3 var(--sans);letter-spacing:-.01em;color:var(--creme);margin-top:12px}
+  .texto p{font-size:16.8px;color:var(--creme-2);margin-top:18px}
+  .texto .saida{font:500 12.5px/1.5 var(--mono);letter-spacing:.05em;color:var(--creme);margin-top:22px}
+  .rolar{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--creme-3);margin-top:28px}
+  .textos{min-height:240px !important}
+  .lado{min-height:0 !important}
+}
+
+/* 4 · quem sou eu */
+.fotos{display:grid;grid-template-columns:1fr 1.35fr;gap:16px}
+.fotos img{width:100%;height:100%;aspect-ratio:3/2;object-fit:cover;border-radius:20px;display:block}
+.eu{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;align-items:start}
+.eu__txt > * + *{margin-top:16px}
+.destaques{display:grid;gap:12px}
+.destaque{background:#fff;border-radius:20px;padding:22px 24px}
+.destaque b{display:block;font:800 34px/1 var(--sans);letter-spacing:-.03em;color:var(--tinta)}
+.destaque span{display:block;margin-top:8px;font-size:14px;color:var(--apagado)}
+.podcast{display:flex;align-items:center;gap:16px;background:var(--cartao);border-radius:20px;padding:18px 22px;color:var(--creme-2);text-decoration:none}
+.podcast__mic{flex:none;width:44px;height:44px;border-radius:12px;background:rgba(242,235,192,.08);display:grid;place-items:center}
+.podcast__mic svg{width:22px;height:22px;stroke:var(--creme);fill:none;stroke-width:1.5;stroke-linecap:round}
+.podcast__txt{flex:1;min-width:0}
+.podcast__txt b{display:block;font:800 17px/1.2 var(--sans);color:var(--creme)}
+.podcast__txt span{display:block;margin-top:4px;font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--creme-3)}
+.podcast__onde{display:flex;gap:8px}
+.podcast__onde svg{width:22px;height:22px;fill:var(--creme)}
+.grafico{margin-top:40px;background:#fff;border-radius:24px;padding:32px 32px 24px}
+.grafico__cab{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.grafico__total{font:800 30px/1 var(--sans);letter-spacing:-.03em;color:var(--tinta)}
+.barras{display:grid;grid-template-columns:repeat(9,1fr);gap:12px;align-items:end;height:240px;margin-top:32px;border-bottom:1px solid var(--linha)}
+.barra{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.barra__v{font:500 12px/1 var(--mono);color:var(--apagado);margin-bottom:8px;opacity:0;transition:opacity .6s ease}
+.barra__b{width:100%;max-width:56px;height:0;background:var(--tinta);border-radius:8px 8px 2px 2px;transition:height 1.1s cubic-bezier(.2,.8,.2,1)}
+.barra--agora .barra__b{background:repeating-linear-gradient(135deg,var(--tinta) 0 6px,#3a3d3a 6px 9px)}
+.barra--topo .barra__v{color:var(--tinta)}
+.anos{display:grid;grid-template-columns:repeat(9,1fr);gap:12px;margin-top:10px}
+.anos span{font:500 11px/1.3 var(--mono);text-align:center;color:var(--fraco);white-space:nowrap}
+.anos .c{display:none}
+.grafico.on .barra__v{opacity:1}
+.grafico__nota{margin-top:20px;font-size:13px;line-height:1.5;color:var(--fraco)}
+
+/* fecho e rodapé */
+.fecho{background:var(--noite) var(--story);color:var(--creme-2);text-align:center}
+.rodape{background:var(--noite);color:var(--creme-3);padding:56px 20px 40px;font-size:13px;line-height:1.6;border-top:1px solid var(--traco)}
+.rodape__frase{font:400 52px/1.05 var(--serif);letter-spacing:-.02em;color:#fff;margin-bottom:36px}
+.rodape__frase em{font-style:italic;color:var(--creme)}
+.rodape p + p{margin-top:8px}
+
+/* o que entra rolando */
+.surge{opacity:0;transform:translateY(24px);transition:opacity .9s var(--suave),transform .9s var(--suave)}
+.surge.on{opacity:1;transform:none}
+
+@media (max-width:760px){
+  .heroi{padding:72px 20px 56px}
+  .heroi h1{font-size:46px}
+  .heroi__sub{font-size:16.8px}
+  .h2{font-size:30px}
+  .duas,.eu{grid-template-columns:1fr}
+  .cartao{padding:32px 28px}
+  .fotos{grid-template-columns:1fr}
+  .passo h3{font-size:32px}
+  .botao{width:100%;padding:20px 24px;font-size:15px}
+  .grafico{padding:24px 16px 20px}
+  .grafico__cab{flex-direction:column;gap:8px}
+  .grafico__total{font-size:26px}
+  .barras,.anos{gap:5px}
+  .barras{height:190px}
+  .barra__v,.anos span{font-size:9px}
+  .anos .l{display:none}
+  .anos .c{display:inline}
+  .rodape__frase{font-size:36px}
+  .diagrama .so-desk{display:none}
+  .diagrama .so-cel{display:block}
+  .diagrama .cx .sub{font-size:10.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  .heroi h1 .p,.heroi__sub,.heroi__cta,.surge,.diagrama .cx{transition:none;opacity:1;filter:none;transform:none}
+  .arte .tr,.diagrama .fio{transition:none;stroke-dashoffset:0}
+  .descer,.vivo i::after{animation:none}
+}
+/* v6 · botão em Switzer, com mais peso */
+.botao{font:800 18px/1.2 var(--sans) !important;letter-spacing:.02em !important}
+
+/* 1 · o iceberg */
+.iceberg{margin:48px auto 0;max-width:640px}
+.iceberg svg{display:block;width:100%;height:auto;overflow:visible}
+.ice__agua{fill:var(--nevoa);opacity:0;transition:opacity 1s ease .3s}
+.iceberg .tr{fill:none;stroke:var(--tinta);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--l,1500);stroke-dashoffset:var(--l,1500);transition:stroke-dashoffset 2.2s var(--suave)}
+.ice__onda{stroke:var(--fraco) !important;transition-duration:1.4s !important}
+.ice__corpo{fill:rgba(12,13,12,.035) !important}
+.ice__ponta{fill:#fff !important;stroke-width:1.8 !important}
+.ice__linha{stroke:var(--linha) !important;stroke-dasharray:4 6 !important;stroke-dashoffset:0 !important;opacity:0;transition:opacity .8s ease 1.6s !important}
+.ice__txt{opacity:0;transition:opacity .8s ease}
+.ice__txt--topo{transition-delay:.6s}
+.ice__txt--fundo{transition-delay:1.5s}
+.ice__mono{font:500 12px var(--mono);letter-spacing:.12em;fill:var(--fraco)}
+.ice__item{font:600 19px var(--sans);fill:var(--tinta)}
+.ice__lucro{font:800 26px var(--sans);letter-spacing:-.02em;fill:var(--tinta)}
+.iceberg.on .tr{stroke-dashoffset:0}
+.iceberg.on .ice__agua,.iceberg.on .ice__txt,.iceberg.on .ice__linha{opacity:1}
+
+/* o gráfico: venda nova e venda pra base, com o rabisco de lápis em 2021 */
+.grafico{margin-top:72px;background:#fff;border-radius:28px;padding:48px 48px 36px;position:relative}
+.grafico__cab{display:block !important;text-align:center}
+.grafico__logo{height:26px;width:auto;display:block;margin:0 auto}
+.grafico__tit{font:500 36px/1.2 var(--serif);letter-spacing:-.01em;color:var(--tinta);margin-top:20px}
+.grafico__tit em{font-style:italic}
+.grafico__sub{margin-top:10px;font-size:16px;color:var(--apagado)}
+.barras{display:grid;grid-template-columns:repeat(9,1fr);gap:12px;align-items:end;height:300px;margin-top:96px;border-bottom:1px solid var(--linha);position:relative}
+.barra{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative}
+.barra__v{font:500 12px/1 var(--mono);color:var(--apagado);margin-bottom:8px;opacity:0;transition:opacity .6s ease}
+.barra__b{width:100%;max-width:56px;height:0;border-radius:8px 8px 2px 2px;overflow:hidden;display:flex;flex-direction:column;transition:height 1.1s cubic-bezier(.2,.8,.2,1);background:var(--tinta)}
+.barra__nova{flex:1;background:var(--tinta)}
+.barra__base{background:#e7dc9f;display:flex;align-items:center;justify-content:center;font:500 10.5px/1 var(--mono);color:var(--tinta);border-top:2px solid #fff}
+.barra--agora .barra__nova{background:repeating-linear-gradient(135deg,var(--tinta) 0 6px,#3a3d3a 6px 9px)}
+.grafico.on .barra__v{opacity:1}
+.anos{display:grid;grid-template-columns:repeat(9,1fr);gap:12px;margin-top:10px}
+.anos span{font:500 11px/1.3 var(--mono);text-align:center;color:var(--fraco);white-space:nowrap}
+.anos .c{display:none}
+.legenda{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 24px;margin-top:24px;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--fraco)}
+.legenda i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:-1px}
+.l-nova{background:var(--tinta)}.l-base{background:#e7dc9f}.l-parc{background:repeating-linear-gradient(135deg,var(--tinta) 0 3px,#6a6d6a 3px 5px)}
+.lapis{position:absolute;right:52%;width:210px;pointer-events:none;opacity:0;transition:opacity .6s ease 1.3s}
+.lapis p{font:400 23px/1.05 "Caveat",cursive;color:#55574f;transform:rotate(-5deg);text-align:center;margin:0}
+.lapis svg{display:block;width:120px;height:56px;margin:2px 0 0 auto;overflow:visible}
+.lapis path{fill:none;stroke:#6b6d64;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--l,200);stroke-dashoffset:var(--l,200);transition:stroke-dashoffset 1s ease 1.6s}
+.grafico.on .lapis{opacity:1}
+.grafico.on .lapis path{stroke-dashoffset:0}
+
+/* a Vitascience e o podcast */
+.vita{background:#fff;border-radius:18px;padding:20px 20px 14px}
+.vita__logo{height:22px;width:auto;display:block}
+.vita__potes{display:flex;align-items:flex-end;justify-content:space-between;gap:6px;margin-top:14px}
+.vita__potes img{height:96px;width:auto;mix-blend-mode:multiply}
+.pod{background:var(--cartao);border-radius:18px;padding:16px}
+.pod__cab{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.pod__selo{display:inline-flex;align-items:center;gap:8px;font:800 15px/1 var(--sans);color:var(--creme)}
+.pod__selo svg{width:18px;height:18px;stroke:var(--creme);fill:none;stroke-width:1.6;stroke-linecap:round}
+.pod__onde{font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--creme-3)}
+.pod__eps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.pod__eps figure{margin:0}
+.pod__eps img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px}
+.pod__eps figcaption{margin-top:5px;font:500 10px/1.2 var(--mono);letter-spacing:.04em;color:var(--creme-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* 4A · linha do tempo vertical */
+.tl{position:relative;margin-top:56px;background:#fff;border-radius:28px;padding:48px 48px 24px 88px}
+.tl__trilho{position:absolute;left:48px;top:56px;bottom:56px;width:2px;background:var(--linha)}
+.tl__trilho i{position:absolute;left:0;top:0;width:100%;height:0;background:var(--tinta);transition:height .2s linear}
+.tl__item{position:relative;padding-bottom:40px}
+.tl__ponto{position:absolute;left:-46px;top:4px;width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid var(--tinta);transition:background .4s}
+.tl__item.on .tl__ponto{background:var(--tinta)}
+.tl__item--chave .tl__ponto{width:18px;height:18px;left:-48px;background:#e7dc9f !important}
+.tl__ano{font:500 12px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fraco)}
+.tl__corpo{display:grid;grid-template-columns:200px 1fr;gap:24px;margin-top:14px;align-items:start}
+.tl__corpo--cheio{grid-template-columns:1fr}
+.tl__fotos{display:flex;gap:8px}
+.tl__fotos img{width:96px;height:96px;object-fit:cover;border-radius:12px}
+.tl__fotos--largas img{width:96px;height:96px}
+.tl__txt h3{font:800 19px/1.25 var(--sans);letter-spacing:-.01em;color:var(--tinta)}
+.tl__txt p{margin-top:8px;font-size:15px;line-height:1.6}
+.tl__corpo--cheio .vita,.tl__corpo--cheio .pod{max-width:560px}
+.tl__corpo--cheio .vita{background:var(--nevoa)}
+
+/* 4B · as eras passando de lado */
+.hz{position:relative;margin-top:48px}
+.hz__palco{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.hz__regua{max-width:864px;width:calc(100% - 40px);margin:0 auto 28px}
+.hz__linha{height:2px;background:var(--linha);position:relative}
+.hz__linha i{position:absolute;left:0;top:0;height:100%;width:0;background:var(--tinta)}
+.hz__anos{display:flex;justify-content:space-between;margin-top:10px}
+.hz__anos span{font:500 11px/1 var(--mono);letter-spacing:.06em;color:var(--fraco);position:relative;padding-top:6px;transition:color .3s}
+.hz__anos span::before{content:"";position:absolute;left:50%;top:-17px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#fff;border:2px solid var(--linha);transition:all .3s}
+.hz__anos span.on{color:var(--tinta)}
+.hz__anos span.on::before{background:var(--tinta);border-color:var(--tinta)}
+.hz__trilho{display:flex;gap:24px;padding:0 max(20px,calc((100vw - 864px)/2));will-change:transform}
+.hz__card{flex:none;width:min(420px,82vw);background:#fff;border-radius:24px;padding:28px}
+.hz__card--chave{box-shadow:inset 0 0 0 2px #e7dc9f}
+.hz__card h3{font:800 20px/1.25 var(--sans);letter-spacing:-.01em;color:var(--tinta);margin-top:16px}
+.hz__card p{font-size:15px;line-height:1.6;margin-top:8px}
+.hz__card .tl__ano{margin:0 0 14px}
+.hz__fotos{display:flex;gap:8px}
+.hz__fotos img{flex:1;min-width:0;height:150px;object-fit:cover;border-radius:12px}
+.hz__card .vita{background:var(--nevoa);padding:16px}
+.hz__card .vita__potes img{height:78px}
+.hz__card .pod__eps{grid-template-columns:repeat(3,1fr)}
+.hz__numero{height:150px;border-radius:12px;background:var(--cartao);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hz__numero b{font:800 64px/1 var(--sans);color:var(--creme)}
+.hz__numero span{margin-top:8px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--creme-3)}
+.autor--b .grafico{margin-top:24px}
+
+/* 4C · tudo num card só */
+.resumo{margin-top:56px;background:#fff;border-radius:28px;padding:40px;display:grid;grid-template-columns:1fr 1.25fr;gap:40px}
+.resumo__eu{display:flex;align-items:center;gap:14px}
+.resumo__eu img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+.resumo__eu b{display:block;font:800 17px/1.2 var(--sans);color:var(--tinta)}
+.resumo__eu span{display:block;margin-top:4px;font:500 11px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--fraco)}
+.mini{list-style:none;margin:24px 0 0;padding:0 0 0 22px;position:relative}
+.mini::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--linha)}
+.mini li{position:relative;padding-bottom:16px}
+.mini li::before{content:"";position:absolute;left:-22px;top:5px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--tinta)}
+.mini li.mini--chave::before{background:#e7dc9f;border-color:var(--tinta)}
+.mini__ano{font:500 11px/1 var(--mono);letter-spacing:.08em;color:var(--fraco)}
+.mini p{margin-top:4px;font-size:14.5px;line-height:1.5}
+.mini b{color:var(--tinta)}
+.resumo__graf .grafico{margin:0;padding:0;background:none;border-radius:0}
+.resumo__graf .grafico__tit{font-size:28px}
+.resumo__graf .barras{height:240px;margin-top:84px;gap:8px}
+.resumo__graf .anos{gap:8px}
+.resumo__faixa{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:20px;padding-top:32px;border-top:1px solid var(--linha)}
+.resumo__faixa .rotulo{margin-bottom:12px}
+.resumo__faixa .vita{background:var(--nevoa)}
+
+/* 5 · quem aplicou */
+.deps{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.dep{margin:0;background:var(--nevoa);border-radius:24px;padding:28px;display:flex;flex-direction:column;justify-content:space-between}
+.dep__balao{position:relative;background:#fff;border-radius:4px 18px 18px 18px;padding:18px 20px;box-shadow:0 1px 0 rgba(12,13,12,.06)}
+.dep__balao p{font-size:15px;line-height:1.6;color:var(--tinta)}
+.dep__balao p + p{margin-top:10px}
+.dep figcaption{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px}
+.dep figcaption b{font:800 15px/1 var(--sans);color:var(--tinta)}
+.dep__chip{font:500 11px/1.2 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--creme);background:var(--cartao);padding:8px 12px;border-radius:999px}
+
+@media (max-width:860px){
+  .botao{font-size:16px !important}
+  .ice__item{font-size:26px}
+  .ice__mono{font-size:16px}
+  .ice__lucro{font-size:32px}
+  .grafico{padding:32px 16px 24px;margin-top:48px}
+  .grafico__tit{font-size:26px}
+  .barras{height:220px;gap:5px;margin-top:104px}
+  .anos{gap:5px}
+  .barra__v,.anos span{font-size:9px}
+  .barra__base{font-size:0}
+  .anos .l{display:none}
+  .anos .c{display:inline}
+  .lapis{width:150px;right:auto;left:-112px}
+  .lapis p{font-size:19px}
+  .lapis svg{width:70px;height:46px}
+  .tl{padding:32px 20px 8px 48px}
+  .tl__trilho{left:22px;top:40px;bottom:40px}
+  .tl__ponto{left:-33px}
+  .tl__item--chave .tl__ponto{left:-35px}
+  .tl__corpo{grid-template-columns:1fr;gap:14px}
+  .tl__fotos img{width:84px;height:84px}
+  .vita__potes img{height:62px}
+  .pod__eps,.hz__card .pod__eps{grid-template-columns:repeat(2,1fr)}
+  .pod__eps figure:nth-child(n+5){display:none}
+  .pod__onde{display:none}
+  .hz__card{padding:22px}
+  .hz__fotos img{height:120px}
+  .hz__numero{height:120px}
+  .resumo{grid-template-columns:1fr;padding:24px 18px;gap:28px}
+  .resumo__faixa{grid-template-columns:1fr}
+  .deps{grid-template-columns:1fr}
+  .dep{padding:20px}
+}
+
+/* 1 · o iceberg, à mão */
+.iceberg{margin:40px auto 0;max-width:760px}
+.iceberg svg{display:block;width:100%;height:auto;overflow:visible}
+.iceberg .tr{stroke-dasharray:var(--l,1200);stroke-dashoffset:var(--l,1200);transition:stroke-dashoffset 2.4s cubic-bezier(.4,0,.2,1)}
+.iceberg .ice-corpo path:first-child{stroke-opacity:.42}
+.iceberg .ice-corpo .tr{transition-duration:3.2s;transition-delay:.5s}
+.iceberg .ice-ponta path,.iceberg .ice-barco path{transition:opacity .8s ease .2s}
+.iceberg path[fill="#ffffff"]{opacity:0;transition:opacity .9s ease .3s}
+.iceberg.on .tr{stroke-dashoffset:0}
+.iceberg.on path[fill="#ffffff"]{opacity:1}
+.ice__txt{opacity:0;transition:opacity .9s ease}
+.ice__txt--topo{transition-delay:.9s}
+.ice__txt--fundo{transition-delay:1.8s}
+.iceberg.on .ice__txt{opacity:1}
+.ice__mono{font:500 12px var(--mono);letter-spacing:.14em;fill:var(--fraco)}
+.ice__item{font:600 19px var(--sans);fill:var(--tinta)}
+.ice__lucro{font:800 31px var(--sans);letter-spacing:-.02em;fill:var(--tinta)}
+.ice__mao{font:500 22px "Caveat",cursive;fill:#4a4c45}
+.ice__halo{paint-order:stroke;stroke:#fff;stroke-width:9px;stroke-linejoin:round}
+@media (max-width:760px){
+  .ice__item{font-size:25px}
+  .ice__lucro{font-size:36px}
+  .ice__mono{font-size:15px}
+  .ice__mao{font-size:27px}
+}
+
+/* v7 · a autoridade: título dentro da tela que gruda, sem buraco */
+.autor{background:var(--nevoa);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha);padding-bottom:80px}
+.hz{position:relative;margin:0}
+.hz__palco{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:24px 0}
+.hz__cab{padding:0 20px}
+.hz__cab + *{margin-top:36px !important}
+.hz__regua{max-width:864px;width:calc(100% - 40px);margin:0 auto 26px}
+.hz__linha{height:2px;background:var(--linha);position:relative}
+.hz__linha i{position:absolute;left:0;top:0;height:100%;width:0;background:var(--tinta)}
+.hz__anos{display:flex;justify-content:space-between;margin-top:10px}
+.hz__anos span{font:500 11px/1 var(--mono);letter-spacing:.06em;color:var(--fraco);position:relative;padding-top:6px;transition:color .3s}
+.hz__anos span::before{content:"";position:absolute;left:50%;top:-17px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#fff;border:2px solid var(--linha);transition:all .3s}
+.hz__anos span.on{color:var(--tinta)}
+.hz__anos span.on::before{background:var(--tinta);border-color:var(--tinta)}
+.hz__anos span.chave.on::before{background:#2c3a2c;border-color:#2c3a2c;box-shadow:0 0 0 4px rgba(44,58,44,.15)}
+.hz__trilho{display:flex;align-items:stretch;gap:24px;padding:0 max(20px,calc((100vw - 864px)/2));will-change:transform}
+.hz__card{flex:none;width:min(400px,84vw);background:#fff;border-radius:24px;padding:26px;display:flex;flex-direction:column}
+.hz__card--largo{width:min(540px,88vw)}
+.hz__card h3{font:800 20px/1.25 var(--sans);letter-spacing:-.01em;color:var(--tinta);margin-top:18px;text-wrap:balance}
+.hz__card p{font-size:15px;line-height:1.6;margin-top:8px}
+.hz__card .tl__ano{margin:0 0 14px;font:500 12px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fraco)}
+.hz__banner{display:block;width:100%;aspect-ratio:1600/853;object-fit:cover;border-radius:14px}
+.hz__fotos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hz__fotos img{width:100%;height:170px;object-fit:cover;border-radius:14px}
+.hz__num{height:170px;border-radius:14px;background:var(--nevoa);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hz__num b{font:800 48px/1 var(--sans);letter-spacing:-.03em;color:var(--tinta)}
+.hz__num span{margin-top:10px;font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fraco)}
+.hz__card--virada{width:min(460px,86vw);background:var(--noite) var(--story);color:var(--creme-2)}
+.hz__card--virada .tl__ano{color:var(--creme-3)}
+.hz__card--virada h3{color:#fff}
+.hz__card--virada p{color:var(--creme-2)}
+.hz__num--claro{background:rgba(242,235,192,.06);box-shadow:inset 0 0 0 1px rgba(242,235,192,.1)}
+.hz__num--claro b{color:var(--creme)}
+.hz__num--claro span{color:var(--creme-3)}
+.hz__term{height:170px;border-radius:14px;background:var(--cartao);padding:22px;display:flex;flex-direction:column;justify-content:center;gap:10px;font:500 13px/1.4 var(--mono);color:var(--creme-2)}
+.hz__term .cursor{display:inline-block;width:.6em;margin-left:3px;background:var(--creme);animation:pisca 1s steps(1) infinite}
+@keyframes pisca{50%{opacity:0}}
+.pod2{position:relative}
+.pod2__capa{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;box-shadow:0 14px 30px rgba(12,13,12,.18)}
+.pod2__fila{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.pod2__fila img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px}
+
+/* o gráfico, sem espaço sobrando */
+.autor .grafico{margin-top:0}
+.grafico__tit{font:500 34px/1.2 var(--serif) !important}
+.barras{margin-top:40px !important}
+.lapis{position:absolute;inset:0;right:auto;width:100%;pointer-events:none;opacity:0;transition:opacity .6s ease 1.2s}
+.lapis p{position:absolute;left:0;top:4%;width:26%;font:500 22px/1.05 "Caveat",cursive;color:#55574f;transform:rotate(-4deg);text-align:left;margin:0}
+.lapis svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.lapis path{fill:none;stroke:#5f6158;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:200;stroke-dashoffset:200;transition:stroke-dashoffset 1.2s ease 1.5s}
+.grafico.on .lapis{opacity:1}
+.grafico.on .lapis path{stroke-dashoffset:0}
+
+/* 5 · quem aplicou: os prints, do jeito que chegaram */
+.provas{columns:3;column-gap:20px}
+.prova{break-inside:avoid;margin:0 0 20px;background:var(--nevoa);border-radius:22px;padding:14px}
+.prova figcaption{padding:8px 8px 14px}
+.prova figcaption b{display:block;font:800 21px/1.2 var(--sans);letter-spacing:-.02em;color:var(--tinta);text-wrap:balance}
+.prova figcaption span{display:block;margin-top:6px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fraco)}
+.prova img{display:block;width:100%;height:auto;border-radius:12px}
+.nota{margin-top:12px;text-align:center;font-size:13px;color:var(--fraco)}
+
+@media (max-width:860px){
+  .hz__cab + *{margin-top:24px !important}
+  .hz__card{padding:20px}
+  .hz__card h3{font-size:18px;margin-top:14px}
+  .hz__card p{font-size:14px}
+  .hz__fotos img,.hz__num,.hz__term{height:130px}
+  .hz__num b{font-size:38px}
+  .grafico__tit{font-size:26px !important}
+  .lapis p{font-size:17px;width:34%}
+  .provas{columns:1}
+  .prova figcaption b{font-size:19px}
+}
+
+
+/* v8 · o marca-texto que corre quando o título aparece */
+.hl{--hlc:#ece2a8;background-image:linear-gradient(transparent 56%,var(--hlc) 56%,var(--hlc) 92%,transparent 92%);background-repeat:no-repeat;background-size:0% 100%;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .06em;transition:background-size 1s cubic-bezier(.65,0,.35,1) .45s}
+.heroi .hl,.fecho .hl,.escuro .hl{--hlc:rgba(242,235,192,.18);color:var(--creme)}
+.heroi.on .hl{transition-delay:1.5s}
+.on .hl,.heroi.on .hl{background-size:100% 100%}
+.heroi h1 .hl .p{background:none}
+/* v9 · barra de duas cores por ano */
+.mb{margin-top:18px}
+.mb__cab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.mb__cab b{font:800 18px/1 var(--sans);letter-spacing:-.02em;color:var(--tinta)}
+.mb__cab span{font:500 11px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--apagado)}
+.mb__ponto{display:inline-block;width:9px;height:9px;border-radius:3px;background:#e7dc9f;margin-right:7px;vertical-align:-1px}
+.mb__trilho{height:12px;border-radius:999px;background:var(--nevoa);margin-top:9px;overflow:hidden}
+.mb__fill{height:100%;display:flex;border-radius:999px;overflow:hidden}
+.mb__base{display:block;height:100%;background:#e7dc9f}
+.mb__fill .mb__nova{flex:1;display:block;height:100%;background:var(--tinta)}
+.mb__trilho>.mb__nova{display:block;height:100%;border-radius:999px;background:var(--tinta)}
+.mb--g{margin:0;width:100%}
+.mb--g .mb__cab b{font-size:40px}
+.mb--g .mb__trilho{height:22px;margin-top:14px}
+.escuro-ctx .mb__cab b,.hz__card--virada .mb__cab b,.gt__card--chave .mb__cab b,.tlb--chave .mb__cab b{color:var(--creme)}
+.hz__card--virada .mb__cab span,.gt__card--chave .mb__cab span,.tlb--chave .mb__cab span{color:var(--creme-3)}
+.hz__card--virada .mb__trilho,.gt__card--chave .mb__trilho,.tlb--chave .mb__trilho{background:rgba(242,235,192,.08)}
+.hz__card--virada .mb__nova,.gt__card--chave .mb__nova,.tlb--chave .mb__nova{background:rgba(242,235,192,.3) !important}
+
+/* os visuais de cada marco */
+.vz--banner{display:block;width:100%;aspect-ratio:1600/853;object-fit:cover;border-radius:14px}
+.vz--num{height:170px;border-radius:14px;background:var(--nevoa);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.vz--num b{font:800 46px/1 var(--sans);letter-spacing:-.03em;color:var(--tinta)}
+.vz--num span{margin-top:10px;font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fraco)}
+.vz--barra{min-height:170px;border-radius:14px;background:rgba(242,235,192,.06);box-shadow:inset 0 0 0 1px rgba(242,235,192,.1);padding:26px;display:flex;align-items:center}
+.vz--fotos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vz--fotos img{display:block;width:100%;height:170px;object-fit:cover;border-radius:14px}
+.pod3__capa{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;box-shadow:0 12px 26px rgba(12,13,12,.18)}
+.pod3__fila{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.pod3__fila img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px}
+
+/* o fechamento da história */
+.soma{margin-top:48px;text-align:center}
+.soma__tit{font:500 34px/1.25 var(--serif);letter-spacing:-.01em;color:var(--tinta);text-wrap:balance;max-width:760px;margin:0 auto}
+.soma .legenda{margin-top:18px}
+
+/* A · o gráfico é a linha do tempo */
+.autor--a{background:var(--nevoa);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha);padding-bottom:80px}
+.gt{position:relative}
+.gt__palco{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:28px;padding:24px 20px;max-width:1104px;margin:0 auto}
+.gt__graf{background:#fff;border-radius:24px;padding:22px 28px 16px}
+.gt__barras{display:grid;grid-template-columns:repeat(7,1fr);gap:14px;align-items:end;height:160px;border-bottom:1px solid var(--linha)}
+.gt__col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;opacity:.22;transition:opacity .45s var(--suave)}
+.gt__col.feito{opacity:.55}
+.gt__col.on{opacity:1}
+.gt__v{font:500 11px/1 var(--mono);color:var(--apagado);margin-bottom:6px}
+.gt__col.on .gt__v{color:var(--tinta);font-weight:600}
+.gt__bar{width:100%;max-width:64px;border-radius:7px 7px 2px 2px;overflow:hidden;display:flex;flex-direction:column}
+.gt__nova{flex:1;background:var(--tinta)}
+.gt__base{display:block;background:#e7dc9f;border-top:2px solid #fff}
+.gt__ano{position:absolute;bottom:-24px;font:500 11px/1 var(--mono);color:var(--fraco)}
+.gt__col.on .gt__ano{color:var(--tinta)}
+.gt__graf .legenda{margin-top:32px}
+.gt__cards{position:relative;height:300px}
+.gt__card{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1.05fr;gap:36px;align-items:center;background:#fff;border-radius:24px;padding:26px 32px;
+  opacity:0;transform:translateY(16px);transition:opacity .45s var(--suave),transform .45s var(--suave);pointer-events:none}
+.gt__card.on{opacity:1;transform:none;pointer-events:auto}
+.gt__card--chave{background:var(--noite) var(--story);color:var(--creme-2)}
+.gt__card--chave .tl__ano{color:var(--creme-3)}
+.gt__card--chave h3{color:#fff}
+.gt__card .tl__ano{margin:0 0 10px;font:500 12px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fraco)}
+.gt__card h3{font:800 21px/1.25 var(--sans);letter-spacing:-.01em;color:var(--tinta);text-wrap:balance}
+.gt__card p{font-size:15px;line-height:1.6;margin-top:8px}
+.gt__vis .vz--fotos img,.gt__vis .vz--num,.gt__vis .vz--barra{height:230px}
+.gt__vis .vz--banner{max-height:240px}
+
+/* B · linha do tempo vertical */
+.autor--b{background:var(--nevoa)}
+.tlb__tl{padding:48px 48px 24px 92px}
+.tlb{padding-bottom:48px}
+.tlb__corpo{display:grid;grid-template-columns:1fr 1.1fr;gap:32px;margin-top:14px;align-items:start}
+.tlb h3{font:800 20px/1.25 var(--sans);letter-spacing:-.01em;color:var(--tinta);text-wrap:balance}
+.tlb p:not(.tl__ano){font-size:15px;line-height:1.6;margin-top:8px}
+.tlb--chave{background:var(--noite) var(--story);border-radius:22px;padding:28px;margin:0 0 48px -20px;color:var(--creme-2)}
+.tlb--chave .tl__ponto{left:-26px !important}
+.tlb--chave h3{color:#fff}
+.tlb--chave .tl__ano{color:var(--creme-3)}
+
+/* C · ajustes do slider */
+.hz__card .vz{margin-bottom:2px}
+.hz__card .mb{margin-top:14px}
+
+@media (max-width:860px){
+  .soma__tit{font-size:26px}
+  .gt__palco{gap:16px;padding:16px 16px}
+  .gt__cab .h2{font-size:24px}
+  .gt__graf{padding:16px 12px 12px}
+  .gt__barras{height:110px;gap:6px}
+  .gt__v{font-size:9px}
+  .gt__ano{font-size:9px;bottom:-20px}
+  .gt__graf .legenda{margin-top:26px}
+  .gt__cards{height:430px}
+  .gt__card{grid-template-columns:1fr;gap:14px;padding:18px;align-content:start}
+  .gt__vis .vz--fotos img,.gt__vis .vz--num,.gt__vis .vz--barra{height:120px}
+  .gt__vis .vz--banner{max-height:150px}
+  .gt__vis .pod3__fila{display:none}
+  .gt__vis .pod3__capa{max-height:150px}
+  .gt__card h3{font-size:17px}
+  .gt__card p{font-size:13.5px}
+  .gt__card .mb{margin-top:10px}
+  .tlb__tl{padding:28px 18px 8px 44px}
+  .tlb__corpo{grid-template-columns:1fr;gap:16px}
+  .tlb--chave{margin-left:-12px;padding:20px}
+  .vz--fotos img,.vz--num{height:130px}
+  .mb--g .mb__cab b{font-size:32px}
+}
+
+
+/* v10 · a tela guiada das 3 etapas no celular */
+.passos{display:none !important}
+@media (max-width:899px){
+  .palco-trilho{display:block;position:relative;margin-top:28px}
+  .palco{position:sticky;top:5vh}
+  .palco__in{display:grid;grid-template-columns:1fr;gap:14px}
+  .tela{background:var(--cartao);border-radius:22px;padding:18px 18px 16px}
+  .esteira{display:flex;align-items:center;justify-content:center;gap:6px}
+  .esteira b{font:500 9.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:7px 9px;border-radius:999px;color:var(--creme-3);background:rgba(242,235,192,.04);transition:all .5s var(--suave)}
+  .esteira b.feito{color:var(--creme-2);background:rgba(242,235,192,.08)}
+  .esteira b.agora{color:var(--tinta);background:var(--creme)}
+  .esteira i{width:14px;height:1px;background:var(--traco);position:relative;overflow:hidden}
+  .esteira i::after{content:"";position:absolute;inset:0;background:var(--creme);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--suave)}
+  .esteira i.feito::after{transform:scaleX(1)}
+  .artes{position:relative;height:176px;margin:14px 0 10px}
+  .artes .arte{position:absolute;inset:0;margin:0 auto;max-width:250px;opacity:0;transition:opacity .6s var(--suave)}
+  .artes .arte.vis{opacity:1}
+  .terminal{font:500 11.5px/1.4 var(--mono);color:var(--creme-2);border-top:1px solid var(--traco);padding-top:12px;min-height:32px}
+  .terminal .cursor{display:inline-block;width:.6em;background:var(--creme);margin-left:2px;animation:pisca 1s steps(1) infinite}
+  .lado{position:relative;padding:0 4px}
+  .lado__topo{display:flex;justify-content:space-between;align-items:center}
+  .conta{font:500 12px/1 var(--mono);letter-spacing:.1em;color:var(--creme-2)}
+  .tracos{display:flex;gap:6px}
+  .tracos span{width:18px;height:3px;border-radius:2px;background:var(--traco);transition:background .4s,width .4s}
+  .tracos span.on{background:var(--creme);width:28px}
+  .textos{position:relative;margin-top:12px;min-height:228px}
+  .texto{position:absolute;inset:0;opacity:0;transform:translateY(12px);transition:opacity .5s var(--suave),transform .5s var(--suave);pointer-events:none}
+  .texto.vis{opacity:1;transform:none}
+  .texto h3{font:400 27px/1.08 var(--serif);letter-spacing:-.01em;color:#fff}
+  .texto h4{font:800 15px/1.3 var(--sans);color:var(--creme);margin-top:8px}
+  .texto p{font-size:14px;line-height:1.55;color:var(--creme-2);margin-top:8px}
+  .rolar{display:none}
+  .autor--a{display:none}
+}
+@media (min-width:900px){ #autor{display:none} }
+
+/* o ano de vendas, desenhado à mão */
+.maquina{margin:44px auto 0;max-width:760px}
+.maquina svg{display:block;width:100%;height:auto;overflow:visible}
+.maquina .tr{stroke-dasharray:var(--l,1400);stroke-dashoffset:var(--l,1400);transition:stroke-dashoffset 2.6s cubic-bezier(.4,0,.2,1)}
+.maquina .mq-com .tr{transition-delay:.5s;transition-duration:3s}
+.maquina .mq-seta .tr{transition-delay:2.4s;transition-duration:1s}
+.maquina.on .tr{stroke-dashoffset:0}
+.mq__txt{opacity:0;transition:opacity .9s ease}
+.mq__txt--eixo{transition-delay:.3s}
+.mq__txt--nota{transition-delay:2.6s}
+.maquina.on .mq__txt{opacity:1}
+.mq__mes{font:500 12px var(--mono);letter-spacing:.08em;fill:var(--creme-3)}
+.mq__mao{font:500 24px "Caveat",cursive;fill:var(--creme)}
+.mq__mao--fraco{fill:#8a8e84;font-size:21px}
+.mq__leg{margin-top:20px;color:var(--creme-3)}
+.l-com{background:var(--creme)}
+.l-sem{background:repeating-linear-gradient(90deg,#6e7268 0 4px,transparent 4px 7px)}
+@media (max-width:760px){
+  .mq__mes{font-size:17px}
+  .mq__mao{font-size:31px}
+  .mq__mao--fraco{font-size:27px}
+}
+
+/* v11 · iceberg em azul-gelo */
+.iceberg svg{border-radius:28px;box-shadow:0 24px 60px rgba(60,90,105,.12)}
+.ib-ponta,.ib-massa{opacity:0;transform:translateY(14px);transition:opacity 1.1s var(--suave),transform 1.1s var(--suave)}
+.ib-massa{transition-delay:.5s}
+.ib-agua{stroke-dasharray:var(--l,900);stroke-dashoffset:var(--l,900);transition:stroke-dashoffset 2s var(--suave) .2s}
+.iceberg.on .ib-ponta,.iceberg.on .ib-massa{opacity:1;transform:none}
+.iceberg.on .ib-agua{stroke-dashoffset:0}
+.ib__txt{opacity:0;transition:opacity .9s ease}
+.ib__txt--topo{transition-delay:.9s}
+.ib__txt--fundo{transition-delay:1.7s}
+.iceberg.on .ib__txt{opacity:1}
+.ib__mono{font:500 12px var(--mono);letter-spacing:.14em;fill:#6f8794}
+.ib__mono--fundo{fill:#3f5865}
+.ib__item{font:600 19px var(--sans);fill:var(--tinta)}
+.ib__item--fundo{fill:#1d2c34}
+.ib__mao{font:500 22px "Caveat",cursive;fill:#4f6874}
+.ib__pilula{fill:#e7dc9f;transform-box:fill-box;transform-origin:center}
+.ib__lucro{font:800 25px var(--sans);letter-spacing:-.02em;fill:var(--tinta)}
+@media (max-width:760px){
+  .ib__item{font-size:25px}
+  .ib__mono{font-size:15px}
+  .ib__mao{font-size:28px}
+  .ib__lucro{font-size:31px}
+  .ib__pilula{transform:scale(1.2,1.14)}
+}
+
+/* v11 · pra quem é, com as provas */
+.tipos{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.tipos span{font:600 14px/1 var(--sans);color:var(--tinta);background:#fff;border-radius:999px;padding:12px 18px}
+.galera{margin:56px 0 18px;text-align:center;font:500 30px/1 "Caveat",cursive;color:var(--apagado)}
+.galera::after{content:" ↓"}
+.alt .prova{background:#fff}
+@media (max-width:860px){
+  .provas{columns:2;column-gap:10px}
+  .prova{margin-bottom:10px;padding:8px;border-radius:16px}
+  .prova figcaption{padding:4px 4px 8px}
+  .prova figcaption b{font-size:14px;line-height:1.25}
+  .prova figcaption span{font-size:9.5px}
+  .prova img{border-radius:9px}
+  .galera{margin-top:40px;font-size:26px}
+}
+
+/* v11 · CTA do meio */
+.meio{padding:72px 20px}
+.botao--escuro{background:var(--tinta);color:var(--creme)}
+.botao--escuro:hover{box-shadow:0 10px 30px rgba(12,13,12,.22)}
+
+/* v11 · o slider da história vale pro computador também */
+#autor{display:block !important}
+.autor{padding-bottom:72px}
+.hz__card--ia{background:var(--noite) var(--story);color:var(--creme-2)}
+.hz__card--ia .tl__ano{color:var(--creme-3)}
+.hz__card--ia h3{color:#fff}
+.hz__card--ia p{color:var(--creme-2)}
+.hz__card--ia .mb__cab b{color:var(--creme)}
+.hz__card--ia .mb__cab span{color:var(--creme-3)}
+.hz__card--ia .mb__trilho{background:rgba(242,235,192,.08)}
+.hz__card--ia .mb__nova{background:rgba(242,235,192,.3) !important}
+.hz__term{background:rgba(242,235,192,.05);box-shadow:inset 0 0 0 1px rgba(242,235,192,.1)}
+.hz__term p{margin:0;font:500 13px/1.5 var(--mono);color:var(--creme)}
+.vz--pod{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vz--pod img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px}
+.vz--prints img{object-position:top}
+.mb--duas .mb__trilho + .mb__cab{margin-top:12px}
+.mb--duas .mb__trilho{height:9px;margin-top:6px}
+.vz--num b{white-space:nowrap}
+@media (max-width:860px){
+  .hz__card h3{font-size:17px}
+  .hz__card p{font-size:13.5px;line-height:1.5}
+  .hz__card .mb{margin-top:10px}
+  .vz--pod{gap:6px}
+}
+
+/* v11 · fecho com os 4 passos */
+.etapas{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:left;counter-reset:none}
+.etapas li{background:var(--cartao);border-radius:22px;padding:26px 24px 28px}
+.etapas b{display:block;font:500 12px/1 var(--mono);letter-spacing:.12em;color:var(--creme-3)}
+.etapas p{margin-top:14px;font:600 17px/1.4 var(--sans);color:var(--creme)}
+.etapas li:nth-child(2){transition-delay:.1s}.etapas li:nth-child(3){transition-delay:.2s}.etapas li:nth-child(4){transition-delay:.3s}
+@media (max-width:860px){
+  .etapas{grid-template-columns:1fr;gap:10px}
+  .etapas li{display:flex;gap:16px;align-items:baseline;padding:20px}
+  .etapas p{margin:0;font-size:16px}
+}
+
+/* v11 · 2024: os resultados chegando no WhatsApp */
+.vz--zap{min-height:170px;border-radius:14px;background:#e9e4da;padding:14px 14px;display:flex;flex-direction:column;justify-content:center;gap:8px;overflow:hidden}
+.zap{max-width:86%;margin:0;padding:7px 11px 6px;border-radius:12px;background:#fff;font:500 13.5px/1.3 var(--sans) !important;color:#1b1f1b !important;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.zap b{display:block;font:700 11px/1.3 var(--sans);color:#2f7d5b}
+.zap i{display:none;text-align:right;font:400 10px/1 var(--sans);color:#8a8f8a;font-style:normal;margin-top:2px}
+.zap--b{align-self:flex-end;background:#d9fdd3}
+@media (max-width:860px){.vz--zap{min-height:0;gap:5px;padding:10px}.zap{font-size:12px !important;padding:5px 9px 4px}.zap i{display:none}}
+
+/* v12 · o mergulhador indo atrás do lucro */
+.ib-mergulho{opacity:0;transition:opacity 1s ease 2.2s}
+.iceberg.on .ib-mergulho{opacity:1}
+.ib-diver{animation:boia 4.5s ease-in-out infinite}
+@keyframes boia{50%{transform:translate(5px,-4px)}}
+.ib-diver__corpo{fill:#34505e}
+.ib-diver__membro{fill:none;stroke:#34505e}
+.ib-diver__fin{fill:#4d6b78}
+.ib-diver__tanque{fill:#e7dc9f}
+.ib-diver__mascara{fill:#d6e6ed}
+.ib-bolhas circle{fill:none;stroke:#fff;stroke-width:1.3;animation:sobe 3s ease-in infinite;transform-box:fill-box}
+.ib-bolhas circle:nth-child(2){animation-delay:.8s}.ib-bolhas circle:nth-child(3){animation-delay:1.6s}
+@keyframes sobe{0%{transform:translateY(8px);opacity:0}30%{opacity:.95}100%{transform:translateY(-16px);opacity:0}}
+
+/* v12 · o convite do meio mora no fim da seção das etapas */
+.meio-cta{margin-top:88px;text-align:center}
+@media (max-width:860px){.meio-cta{margin-top:24px}}
+.meio-cta .h2{max-width:720px;margin:0 auto}
+.meio-cta .cta{margin-top:36px}
+
+/* v12 · o respiro da história */
+.hz__palco{justify-content:flex-start;padding-top:clamp(24px,calc(100vh - 820px),80px)}
+@media (max-width:860px){.hz__palco{padding-top:clamp(20px,calc(100vh - 790px),56px)}}
+.hz__anos span{cursor:pointer}
+.esteira b{cursor:pointer;user-select:none}
+.esteira b:not(.agora):hover{color:var(--creme)}
+
+/* v12 · a barra de cada ano em duas cores: base e venda nova */
+.mb__barra{display:flex;gap:3px;height:12px;margin-top:10px}
+.mb__barra i{display:block;height:100%;border-radius:999px}
+.mb__b{background:#e7dc9f}
+.mb__n{flex:1;background:var(--tinta)}
+.mb__leg{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:9px;font:500 10.5px/1.35 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--apagado)}
+.mb__leg i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px}
+.lb{background:#e7dc9f}.ln{background:var(--tinta)}
+.mb--g .mb__barra{height:20px;margin-top:14px}
+.mb--g .mb__leg{font-size:11.5px;margin-top:12px}
+.mb--par .mb + .mb{margin-top:14px}
+.hz__card--virada .mb__n,.hz__card--virada .ln,.hz__card--ia .mb__n,.hz__card--ia .ln{background:#7d8c80}
+.hz__card--virada .mb__leg,.hz__card--ia .mb__leg{color:var(--creme-2)}
+.hz__card--virada .mb__cab span,.hz__card--ia .mb__cab span{color:var(--creme-3)}
+
+/* v12 · 2026: o organograma dos agentes, só no traço */
+.vz--org{border-radius:14px;background:rgba(242,235,192,.04);box-shadow:inset 0 0 0 1px rgba(242,235,192,.1);padding:14px 12px 10px}
+.org{display:block;width:100%;height:auto;overflow:visible}
+.org .tr{fill:none;stroke:var(--creme);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--l,600);stroke-dashoffset:var(--l,600);transition:stroke-dashoffset 1.8s var(--suave)}
+.org .tr.fraco{stroke:rgba(242,235,192,.42);transition-delay:.5s}
+.org.on .tr{stroke-dashoffset:0}
+.org__t{font:500 12px var(--mono);letter-spacing:.02em;fill:var(--creme-2);opacity:0;transition:opacity .8s ease 1.1s}
+.org__t--topo{fill:var(--creme);font-weight:600}
+.org.on .org__t{opacity:1}
+.org__vivo{fill:var(--creme);opacity:0}
+.org.on .org__vivo{animation:pulsa 1.8s ease-in-out 2s infinite}
+.org__vivo.d2{animation-delay:2.6s !important}.org__vivo.d3{animation-delay:3.2s !important}
+@keyframes pulsa{0%,100%{opacity:.15}50%{opacity:1}}
+
+@media (prefers-reduced-motion:reduce){
+  .ib-diver,.ib-bolhas circle,.org__vivo{animation:none !important}
+  .ib-mergulho,.org__t,.org__vivo{opacity:1}
+  .org .tr{stroke-dashoffset:0}
+}
+
+/* v13 · sobre mim e rodapé */
+.sobre{background:var(--nevoa);padding:88px 20px;border-top:1px solid var(--linha)}
+.sobre__in{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:56px;align-items:center}
+.sobre__foto{margin:0;border-radius:24px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 24px 60px rgba(12,13,12,.16)}
+.sobre__foto img{display:block;width:100%;height:100%;object-fit:cover}
+.sobre__txt > * + *{margin-top:20px}
+.sobre__txt .h2{font-size:36px}
+.sobre__txt .apoio{margin:20px 0 0;max-width:none}
+.sobre__nums{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:32px 0 0}
+.sobre__nums div{background:#fff;border-radius:18px;padding:18px 16px}
+.sobre__nums dt{font:800 26px/1 var(--sans);letter-spacing:-.02em;color:var(--tinta)}
+.sobre__nums dd{margin:8px 0 0;font:500 10.5px/1.35 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--apagado)}
+.rodape-novo{background:var(--noite);color:var(--creme-3);text-align:center;padding:40px 20px 44px;font-size:13px;line-height:1.6}
+.rodape-novo__marca{font:800 13px/1 var(--sans);letter-spacing:.26em;color:var(--creme);margin-bottom:14px}
+.rodape-novo a{display:inline-block;margin-top:12px;color:var(--creme-2);text-decoration:none;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.rodape-novo a:hover{color:var(--creme)}
+@media (max-width:860px){
+  .sobre{padding:64px 20px}
+  .sobre__in{grid-template-columns:1fr;gap:32px}
+  .sobre__foto{max-width:420px;margin:0 auto;width:100%}
+  .sobre__txt .h2{font-size:28px}
+  .sobre__nums{gap:8px}
+  .sobre__nums div{padding:14px 10px}
+  .sobre__nums dt{font-size:20px}
+  .sobre__nums dd{font-size:9px}
+}
+</style>
+</head>
+<body>
+
+<!-- abertura -->
+<header class="heroi" id="topo">
+  <div class="heroi__in">
+    <p class="marca">BA$E MONEY</p>
+    <h1 data-palavras>Dá pra tirar lucro da base que você <span class="hl">já tem</span>, sem VSL nova e sem mais tráfego frio.</h1>
+    <p class="heroi__sub">Pra quem faz Direct Response, tem e-commerce ou vende infoproduto e quer vender de novo pra quem já comprou, sem mexer no que tá rodando.</p>
+    <div class="heroi__cta cta">
+      <a class="botao" href="#fecho" data-cta>Quero monetizar minha base →</a>
+    </div>
+    <p class="descer">↓ role pra ver como funciona</p>
+  </div>
+</header>
+
+<!-- 1 · existe uma oportunidade: o iceberg -->
+<section class="secao">
+  <div class="col">
+    <div class="cab centro surge">
+      <p class="rotulo">Onde o lucro se esconde</p>
+      <h2 class="h2">Você enxerga a ponta, mas o <span class="hl">verdadeiro lucro</span> tá embaixo d'água.</h2>
+      <p class="apoio">Toda meta nova volta pro tráfego frio, com mais anúncio, mais criativo e o CPA subindo, enquanto quem já comprou de você some do calendário logo depois da primeira compra.</p>
+    </div>
+    <figure class="iceberg surge" id="iceberg" aria-label="Iceberg com um mergulhador indo atrás do lucro embaixo d'água: na ponta, o que você vê, tráfego frio, CPA subindo e VSL nova. Embaixo d'água, o que fica parado: compradores e leads, quem não fechou, e-mail e WhatsApp, e o lucro pra sacar">
+<svg viewBox="0 0 760 560" role="img">
+<defs>
+  <clipPath id="ibCard"><rect width="760" height="560" rx="28"/></clipPath>
+  <linearGradient id="ibCeu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbfcfc"/><stop offset="1" stop-color="#eef3f5"/></linearGradient>
+  <linearGradient id="ibMar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dbe6eb"/><stop offset=".55" stop-color="#c3d3db"/><stop offset="1" stop-color="#a9bec9"/></linearGradient>
+  <linearGradient id="ibMassa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef4f6" stop-opacity=".95"/><stop offset="1" stop-color="#c9d9e1" stop-opacity=".9"/></linearGradient>
+  <linearGradient id="ibLuz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<g clip-path="url(#ibCard)">
+  <rect width="760" height="180" fill="url(#ibCeu)"/>
+  <rect y="178" width="760" height="382" fill="url(#ibMar)"/>
+  <rect y="178" width="760" height="120" fill="url(#ibLuz)"/>
+
+  <!-- a parte de baixo, a maior -->
+  <g class="ib-massa">
+    <path fill="url(#ibMassa)" d="M262 180 L498 180 L566 214 L618 262 L646 330 L632 404 L590 462 L520 506 L430 528 L330 520 L246 488 L182 430 L150 356 L160 284 L204 226 Z"/>
+    <path fill="#d9e5ea" d="M262 180 L380 180 L330 248 L240 300 L160 284 L204 226 Z"/>
+    <path fill="#b9cdd7" d="M498 180 L566 214 L618 262 L646 330 L560 300 L470 236 Z"/>
+    <path fill="#adc3ce" d="M646 330 L632 404 L590 462 L520 506 L540 400 L560 300 Z"/>
+    <path fill="#c4d6de" d="M150 356 L160 284 L240 300 L250 400 L182 430 Z"/>
+    <path fill="#b3c8d2" d="M182 430 L250 400 L330 520 L246 488 Z"/>
+    <path fill="#a7bdc9" d="M330 520 L250 400 L430 440 L540 400 L520 506 L430 528 Z"/>
+    <path fill="none" stroke="#93adba" stroke-opacity=".55" stroke-width="1.3" stroke-linejoin="round" d="M262 180 L498 180 L566 214 L618 262 L646 330 L632 404 L590 462 L520 506 L430 528 L330 520 L246 488 L182 430 L150 356 L160 284 L204 226 Z"/>
+    <path fill="none" stroke="#f4f8f9" stroke-opacity=".7" stroke-width="1.2" d="M380 180 L330 248 L240 300 L250 400 L430 440 L540 400 L560 300 L470 236 L498 180 M330 248 L470 236 M240 300 L560 300"/>
+  </g>
+
+  <!-- a ponta, a parte que todo mundo vê -->
+  <g class="ib-ponta">
+    <path fill="#ffffff" d="M300 180 L326 140 L346 146 L376 86 L396 96 L420 52 L402 130 L380 180 Z"/>
+    <path fill="#dbe6eb" d="M420 52 L444 104 L462 112 L488 180 L380 180 L402 130 Z"/>
+    <path fill="#eef4f6" d="M376 86 L396 96 L388 142 L350 150 L346 146 Z"/>
+    <path fill="none" stroke="#a9bec9" stroke-width="1.3" stroke-linejoin="round" d="M300 180 L326 140 L346 146 L376 86 L396 96 L420 52 L444 104 L462 112 L488 180 M420 52 L402 130 L380 180"/>
+  </g>
+
+  <!-- a linha d'água -->
+  <path class="ib-agua" fill="none" stroke="#8fa8b5" stroke-width="1.6" stroke-linecap="round" d="M0 180 C40 175 70 185 110 180 S180 175 220 180 S290 185 330 180 S400 175 440 180 S510 185 550 180 S620 175 660 180 S730 185 760 180"/>
+  <path fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="1.2" stroke-linecap="round" d="M232 194 h34 M520 196 h44 M96 202 h22 M622 206 h28"/>
+</g>
+
+<g class="ib-mergulho" transform="translate(74 478) rotate(-12) scale(1.28)">
+  <g class="ib-diver">
+    <path class="ib-diver__fin" d="M-6 -7 L-40 -20 L-34 -2 Z M-6 7 L-38 16 L-30 0 Z"/>
+    <path class="ib-diver__membro" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M30 -1 L-4 -7 M30 2 L-4 7" stroke-width="8"/>
+    <rect class="ib-diver__corpo" x="24" y="-9" width="70" height="18" rx="9"/>
+    <rect class="ib-diver__tanque" x="34" y="-19" width="46" height="10" rx="5"/>
+    <path class="ib-diver__membro" fill="none" stroke-linecap="round" d="M86 4 L120 12" stroke-width="6"/>
+    <circle class="ib-diver__corpo" cx="123" cy="13" r="4"/>
+    <circle class="ib-diver__corpo" cx="102" cy="-2" r="10"/>
+    <rect class="ib-diver__mascara" x="104" y="-7" width="10" height="7" rx="2.5"/>
+  </g>
+  <g class="ib-bolhas"><circle cx="112" cy="-20" r="3"/><circle cx="118" cy="-33" r="2.2"/><circle cx="113" cy="-45" r="1.6"/></g>
+</g>
+<g class="ib__txt ib__txt--topo">
+  <text class="ib__mono" x="536" y="70">O QUE VOCÊ VÊ</text>
+  <text class="ib__item" x="536" y="100">Tráfego frio</text><text class="ib__item" x="536" y="128">CPA subindo</text><text class="ib__item" x="536" y="156">VSL nova</text>
+  <text class="ib__mao" x="40" y="96">você, olhando a ponta</text>
+</g>
+<g class="ib__txt ib__txt--fundo">
+  <text class="ib__mono ib__mono--fundo" x="40" y="226">O QUE FICA PARADO</text>
+  <text class="ib__item ib__item--fundo" x="396" y="292" text-anchor="middle">Compradores e leads</text>
+  <text class="ib__item ib__item--fundo" x="396" y="338" text-anchor="middle">Quem não fechou</text>
+  <text class="ib__item ib__item--fundo" x="396" y="384" text-anchor="middle">E-mail e WhatsApp</text>
+  <rect class="ib__pilula" x="236" y="420" width="320" height="56" rx="28"/>
+  <text class="ib__lucro" x="396" y="457" text-anchor="middle">Lucro pra sacar</text>
+</g>
+</svg>
+</figure>
+  </div>
+</section>
+
+<!-- 2 · pra quem é, com as provas -->
+<section class="secao alt" id="praquem">
+  <div class="col--largo">
+    <div class="cab centro surge">
+      <p class="rotulo">Quem já tem base</p>
+      <h2 class="h2">Isso é pra quem já vende e sabe que a própria base tá <span class="hl">mal monetizada</span>.</h2>
+      <p class="apoio">Pode ser uma operação de Direct Response, um e-commerce ou um infoproduto. Se tem gente que já comprou de você e quase nunca recebe uma nova oferta, tem lucro parado aí.</p>
+      <div class="tipos"><span>Direct Response</span><span>E-commerce</span><span>Infoproduto</span></div>
+    </div>
+    <p class="galera surge">tipo essa galera aqui:</p>
+    <div class="provas">
+      <figure class="prova surge"><figcaption><b>R$3,7M numa Black</b><span>Mari</span></figcaption><img src="img/dep/mari.webp" alt="Print de WhatsApp da Mari com faturamento bruto de R$ 3.712.783,18" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$746K com R$45K de anúncio</b><span>Rayan</span></figcaption><img src="img/dep/rayan-black.webp" alt="Story do Rayan com R$ 746.158,19 em vendas aprovadas" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>Quase R$700K</b><span>Victor</span></figcaption><img src="img/dep/victor.webp" alt="Print de WhatsApp do Victor com quase 700 mil" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$546K, sendo R$108K só dos leads da base</b><span>Charles</span></figcaption><img src="img/dep/charles.webp" alt="Print do Charles com faturamento total de R$ 546.109,30" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$440K, com R$318K de margem</b><span>Rayan</span></figcaption><img src="img/dep/rayan-margem.webp" alt="Mensagem do Rayan: fechei carrinho 440, 318 de margem de contribuição" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$250K com menos de R$4K em anúncio</b><span>Rayanlaiene</span></figcaption><img src="img/dep/rayanlaiene.webp" alt="Print da Rayanlaiene com 250 mil faturados" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$101K sem gastar com tráfego</b><span>Gabriel</span></figcaption><img src="img/dep/gabriel.webp" alt="Print do Gabriel com resultado de R$ 101.898" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$100K</b><span>Bruno</span></figcaption><img src="img/dep/bruno.webp" alt="Mensagem do Bruno: batemos 100k" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$97K com R$3,3K investidos</b><span>Artur</span></figcaption><img src="img/dep/artur.webp" alt="Mensagem do Artur com faturamento de R$ 97.856,71" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>R$92K com R$13K investidos</b><span>Daniela</span></figcaption><img src="img/dep/daniela.webp" alt="Mensagem da Daniela com faturamento de 92k" loading="lazy"></figure>
+      <figure class="prova surge"><figcaption><b>ROAS de 6,81 chamando a base</b><span>Mateus</span></figcaption><img src="img/dep/mateus.webp" alt="Mensagem do Mateus com ROAS de 6,81" loading="lazy"></figure>
+    </div>
+    <p class="nota">*R10x era o nome antigo do BA$E MONEY.</p>
+  </div>
+</section>
+
+<!-- 3 · o que é o BA$E MONEY -->
+<section class="secao escuro">
+  <div class="col">
+    <div class="cab centro surge">
+      <p class="rotulo">A máquina</p>
+      <h2 class="h2">O BA$E MONEY é uma <span class="hl">máquina de monetização</span> que tira esse lucro de baixo d'água.</h2>
+      <p class="apoio">É uma estratégia de baixo esforço pra extrair lucro da base que você já tem. Você aprende a montar a máquina uma vez e replica quantas vezes quiser no ano, e cada rodada causa um efeito de Black Friday fora de época, vendendo de novo pra quem já comprou sem VSL nova e sem mais tráfego frio.</p>
+    </div>
+    <figure class="maquina surge" id="maquina" aria-label="Um ano de vendas com o BA$E MONEY: picos em março, junho, setembro e novembro, cada um como uma Black Friday fora de época">
+<svg viewBox="0 0 760 330">
+<g class="mq-eixo"><path class="tr" d="M39.908648606538776 261.97688623309136 C179.2415974278003 263.42511079758407, 317.894000594765 262.85337560623884, 734.1320994198322 261.61109472155573 M39.904854039549825 261.84934310972693 C208.3976755141467 262.504058942306, 376.608142862767 262.139468469131, 733.9485604566336 262.1618021589518" stroke="#6e7268" stroke-width="1.3" fill="none"></path></g><g class="mq-com"><path class="tr" d="M39.67267668386921 230.77620705077425 C62.08011167278625 228.09146901561692, 80.3964915291045 229.94535804751143, 144.98629530509933 227.46067245015874 M40.186311420844866 230.4385956026148 C80.73521070270911 228.6018692083817, 122.46640824093595 228.82142359671852, 144.89312613462099 228.89164428929797 M146.1048889263533 228.29336400041356 C157.16537140959056 182.57868542874047, 165.84839057547154 140.73075580762514, 174.59216925641522 104.20217641899362 M144.78096429561265 228.92751351813786 C149.2462122447189 201.28584281359613, 154.80661671807582 174.54108263891933, 173.611175358342 103.04572252701037 M175.6964966728352 101.79089442798868 C186.2957075850129 143.91865831467695, 196.03715120582132 189.7836616207231, 204.60732579668985 228.42353201517835 M173.43553504948505 104.81237369249575 C184.35815101075283 152.35049216611685, 195.80183954625687 199.35927844917774, 204.51812958274968 228.43308890978807 M205.74174735983834 229.68680675635113 C246.71529576005415 226.8677738869127, 290.65097022457053 230.74947525798643, 319.5251334561966 229.3170640678145 M203.95585406576282 229.1316084377002 C234.09508718275467 228.2141920604758, 265.95694150221533 227.96238358551784, 317.9616648942698 229.02611129651777 M318.3441657676361 226.0257695646025 C330.6163559402585 177.94607807979173, 343.95071410660296 125.61567995570788, 345.8576131089591 98.04238256225362 M318.0282693058718 228.68766373763793 C328.94572272803896 185.20058017118276, 338.5605244088944 141.9658079043627, 347.49028745745306 97.06585871796123 M346.2509290202521 94.99473658809438 C356.50830951464917 126.24000935781189, 363.9957734942585 151.63610050867686, 380.0698129727505 227.9420076400973 M348.5274588093627 95.96418674807065 C362.0636295320686 147.33931620894373, 372.3065312922221 198.79992967909575, 378.2111460149754 228.92928887675515 M377.7872415854596 229.7385717184283 C420.3592604887672 227.825943176895, 464.35644561750814 230.41720885232053, 493.81418360909447 230.25699459919707 M377.8742431939114 227.2932132966351 C417.9876485633198 226.51204256308603, 456.8125407968182 227.25143811148928, 492.59784438763745 228.44643564741128 M494.29071027478204 228.0756740034558 C499.2702020563297 204.42146884845383, 505.76814764385296 178.53671079547888, 524.2649529232643 106.74255889365449 M493.0433981553186 228.47235538284295 C499.77507516965454 195.96685468780993, 509.2475392481331 165.83725101205707, 522.048253974365 107.36759657631629 M523.645719243493 106.51360264727846 C530.5408368205093 131.50012313281186, 536.231570800338 155.43751143743285, 553.7525011642836 228.98370113382117 M521.02146696751 108.33198867808096 C527.5671623697747 136.67147065740824, 536.5801878083739 163.3310834866464, 550.9923262522091 226.9805203817319 M552.1178049906157 228.96470201024786 C567.6927721998654 229.50105371407494, 580.8042856394313 226.74943923584448, 609.8977359249257 229.2108320862986 M551.3145729825367 227.25244002561084 C569.1905507110524 228.02761489559674, 588.1653672934044 229.7870978291776, 608.1499052763451 228.27759445379488 M606.0880313589238 229.76172660896555 C617.2948217835288 175.8055224121008, 625.6073178125557 122.24999268412776, 639.646467141714 43.81539767393842 M608.806232130574 227.33117494056933 C621.178981582579 156.1837714287117, 633.1569106023207 85.57287306903304, 637.438540180074 46.97303235451691 M639.8873645349406 47.97346611628309 C647.0880537185404 114.65095295589603, 657.9442328771163 183.40679768249578, 666.203782094922 228.16550397584214 M638.4651654199231 45.09998510996811 C643.9915661972024 91.75191451673955, 651.0692646840595 136.1625651088506, 669.0312976748216 228.5700613177847 M669.7310480489396 228.42037036130205 C690.2383936890002 227.92262826793308, 710.5737055531304 226.27826436225735, 733.468420408573 228.92154222736136 M667.2031114370096 228.89217589269393 C688.7337946525887 228.76555787168516, 708.5354688697606 228.47950055759475, 733.0645745501388 229.67810974936" stroke="#f2ebc0" stroke-width="2.4" fill="none"></path></g><g class="mq-seta"><path class="tr" d="M272 52 C242.35809910241514 54.60177268143743, 196.16910566631705 68.89961879011244, 180.60132170263677 92.79990797992795 M272.29861751738935 52.16618190165609 C242.1924316685926 55.169074634211135, 194.72166800583713 66.49630976398475, 181.73156106735578 91.46428233166225" stroke="#f2ebc0" stroke-width="1.4" fill="none"></path></g><g class="mq-seta"><path class="tr" d="M177.17704280131983 83.83639507826122 C177.8141520035 85.72724929820508, 179.37305331988603 87.59950930865018, 182.11138174201776 92.71818411045315 M177.15018392376373 84.16908912786386 C178.48544655229628 86.60332680409344, 179.88206542294108 88.92129166706273, 182.04772347786806 92.90979982248065 M181.96188563182622 92.9034729040307 C184.31062321898406 90.51512694467799, 187.64227626444492 87.98547445143936, 189.117220037021 85.77710127365296 M181.91068866012958 92.88436811054764 C184.1993225916747 90.8823800181391, 186.43476666873255 88.65508437674998, 188.99035603414612 86.14836608534097" stroke="#f2ebc0" stroke-width="1.4" fill="none"></path></g><g class="mq-seta"><path class="tr" d="M334 54 C342.92553711216897 59.801941508241, 342.71854430120436 70.45196343678981, 344.60144757907835 85.27608969230205 M333.1270572809502 53.38200874943286 C342.8240918275062 59.85660555175505, 345.2065887682978 69.88643450341188, 346.16599545472303 85.4065949346777" stroke="#f2ebc0" stroke-width="1.4" fill="none"></path></g><g class="mq-seta"><path class="tr" d="M339.6915788533342 77.24515594159963 C340.80542201254025 79.21875896352877, 342.48873517659047 80.70819530706038, 345.7736568120773 85.8736727452484 M339.87712854170667 76.85946281115561 C341.7594048262864 79.94173446428914, 343.5316554008451 82.82466947255271, 345.79903027634106 85.79828692061315 M345.7761803716421 86.00271953642368 C347.3976771407724 84.13340880864858, 348.8373815217018 82.19193143242597, 351.8746292203665 78.2270963102579 M346.02885300666094 85.9634845301509 C347.5929820033312 84.1198136190176, 348.75492173308135 82.04749347364903, 352.1530088618398 77.890769867599" stroke="#f2ebc0" stroke-width="1.4" fill="none"></path></g>
+<g class="mq__txt mq__txt--eixo"><text class="mq__mes" x="58" y="284" text-anchor="middle">J</text><text class="mq__mes" x="116" y="284" text-anchor="middle">F</text><text class="mq__mes" x="174" y="284" text-anchor="middle">M</text><text class="mq__mes" x="232" y="284" text-anchor="middle">A</text><text class="mq__mes" x="290" y="284" text-anchor="middle">M</text><text class="mq__mes" x="348" y="284" text-anchor="middle">J</text><text class="mq__mes" x="406" y="284" text-anchor="middle">J</text><text class="mq__mes" x="464" y="284" text-anchor="middle">A</text><text class="mq__mes" x="522" y="284" text-anchor="middle">S</text><text class="mq__mes" x="580" y="284" text-anchor="middle">O</text><text class="mq__mes" x="638" y="284" text-anchor="middle">N</text><text class="mq__mes" x="696" y="284" text-anchor="middle">D</text></g><g class="mq__txt mq__txt--nota">
+  <text class="mq__mao" x="278" y="44">Black Friday fora de época</text>
+  <text class="mq__mao" x="638" y="30" text-anchor="middle">Black Friday</text>
+</g>
+</svg>
+</figure>
+  </div>
+</section>
+
+<!-- 4 · como funciona -->
+<section class="secao escuro" id="solucao">
+  <div class="col--largo">
+    <div class="cab centro surge">
+      <p class="rotulo">Do diagnóstico à execução</p>
+      <h2 class="h2">A gente implementa em três etapas, <em>com IA e comigo do lado.</em></h2>
+      <p class="apoio">Eu acompanho cada etapa de perto e a implementação roda com IA, com as skills e os agentes que a gente monta pro seu negócio, então o seu time põe a ação de pé em uns 45 dias.</p>
+    </div>
+    <div class="passos">
+      <article class="passo surge" data-terminal="IA cruzando compradores, leads e canais">
+        <p class="rotulo">01 / 03</p><h3>Diagnóstico de Base</h3><h4>Quem já entrou e quanto vale</h4>
+        <p>A IA cruza compradores, leads, canais, histórico e margem, e eu fecho a conta com você usando os seus números.</p>
+        <div class="arte"><svg viewBox="0 0 400 280" aria-hidden="true">
+          <ellipse class="tr fraco" cx="170" cy="218" rx="130" ry="34"/>
+          <ellipse class="tr fraco" cx="170" cy="182" rx="130" ry="34"/>
+          <ellipse class="tr" cx="170" cy="146" rx="130" ry="34"/>
+          <path class="tr fraco" d="M40 146v72M300 146v72"/>
+          <circle class="ponto" cx="110" cy="140" r="4"/><circle class="ponto" cx="140" cy="128" r="4"/><circle class="ponto" cx="178" cy="136" r="4"/>
+          <circle class="ponto" cx="212" cy="124" r="4"/><circle class="ponto" cx="150" cy="156" r="4"/><circle class="ponto" cx="200" cy="160" r="4"/><circle class="ponto" cx="236" cy="150" r="4"/>
+          <circle class="tr" cx="268" cy="78" r="46"/>
+          <circle class="tr pont" cx="268" cy="78" r="34"/>
+          <path class="tr" d="M301 111l42 42"/>
+          <path class="tr" d="M336 146l14 14"/>
+          <path class="tr fraco pont" d="M236 106L206 128"/>
+        </svg></div>
+      </article>
+      <article class="passo surge" data-terminal="skills montando oferta e mensagens">
+        <p class="rotulo">02 / 03</p><h3>Concepção</h3><h4>A próxima oferta, desenhada</h4>
+        <p>Com as skills de IA que a gente monta pra sua operação saem a oferta, a condição, as mensagens e a data, e eu reviso cada peça antes de seguir.</p>
+        <div class="arte"><svg viewBox="0 0 400 280" aria-hidden="true">
+          <rect class="tr fraco" x="40" y="40" width="250" height="200" rx="10"/>
+          <path class="tr fraco pont" d="M40 90h250M40 140h250M40 190h250M102 40v200M165 40v200M228 40v200"/>
+          <path class="tr" d="M98 202L150 98 214 154"/>
+          <circle class="ponto" cx="150" cy="98" r="5"/>
+          <path class="tr pont" d="M98 202A120 120 0 0 1 214 154"/>
+          <path class="tr" d="M300 100l46 0 22 22-58 58-32-32 22-48z"/>
+          <circle class="tr" cx="330" cy="118" r="6"/>
+          <path class="tr fraco" d="M326 150h20M320 162h18"/>
+        </svg></div>
+      </article>
+      <article class="passo surge" data-terminal="agentes lendo venda, custo e margem">
+        <p class="rotulo">03 / 03</p><h3>Acompanhamento de Execução</h3><h4>Eu reviso, o time roda, a gente lê</h4>
+        <p>Os agentes acompanham venda, custo e margem de cada grupo enquanto a ação roda, e eu leio os números com você pra decidir o próximo passo.</p>
+        <div class="arte"><svg viewBox="0 0 400 280" aria-hidden="true">
+          <path class="tr fraco" d="M40 240h320M40 240V40"/>
+          <path class="tr fraco pont" d="M40 190h320M40 140h320M40 90h320"/>
+          <path class="tr" d="M50 222C100 214 112 186 150 178S214 150 236 124 300 82 344 58"/>
+          <path class="tr" d="M328 54l18 3-6 17"/>
+          <circle class="tr" cx="150" cy="178" r="11"/><path class="tr" d="M145 178l4 4 7-8"/>
+          <circle class="tr" cx="236" cy="124" r="11"/><path class="tr" d="M231 124l4 4 7-8"/>
+          <circle class="tr pont" cx="300" cy="84" r="11"/>
+          <circle class="ponto" cx="50" cy="222" r="4"/>
+        </svg></div>
+      </article>
+    </div>
+    <div class="palco-trilho" id="trilho" aria-hidden="true">
+      <div class="palco"><div class="palco__in">
+        <div class="tela">
+          <div class="esteira" id="esteira"></div>
+          <div class="artes" id="artes"></div>
+          <div class="terminal">› <span id="digita"></span><span class="cursor">&nbsp;</span></div>
+        </div>
+        <div class="lado">
+          <div class="lado__topo"><span class="conta" id="conta">01 / 03</span><span class="tracos" id="tracos"></span></div>
+          <div class="textos" id="textos"></div>
+          <p class="rolar">↓ role pra avançar</p>
+        </div>
+      </div></div>
+    </div>
+    <div class="meio-cta">
+      <div class="cab centro surge"><h2 class="h2">Quer minha ajuda pra <span class="hl">sacar o lucro</span> que tá parado na sua base?</h2></div>
+      <div class="cta surge"><a class="botao" href="#fecho" data-cta>Quero monetizar minha base →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · quem sou eu -->
+<section class="autor" id="autor">
+  <div class="hz" id="hz">
+    <div class="hz__palco">
+      <div class="cab centro hz__cab surge">
+        <p class="rotulo">Quem sou eu</p>
+        <h2 class="h2">Foi assim que a gente chegou a <span class="hl">R$277M vendidos</span>, e a virada veio em 2021.</h2>
+      </div>
+      <div class="hz__regua"><div class="hz__linha"><i id="hzFill"></i></div><div class="hz__anos" id="hzAnos"><span>2019</span><span>2020</span><span class=chave>2021</span><span>2022-23</span><span>2024</span><span>2025</span><span>2026 →</span></div></div>
+      <div class="hz__trilho" id="hzTrilho"><article class="hz__card hz__card--largo"><p class="tl__ano">2019 · a Vitascience</p><img class="vz vz--banner" src="img/vitascience-linha.webp" alt="Linha de suplementos da Vitascience sobre pedestais de pedra, entre plantas" loading="lazy"><h3>A Vitascience fez R$7M no primeiro ano.</h3><p>A gente transformou um e-book num curso, montou tráfego e operação e, depois, entrou em suplementos.</p><div class="mb"><div class="mb__cab"><b>R$7M</b><span>no ano</span></div><div class="mb__barra"><i class="mb__n"></i></div><div class="mb__leg"><span><i class="ln"></i>tudo venda nova, sem vender pra base</span></div></div></article>
+<article class="hz__card"><p class="tl__ano">2020 · escala</p><div class="vz vz--num"><b>R$14,5M</b><span>o dobro em um ano</span></div><h3>Dobramos pra R$14,5M em um ano.</h3><p>Começamos os funis perpétuos pra não depender do próximo lançamento.</p><div class="mb"><div class="mb__cab"><b>R$14,5M</b><span>no ano</span></div><div class="mb__barra"><i class="mb__n"></i></div><div class="mb__leg"><span><i class="ln"></i>tudo venda nova, sem vender pra base</span></div></div></article>
+<article class="hz__card hz__card--virada"><p class="tl__ano">2021 · a virada pra base</p><div class="vz vz--barra"><div class="mb mb--g"><div class="mb__cab"><b>R$37M</b><span>no ano</span></div><div class="mb__barra"><i class="mb__b" style="width:55.4%"></i><i class="mb__n"></i></div><div class="mb__leg"><span><i class="lb"></i>R$20,5M pra base</span><span><i class="ln"></i>R$16,5M venda nova</span></div></div></div><h3>R$37M no ano, e R$20,5M vieram de quem já era cliente.</h3><p>Um lançamento em janeiro deu prejuízo, então a gente uniu os dois: os funis perpétuos seguiram trazendo cliente novo e a gente passou a vender de novo pra base.</p></article>
+<article class="hz__card"><p class="tl__ano">2022 e 2023 · comecei a mentorar</p><div class="vz vz--fotos"><img src="img/fgd-turma.webp" alt="Turma de mentoria reunida em sala" loading="lazy"><img src="img/palco.webp" alt="Felipe Gobbi no palco, falando pra turma" loading="lazy"></div><h3>Comecei a mentorar outros donos de negócio digital.</h3><p>O que funcionava dentro de casa virou mentoria pra quem queria fazer o mesmo nas próprias operações.</p><div class="mb--par"><div class="mb"><div class="mb__cab"><b>R$30M</b><span>em 2022</span></div><div class="mb__barra"><i class="mb__b" style="width:54.7%"></i><i class="mb__n"></i></div><div class="mb__leg"><span><i class="lb"></i>R$16,4M pra base</span><span><i class="ln"></i>R$13,6M venda nova</span></div></div><div class="mb"><div class="mb__cab"><b>R$28M</b><span>em 2023</span></div><div class="mb__barra"><i class="mb__b" style="width:53.9%"></i><i class="mb__n"></i></div><div class="mb__leg"><span><i class="lb"></i>R$15,1M pra base</span><span><i class="ln"></i>R$12,9M venda nova</span></div></div></div></article>
+<article class="hz__card"><p class="tl__ano">2024 · ações pra base</p><div class="vz vz--zap" aria-label="Resultados que os alunos mandaram no WhatsApp"><p class="zap zap--a"><b>Mari</b>Faturamento bruto: R$3.712.783,18</p><p class="zap zap--b"><b>Rayan</b>fechei carrinho 440, 318 de margem de contribuição</p><p class="zap zap--a"><b>Bruno</b>Batemos 100k</p></div><h3>A mentoria virou um método de ações pra base.</h3><p>Os alunos passaram a aplicar o método, que na época se chamava R10x*, e os resultados começaram a chegar no meu WhatsApp.</p><div class="mb"><div class="mb__cab"><b>R$50,3M</b><span>no ano</span></div><div class="mb__barra"><i class="mb__b" style="width:39.4%"></i><i class="mb__n"></i></div><div class="mb__leg"><span><i class="lb"></i>R$19,8M pra base</span><span><i class="ln"></i>R$30,5M venda nova</span></div></div></article>
+<article class="hz__card hz__card--largo"><p class="tl__ano">2025 · Papo de Bastidores</p><div class="vz vz--pod"><img src="img/pod/DHkuIwWWMKA.webp" alt="Papo de Bastidores com João Campos, do VTurb" loading="lazy"><img src="img/pod/kE-I9EU3vlo.webp" alt="Papo de Bastidores com Malves, da Hotmart" loading="lazy"><img src="img/pod/XD3YB9SidO0.webp" alt="Papo de Bastidores com João Vitor, do G4" loading="lazy"><img src="img/pod/FlQLylBkJIU.webp" alt="Papo de Bastidores com Ramiro Gomes Ferreira, do Clube do Valor" loading="lazy"></div><h3>Com o Papo de Bastidores, fui conversar com quem construiu o digital.</h3><p>Foram 59 episódios sobre o que ninguém mostra, como time, funil, gestão e erros, e os convidados somados passam de R$1B em faturamento.</p><div class="mb"><div class="mb__cab"><b>R$71,5M</b><span>no ano</span></div><div class="mb__barra"><i class="mb__b" style="width:25.2%"></i><i class="mb__n"></i></div><div class="mb__leg"><span><i class="lb"></i>R$18M pra base</span><span><i class="ln"></i>R$53,5M venda nova</span></div></div></article>
+<article class="hz__card hz__card--ia"><p class="tl__ano">2026 em diante · IA</p><div class="vz vz--org"><svg class="org" id="org26" viewBox="0 0 400 190" role="img" aria-label="Organograma: você e eu no topo, quatro agentes de IA embaixo, cada um com as suas tarefas">
+<rect class="tr" x="140" y="10" rx="17"/><text class="org__t org__t--topo" x="200" y="32" text-anchor="middle">VOCÊ + EU</text>
+<path class="tr fraco" d="M200 44V66M53 66H347M53 66V84M151 66V84M249 66V84M347 66V84"/>
+<rect class="tr" x="8" y="84" rx="8"/><text class="org__t" x="53" y="103" text-anchor="middle">DIAGNÓSTICO</text>
+<rect class="tr" x="106" y="84" rx="8"/><text class="org__t" x="151" y="103" text-anchor="middle">OFERTA</text>
+<rect class="tr" x="204" y="84" rx="8"/><text class="org__t" x="249" y="103" text-anchor="middle">MENSAGENS</text>
+<rect class="tr" x="302" y="84" rx="8"/><text class="org__t" x="347" y="103" text-anchor="middle">LEITURA</text>
+<path class="tr fraco" d="M53 114V172M53 136H68M53 158H68M151 114V150M151 136H166M249 114V172M249 136H264M249 158H264M347 114V150M347 136H362"/>
+<rect class="tr fraco" x="68" y="130" rx="6"/><rect class="tr fraco" x="68" y="152" rx="6"/>
+<rect class="tr fraco" x="166" y="130" rx="6"/>
+<rect class="tr fraco" x="264" y="130" rx="6"/><rect class="tr fraco" x="264" y="152" rx="6"/>
+<rect class="tr fraco" x="362" y="130" rx="6"/>
+<circle class="org__vivo" cx="80" cy="136" r="2.6"/><circle class="org__vivo d2" cx="276" cy="158" r="2.6"/><circle class="org__vivo d3" cx="374" cy="136" r="2.6"/>
+</svg></div><h3>Agora o foco é monetizar base com IA.</h3><p>É o que eu implemento com você: a mesma máquina de vender pra base, rodando com skills e agentes de IA.</p><div class="mb"><div class="mb__cab"><b>R$39,1M</b><span>até novembro</span></div><div class="mb__barra"><i class="mb__b" style="width:35.0%"></i><i class="mb__n"></i></div><div class="mb__leg"><span><i class="lb"></i>R$13,7M pra base</span><span><i class="ln"></i>R$25,4M venda nova</span></div></div></article></div>
+    </div>
+  </div>
+  <div class="col">
+    <figure class="grafico surge" id="grafico">
+      <div class="grafico__cab"><p class="grafico__tit">E, de 2021 pra cá, R$103M vieram de quem <em>já era cliente.</em></p></div>
+      <div class="barras" id="barras">
+        <div class="lapis" aria-hidden="true"><p>aqui a gente começou a vender pra base</p><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M27 18 C 33 20, 36.5 28, 37.6 42"/><path d="M35.7 37.5 L37.6 42.5 L39.4 37.8"/></svg></div>
+      </div>
+      <div class="anos" id="anos"></div>
+      <div class="legenda"><span><i class="l-nova"></i>venda nova</span><span><i class="l-base"></i>venda pra base</span><span><i class="l-parc"></i>2026 até novembro</span></div>
+    </figure>
+  </div>
+</section>
+
+<!-- 6 · fecho -->
+<section class="secao fecho" id="fecho">
+  <div class="col--largo">
+    <div class="cab centro surge">
+      <p class="rotulo">Como a gente começa</p>
+      <h2 class="h2">Devido ao acompanhamento individual, eu só consigo tocar <span class="hl">2 implementações</span> ao mesmo tempo.</h2>
+      <p class="apoio">Por isso o começo é uma conversa, e não uma compra. Funciona assim:</p>
+    </div>
+    <ol class="etapas">
+      <li class="surge"><b>01</b><p>Você preenche a aplicação.</p></li>
+      <li class="surge"><b>02</b><p>Se for o seu caso, eu te chamo no WhatsApp.</p></li>
+      <li class="surge"><b>03</b><p>A gente troca uma ideia sobre a sua base.</p></li>
+      <li class="surge"><b>04</b><p>Se tudo fizer sentido, de valores à forma de trabalho, a gente implementa junto, de forma individual.</p></li>
+    </ol>
+    <div class="cta surge" style="margin-top:48px">
+      <a class="botao" href="https://go.basemoney.com.br/aplicacao" data-cta>Quero monetizar minha base →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · sobre mim -->
+<section class="sobre" id="sobre">
+  <div class="sobre__in">
+    <figure class="sobre__foto surge"><img src="img/felipe.webp" alt="Felipe Gobbi" loading="lazy" width="900" height="1125"></figure>
+    <div class="sobre__txt surge">
+      <p class="rotulo">Felipe Gobbi</p>
+      <h2 class="h2">São 10 anos no digital, e foi vendendo pra base que a gente chegou a <span class="hl">R$277M</span>.</h2>
+      <p class="apoio">De 2021 pra cá, R$103M vieram de quem já era cliente. No Papo de Bastidores eu fui o host de 59 conversas com donos de negócio digital que, somados, passam de R$1B em faturamento, e o que eu aprendi ali também entra na implementação que eu faço com você.</p>
+      <dl class="sobre__nums"><div><dt>10 anos</dt><dd>no digital</dd></div><div><dt>R$277M</dt><dd>vendidos desde 2019</dd></div><div><dt>R$103M</dt><dd>vindos da base</dd></div><div><dt>R$1B+</dt><dd>somados pelos convidados do meu podcast</dd></div></dl>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape-novo">
+  <p class="rodape-novo__marca">BA$E MONEY</p>
+  <p>© 2026 Felipe Gobbi</p>
+  <a href="#topo">voltar ao topo ↑</a>
+</footer>
+
+<script>
+(() => {
+  const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // a frase da abertura, palavra por palavra
+  const frase = document.querySelector('[data-palavras]'); let k = 0;
+  const quebrar = no => [...no.childNodes].forEach(n => {
+    if (n.nodeType === 3) {
+      const f = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(w => {
+        if (!w.trim()) { f.append(w); return; }
+        const s = document.createElement('span'); s.className = 'p'; s.textContent = w;
+        s.style.transitionDelay = (0.15 + k++ * 0.1) + 's'; f.append(s);
+      });
+      n.replaceWith(f);
+    } else quebrar(n);
+  });
+  quebrar(frase);
+  requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById('topo').classList.add('on')));
+
+  // cada traço mede o próprio comprimento (desenhos, iceberg e lápis se desenham sozinhos)
+  const medir = raiz => raiz.querySelectorAll('.tr, .lapis path').forEach(el => { try { el.style.setProperty('--l', Math.ceil(el.getTotalLength()) + 2); } catch (e) {} });
+
+  // a tela que gruda (computador), montada a partir dos 3 cards
+  const passos = [...document.querySelectorAll('.passo')];
+  const esteira = document.getElementById('esteira'), artes = document.getElementById('artes'), textos = document.getElementById('textos');
+  const tracos = document.getElementById('tracos'), conta = document.getElementById('conta'), digita = document.getElementById('digita');
+  const nomes = ['Diagnóstico', 'Concepção', 'Execução'];
+  const pilulas = [], fios = [], telas = [], blocos = [];
+  passos.forEach((p, i) => {
+    if (i) { const f = document.createElement('i'); esteira.append(f); fios.push(f); }
+    const b = document.createElement('b'); b.textContent = nomes[i]; esteira.append(b); pilulas.push(b);
+    b.setAttribute('role', 'button'); b.tabIndex = 0;
+    const pular = () => { const tr = document.getElementById('trilho'), curso = innerHeight * 1.4;
+      scrollTo({ top: tr.getBoundingClientRect().top + scrollY - innerHeight * 0.12 + (i + 0.5) / 3 * curso, behavior: calmo ? 'auto' : 'smooth' }); };
+    b.addEventListener('click', pular); b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pular(); } });
+    const a = p.querySelector('.arte').cloneNode(true); a.classList.remove('on'); artes.append(a); telas.push(a);
+    const t = document.createElement('div'); t.className = 'texto';
+    t.append(...['h3', 'h4', 'p:not(.rotulo)'].map(s => p.querySelector(s).cloneNode(true)));
+    textos.append(t); blocos.push(t);
+    tracos.append(document.createElement('span'));
+  });
+  let atual = -1, timer = null;
+  const ir = i => {
+    if (i === atual) return; atual = i;
+    pilulas.forEach((b, j) => { b.classList.toggle('agora', j === i); b.classList.toggle('feito', j < i); });
+    fios.forEach((f, j) => f.classList.toggle('feito', j < i));
+    telas.forEach((a, j) => { a.classList.toggle('vis', j === i); a.classList.toggle('on', j === i); });
+    blocos.forEach((t, j) => t.classList.toggle('vis', j === i));
+    [...tracos.children].forEach((s, j) => s.classList.toggle('on', j === i));
+    conta.textContent = String(i + 1).padStart(2, '0') + ' / 03';
+    const fr = passos[i].dataset.terminal; clearInterval(timer); digita.textContent = '';
+    if (calmo) { digita.textContent = fr; return; }
+    let n = 0; timer = setInterval(() => { digita.textContent = fr.slice(0, ++n); if (n >= fr.length) clearInterval(timer); }, 32);
+  };
+
+  // a escada: venda nova e venda pra base (OKRs da Vitascience; 2026 até 20/11)
+  const dados = [['2016-18', 3.5, 0], ['2019', 7.0, 0], ['2020', 14.5, 0], ['2021', 37.0, 20.5], ['2022', 30.0, 16.4], ['2023', 28.0, 15.1], ['2024', 50.3, 19.8], ['2025', 71.5, 18.0], ['2026', 39.1, 13.7]];
+  const barras = document.getElementById('barras'), anos = document.getElementById('anos');
+  const br = v => v.toFixed(1).replace('.', ',');
+  if (barras) dados.forEach(([a, v, base], i) => {
+    const b = document.createElement('div');
+    b.className = 'barra' + (a === '2026' ? ' barra--agora' : '');
+    const h = (v / 75 * 100).toFixed(1);
+    b.innerHTML = `<span class="barra__v">${br(v)}</span><span class="barra__b" data-h="${h}%" style="transition-delay:${i * 0.08}s"><span class="barra__nova"></span>${base ? `<span class="barra__base" style="height:${(base / v * 100).toFixed(1)}%">${br(base)}</span>` : ''}</span>`;
+    barras.append(b);
+    const curto = a === '2016-18' ? '16-18' : "'" + a.slice(2), s = document.createElement('span');
+    s.innerHTML = `<i class="l" style="font-style:normal">${a}</i><i class="c" style="font-style:normal">${curto}</i>`;
+    anos.append(s);
+  });
+  medir(document);
+
+  // rolagem: a tela das etapas, a linha do tempo (A) e o trilho lateral (B)
+  const trilho = document.getElementById('trilho');
+  const tl = document.getElementById('tl'), tlFill = document.getElementById('tlFill');
+  const hz = document.getElementById('hz'), hzTrilho = document.getElementById('hzTrilho'), hzFill = document.getElementById('hzFill');
+  const hzAnos = hz ? [...document.querySelectorAll('#hzAnos span')] : [];
+  let pedido = false;
+  const rolar = () => {
+    pedido = false;
+    if (trilho.offsetParent) {
+      const palco = trilho.firstElementChild, alto = palco.offsetHeight, curso = innerHeight * 1.4;
+      if (Math.abs(trilho.offsetHeight - (alto + curso)) > 2) trilho.style.height = (alto + curso) + 'px';
+      const r = trilho.getBoundingClientRect();
+      ir(Math.min(2, Math.floor(Math.min(1, Math.max(0, (innerHeight * 0.12 - r.top) / curso)) * 3)));
+    }
+    if (tl) {
+      const r = tl.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (innerHeight * 0.6 - r.top) / r.height));
+      tlFill.style.height = (p * 100) + '%';
+    }
+    if (hz && hz.offsetParent) {
+      const ult = hzTrilho.lastElementChild;
+      const extra = Math.max(0, ult.offsetLeft + ult.offsetWidth / 2 - innerWidth / 2);
+      const alvo = innerHeight + extra * 1.15;
+      if (Math.abs(hz.offsetHeight - alvo) > 2) hz.style.height = alvo + 'px';
+      const r = hz.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, -r.top / (hz.offsetHeight - innerHeight || 1)));
+      hzTrilho.style.transform = `translateX(${-p * extra}px)`;
+      hzFill.style.width = (p * 100) + '%';
+      const n = hzAnos.length;
+      hzAnos.forEach((s, j) => s.classList.toggle('on', p >= (n > 1 ? j / (n - 1) : 0) - 0.02));
+    }
+  };
+  addEventListener('scroll', () => { if (!pedido) { pedido = true; requestAnimationFrame(rolar); } }, { passive: true });
+  addEventListener('resize', rolar); ir(0); rolar();
+  hzAnos.forEach((s, j) => s.addEventListener('click', () => {
+    const p = hzAnos.length > 1 ? j / (hzAnos.length - 1) : 0;
+    scrollTo({ top: hz.getBoundingClientRect().top + scrollY + p * (hz.offsetHeight - innerHeight), behavior: calmo ? 'auto' : 'smooth' });
+  }));
+
+  // o que entra rolando
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('on');
+    e.target.querySelectorAll('.arte').forEach(a => a.classList.add('on'));
+    if (e.target.id === 'grafico') e.target.querySelectorAll('.barra__b').forEach(b => b.style.height = b.dataset.h);
+    io.unobserve(e.target);
+  }), { threshold: 0.2 });
+  document.querySelectorAll('.surge, #iceberg, #grafico, #maquina, #org26').forEach(el => io.observe(el));
+
+  // o vão entre o slider e o gráfico some: o gráfico sobe até perto dos cards
+  const hzPalco = hz && hz.querySelector('.hz__palco'), depois = hz && hz.nextElementSibling;
+  const fechar = () => {
+    if (!depois) return;
+    depois.style.marginTop = '0px';
+    const folga = hzPalco.getBoundingClientRect().bottom - hzTrilho.getBoundingClientRect().bottom;
+    depois.style.marginTop = -Math.max(0, folga - 56) + 'px';
+  };
+  addEventListener('resize', fechar); addEventListener('load', fechar); fechar();
+
+})();
+</script>
+</body>
+</html>
